@@ -8,5 +8,8 @@ public class App {
 
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+        
+        Kirja kirja=new Kirja("otsikko","kirjoittaja","1234");
+        System.out.println(kirja);
     }
 }

@@ -1,3 +1,8 @@
+package bookmark;
+
+
+import bookmark.Lukuvinkki;
+
 public class Kirja extends Lukuvinkki{
     private String kirjoittaja;
     private String isbn;

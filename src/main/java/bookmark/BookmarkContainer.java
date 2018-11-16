@@ -6,17 +6,15 @@ import java.util.List;
 public class BookmarkContainer {
 
     private final List<Lukuvinkki> bookmarks;
+    private int index;
 
     public BookmarkContainer(List<Lukuvinkki> bookmarks) {
         this.bookmarks = bookmarks;
+        this.index = 0;
     }
 
     public BookmarkContainer() {
-        this.bookmarks = new ArrayList<>();
-    }
-    
-    public List<Lukuvinkki> getBookmarks() {
-        return bookmarks;
+        this(new ArrayList<>());
     }
 
     /**
@@ -37,10 +35,65 @@ public class BookmarkContainer {
      * @param bookmark
      */
     public void remove(Lukuvinkki bookmark) {
-        bookmarks.remove(bookmark);
+        if (bookmarks.contains(bookmark)) {
+            int indexToRemove = bookmarks.indexOf(bookmark);
+            bookmarks.remove(bookmark);
+            if (indexToRemove < index) {
+                index--;
+            }
+        }
+    }
+
+    /**
+     * Get the current bookmark.
+     * 
+     * @return bookmarks[index]
+     */
+    public Lukuvinkki getCurrent() {
+        return bookmarks.get(index);
+    }
+
+    /**
+     * Get the next bookmark.
+     * The index in incremented.
+     * 
+     * @return bookmarks[++index]
+     */
+    public Lukuvinkki getNext() {
+        incrementIndex();
+        return bookmarks.get(index);
+    }
+
+    /**
+     * Get the previous bookmark.
+     * The index is decremented.
+     * 
+     * @return bookmarks[--index]
+     */
+    public Lukuvinkki getPrevious() {
+        decrementIndex();
+        return bookmarks.get(index);
     }
 
     public int size() {
         return bookmarks.size();
+    }
+
+    public List<Lukuvinkki> getBookmarks() {
+        return bookmarks;
+    }
+
+    private void incrementIndex() {
+        index++;
+        if (index >= bookmarks.size()) {
+            index = 0;
+        }
+    }
+
+    private void decrementIndex() {
+        index--;
+        if (index < 0) {
+            index = bookmarks.size() - 1;
+        }
     }
 }

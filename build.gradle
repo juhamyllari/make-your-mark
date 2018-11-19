@@ -12,30 +12,35 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
+    
+    // testikattavuus
+    id 'jacoco'
 }
 
 // Define the main class for the application
 mainClassName = 'App'
 
-dependencies {
-    // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.google.guava:guava:23.0'
-
-    // Use JUnit test framework
-    testCompile 'junit:junit:4.12'
+project.ext {
+    cucumberVersion = '1.2.5'
+    junitVersion = '4.12'
 }
 
-// In this section you declare where to find the dependencies of your project
+dependencies {
+    testCompile 'info.cukes:cucumber-java:' + cucumberVersion
+    testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
+    testCompile 'junit:junit:' + junitVersion
+}
+
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
 }
 
 // Scanner toimimaan gradlen kanssa
 run{
     standardInput = System.in
 }
-
-// junit testauskattavuus
-apply plugin: "jacoco"

@@ -31,3 +31,11 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+// Scanner toimimaan gradlen kanssa
+run{
+    standardInput = System.in
+}
+
+// junit testauskattavuus
+apply plugin: "jacoco"

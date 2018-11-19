@@ -77,7 +77,11 @@ public abstract class Lukuvinkki {
     private static String list(List<String> list){
         String res="";
         for(int i=0;i<list.size();i++){
-            if(i!=list.size()-1) res+=list.get(i)+", ";
+            if (i!=list.size()-1) {
+                res+=list.get(i)+", ";
+            } else {
+                res+=list.get(i);
+            }
         }
         return res;
     }
@@ -89,6 +93,6 @@ public abstract class Lukuvinkki {
                 attributeToString("Tagit", list(tagit))+
                 attributeToString("Esitietokurssit", list(esitietokurssit))+
                 attributeToString("Aiheeseen liittyvät kurssit", list(liittyvatKurssit))+
-                attributeToString("Kommentti: ", kommentti);
+                attributeToString("Kommentti", kommentti);
     }
 }

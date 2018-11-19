@@ -46,7 +46,7 @@ public class BookmarkContainer {
 
     /**
      * Get the current bookmark.
-     * 
+     *
      * @return bookmarks[index]
      */
     public Lukuvinkki getCurrent() {
@@ -54,9 +54,8 @@ public class BookmarkContainer {
     }
 
     /**
-     * Get the next bookmark.
-     * The index in incremented.
-     * 
+     * Get the next bookmark. The index in incremented.
+     *
      * @return bookmarks[++index]
      */
     public Lukuvinkki getNext() {
@@ -65,14 +64,25 @@ public class BookmarkContainer {
     }
 
     /**
-     * Get the previous bookmark.
-     * The index is decremented.
-     * 
+     * Get the previous bookmark. The index is decremented.
+     *
      * @return bookmarks[--index]
      */
     public Lukuvinkki getPrevious() {
         decrementIndex();
         return bookmarks.get(index);
+    }
+
+    /**
+     * Get the index of the current bookmark. Retrieving a bookmark by its index
+     * is not supported. However, we may wish to display the index in a user
+     * interface, e.g. "showing bookmark 3 of 42". The method is provided for
+     * this purpose.
+     *
+     * @return index
+     */
+    public int getIndex() {
+        return index;
     }
 
     public int size() {

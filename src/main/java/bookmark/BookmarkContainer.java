@@ -75,6 +75,20 @@ public class BookmarkContainer {
         return bookmarks.get(index);
     }
 
+    /**
+     * Get the index of the current bookmark.
+     * Retrieving a bookmark by its index is not supported. However, we may wish
+     * to display the index in a user interface, e.g. "showing bookmark 3 of 42".
+     * The method is provided for this purpose.
+     * 
+     * @return index
+     */
+    public int getIndex() {
+        return index;
+    }
+
+    
+    
     public int size() {
         return bookmarks.size();
     }

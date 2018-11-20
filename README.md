@@ -10,10 +10,4 @@
 
 [User manual](https://github.com/juhamyllari/make-your-mark/Documentation/manual.md)
 
-### Definition of Donen mukaan toteutetut user storyt:
-
-#### Sprintti 1:
-
-Käyttäjänä pystyn lisäämään lukuvinkin: kesken(?)
-
-Käyttäjänä pystyn selaamaan lukuvinkkejä: kesken(?)
+[Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)

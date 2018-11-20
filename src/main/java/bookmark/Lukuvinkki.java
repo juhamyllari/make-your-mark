@@ -4,28 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Lukuvinkki {
-    private String tyyppi="";
-    private String otsikko="";
-    private List<String> tagit=new ArrayList<>();
-    private List<String> esitietokurssit=new ArrayList<>();
+    private String type="";
+    private String title="";
+    private List<String> tags=new ArrayList<>();
+    private List<String> prequisites=new ArrayList<>();
     private List<String> liittyvatKurssit=new ArrayList<>();
     private String kommentti="";
     private boolean luettu=false;
 
-    public void setTyyppi(String tyyppi) {
-        this.tyyppi = tyyppi;
+    public void setType(String tyyppi) {
+        this.type = tyyppi;
     }
 
-    public void setOtsikko(String otsikko) {
-        this.otsikko = otsikko;
+    public void setTitle(String otsikko) {
+        this.title = otsikko;
     }
 
     public void setTagit(List<String> tagit) {
-        this.tagit = tagit;
+        this.tags = tagit;
     }
 
     public void setEsitietokurssit(List<String> esitietokurssit) {
-        this.esitietokurssit = esitietokurssit;
+        this.prequisites = esitietokurssit;
     }
 
     public void setLiittyvatKurssit(List<String> liittyvatKurssit) {
@@ -41,19 +41,19 @@ public abstract class Lukuvinkki {
     }
     
     public String getTyyppi() {
-        return tyyppi;
+        return type;
     }
 
     public String getOtsikko() {
-        return otsikko;
+        return title;
     }
     
     public List<String> getTagit() {
-        return tagit;
+        return tags;
     }
 
     public List<String> getEsitietokurssit() {
-        return esitietokurssit;
+        return prequisites;
     }
 
     public List<String> getLiittyvatKurssit() {
@@ -88,10 +88,10 @@ public abstract class Lukuvinkki {
     
     @Override
     public String toString(){
-        return attributeToString("Tyyppi", tyyppi)+
-                attributeToString("Otsikko", otsikko)+
-                attributeToString("Tagit", list(tagit))+
-                attributeToString("Esitietokurssit", list(esitietokurssit))+
+        return attributeToString("Tyyppi", type)+
+                attributeToString("Otsikko", title)+
+                attributeToString("Tagit", list(tags))+
+                attributeToString("Esitietokurssit", list(prequisites))+
                 attributeToString("Aiheeseen liittyvät kurssit", list(liittyvatKurssit))+
                 attributeToString("Kommentti", kommentti);
     }

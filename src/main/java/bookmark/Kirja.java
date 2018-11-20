@@ -7,10 +7,10 @@ public class Kirja extends Lukuvinkki{
     private String kirjoittaja;
     private String isbn;
     
-    public Kirja(String otsikko, String kirjoittaja, String isbn){
-        super.setOtsikko(otsikko);
-        super.setTyyppi("Kirja");
-        this.kirjoittaja=kirjoittaja;
+    public Kirja(String title, String author, String isbn){
+        super.setTitle(title);
+        super.setType("Kirja");
+        this.kirjoittaja=author;
         this.isbn=isbn;
     }
 

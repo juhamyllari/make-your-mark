@@ -100,7 +100,7 @@ public class App {
             newB.setEsitietokurssit(preC);
             newB.setKommentti(comment);
             newB.setLiittyvatKurssit(relC);
-            newB.setOtsikko(title);
+            newB.setTitle(title);
             newB.setTagit(tags);
             container.add(newB);
         }

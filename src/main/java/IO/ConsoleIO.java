@@ -9,7 +9,13 @@ public class ConsoleIO implements IO{
     }
     
     @Override
-    public String nextLine(){
+    public String nextLine(String prompt){
+        System.out.println(prompt);
         return scanner.nextLine();
+    }
+
+    @Override
+    public void print(String print) {
+        System.out.println(print);
     }
 }

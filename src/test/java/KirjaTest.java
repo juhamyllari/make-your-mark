@@ -1,5 +1,5 @@
-package bookmark;
 
+import bookmark.Kirja;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;

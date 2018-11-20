@@ -8,6 +8,6 @@
 
 [Travis](https://travis-ci.org/juhamyllari/make-your-mark)
 
-[User manual](https://github.com/juhamyllari/make-your-mark/Documentation/manual.md)
+[User manual](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/manual.md)
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)

@@ -5,11 +5,13 @@ Feature: As a user I want to browse reading tips
         Then system will respond with "No bookmarks"
 
     Scenario: user can browse bookmarks after creating one
-        Given command new is given
-        When a valid type "book" is entered
-        And a valid title "Sinuhe Egyptiläinen" is entered
-        And four empty answers are entered
-        And a valid author "Mik Waltari" is entered
-        And a valid ISBN "9384-32849" is entered
+        Given command samples is given
         Given command browse is given
-        Then system will respond with "Sinuhe Egyptiläinen 1/1"
+        Then system will respond with "Kalaopas 1/2"
+    
+    Scenario: user can scroll through bookmarks
+        Given command samples is given
+        Given command browse is given
+        Given command next is given
+        Then system will respond with "Reitittimet 1992-1996 2/2"
+        

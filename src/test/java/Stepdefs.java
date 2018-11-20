@@ -22,6 +22,16 @@ public class Stepdefs {
     public void command_browse_is_given() throws Throwable {
         inputLines.add("browse");
     }
+    
+    @Given("^command samples is given$")
+    public void command_samples_is_given() throws Throwable {
+        inputLines.add("samples");
+    }
+    
+    @Given("^command next is given$")
+    public void command_next_is_given() throws Throwable {
+        inputLines.add("next");
+    }
 
 
     @When("^a valid type \"([^\"]*)\" is entered$")

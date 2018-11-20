@@ -16,6 +16,9 @@ public class App {
     }
     
     public static void run(IO io) {
+        
+        // samples option for cucumber testing
+        
         BookmarkContainer container = new BookmarkContainer();
         while(true){
             String command = io.nextLine("Type \"new\" to create a bookmark, \"browse\" to browse the bookmarks or \"exit\" to quit application");
@@ -29,10 +32,13 @@ public class App {
                 }
             }else if(command.equals("exit")){
                 break;
-            }else{
+            }else if(command.equals("samples")){
+                container.add(new Book("Kalaopas", "Kimmo Kala", "8493-33"));
+                container.add(new Book("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432"));
+            } else {
                 io.print("No bookmarks");
             }
-        } 
+        }
     }
     
     private static void browse(BookmarkContainer container, IO io){

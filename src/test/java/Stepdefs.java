@@ -17,11 +17,23 @@ public class Stepdefs {
     public void command_new_is_given() throws Throwable {
         inputLines.add("new");
     }
-
-    @Given("^command book is given$")
-    public void command_book_is_given() throws Throwable {
-        inputLines.add("book");
+    
+    @Given("^command browse is given$")
+    public void command_browse_is_given() throws Throwable {
+        inputLines.add("browse");
     }
+
+
+    @When("^a valid type \"([^\"]*)\" is entered$")
+    public void a_valid_type_is_entered(String type) throws Throwable {
+        inputLines.add(type);
+    }
+    
+    @When("^an invalid type \"([^\"]*)\" is entered$")
+    public void an_invalid_type_is_entered(String type) throws Throwable {
+        inputLines.add(type);
+    }
+
 
     @When("^a valid title \"([^\"]*)\" is entered$")
     public void a_valid_title_is_entered(String title) throws Throwable {
@@ -48,6 +60,7 @@ public class Stepdefs {
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String expected) throws Throwable {
+        inputLines.add("exit");
         inputLines.add("exit");
         io = new StubIO(inputLines);
         App.run(io);

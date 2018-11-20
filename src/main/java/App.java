@@ -18,7 +18,7 @@ public class App {
     public static void run(IO io) {
         BookmarkContainer container = new BookmarkContainer();
         while(true){
-            String command = io.nextLine("Type \"new\" to create a bookmark or \"browse\" to browse the bookmarks");
+            String command = io.nextLine("Type \"new\" to create a bookmark, \"browse\" to browse the bookmarks or \"exit\" to quit application");
             if(command.equals("new")){
                 createNew(container, io);
             }else if(command.equals("browse")){
@@ -37,7 +37,7 @@ public class App {
     
     private static void browse(BookmarkContainer container, IO io){
         while(true){
-            io.print(container.getCurrent().getTitle()+(container.getIndex()+1)+"/"+container.size());
+            io.print(container.getCurrent().getTitle()+" "+(container.getIndex()+1)+"/"+container.size());
             String command = io.nextLine("Type \"next\" to see next bookmark, \"show\" to show more information on the current one or \"exit\" to stop browsing bookmarks.");
             if(command.equals("next")){
                 container.getNext();
@@ -53,12 +53,14 @@ public class App {
     
     private static void createNew(BookmarkContainer container, IO io){
         io.print("Provide the information, please.");
-        String type = io.nextLine("What kind of a bookmark would you like to save? (book)");
+        String type = io.nextLine("What kind of a bookmark would you like to save? (book) Type \"exit\" to return.");
         ArrayList<String> types = new ArrayList<>();
         types.add("book");
+        types.add("exit");
         while(!types.contains(type)){
             type = io.nextLine("Invalid type.");
         }
+        if (type.equals("exit")) return;
         String title = io.nextLine("Title:");
         ArrayList<String> tags = new ArrayList<>();
         while(true){
@@ -90,7 +92,7 @@ public class App {
             newB.setTitle(title);
             newB.setTags(tags);
             container.add(newB);
-            io.print("Bookmark created");
+            io.print("Bookmark created.");
         }
     }
 }

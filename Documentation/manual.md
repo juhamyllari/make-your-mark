@@ -13,3 +13,8 @@ java -jar makeyourmark.jar
 ## Using the program
 
 The program has functionalities for adding bookmarks and viewing bookmarks. Follow the instructions on the interface to take advantage of these features.
+
+
+Example of using the program:
+
+<img src="https://raw.githubusercontent.com/juhamyllari/make-your-mark/blob/master/Documentation/interfaceExample.png">  

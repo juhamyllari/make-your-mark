@@ -17,4 +17,4 @@ The program has functionalities for adding bookmarks and viewing bookmarks. Foll
 
 Example of using the program:
 
-<img src="https://raw.githubusercontent.com/juhamyllari/make-your-mark/blob/master/Documentation/interfaceExample.png">  
+<img src="https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/interfaceExample.png">  

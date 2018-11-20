@@ -8,7 +8,7 @@
 
 [Travis](https://travis-ci.org/juhamyllari/make-your-mark)
 
-[User manual](https://github.com/juhamyllari/make-your-mark/edit/master/manual.txt)
+[User manual](https://github.com/juhamyllari/make-your-mark/Documentation/manual.md)
 
 ### Definition of Donen mukaan toteutetut user storyt:
 

@@ -1,7 +1,7 @@
 
 import IO.*;
 import bookmark.BookmarkContainer;
-import bookmark.Kirja;
+import bookmark.Book;
 import java.awt.Desktop;
 import java.util.ArrayList;
 
@@ -37,7 +37,7 @@ public class App {
     
     private static void browse(BookmarkContainer container, IO io){
         while(true){
-            io.print(container.getCurrent().getOtsikko()+(container.getIndex()+1)+"/"+container.size());
+            io.print(container.getCurrent().getTitle()+(container.getIndex()+1)+"/"+container.size());
             String command = io.nextLine("Type \"next\" to see next bookmark, \"show\" to show more information on the current one or \"exit\" to stop browsing bookmarks.");
             if(command.equals("next")){
                 container.getNext();
@@ -83,12 +83,12 @@ public class App {
         if(type.equals("book")){
             String author = io.nextLine("Author:");
             String isbn = io.nextLine("ISBN:");
-            Kirja newB = new Kirja(title, author, isbn);
-            newB.setEsitietokurssit(preC);
-            newB.setKommentti(comment);
-            newB.setLiittyvatKurssit(relC);
+            Book newB = new Book(title, author, isbn);
+            newB.setPrerequisiteCourses(preC);
+            newB.setComment(comment);
+            newB.setRelatedCourses(relC);
             newB.setTitle(title);
-            newB.setTagit(tags);
+            newB.setTags(tags);
             container.add(newB);
             io.print("Bookmark created");
         }

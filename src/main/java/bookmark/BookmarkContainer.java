@@ -5,10 +5,10 @@ import java.util.List;
 
 public class BookmarkContainer {
 
-    private final List<Lukuvinkki> bookmarks;
+    private final List<Bookmark> bookmarks;
     private int index;
 
-    public BookmarkContainer(List<Lukuvinkki> bookmarks) {
+    public BookmarkContainer(List<Bookmark> bookmarks) {
         this.bookmarks = bookmarks;
         this.index = 0;
     }
@@ -23,7 +23,7 @@ public class BookmarkContainer {
      *
      * @param bookmark
      */
-    public void add(Lukuvinkki bookmark) {
+    public void add(Bookmark bookmark) {
         if (!bookmarks.contains(bookmark)) {
             bookmarks.add(bookmark);
         }
@@ -34,7 +34,7 @@ public class BookmarkContainer {
      *
      * @param bookmark
      */
-    public void remove(Lukuvinkki bookmark) {
+    public void remove(Bookmark bookmark) {
         if (bookmarks.contains(bookmark)) {
             int indexToRemove = bookmarks.indexOf(bookmark);
             bookmarks.remove(bookmark);
@@ -49,7 +49,7 @@ public class BookmarkContainer {
      *
      * @return bookmarks[index]
      */
-    public Lukuvinkki getCurrent() {
+    public Bookmark getCurrent() {
         return bookmarks.get(index);
     }
 
@@ -58,7 +58,7 @@ public class BookmarkContainer {
      *
      * @return bookmarks[++index]
      */
-    public Lukuvinkki getNext() {
+    public Bookmark getNext() {
         incrementIndex();
         return bookmarks.get(index);
     }
@@ -68,7 +68,7 @@ public class BookmarkContainer {
      *
      * @return bookmarks[--index]
      */
-    public Lukuvinkki getPrevious() {
+    public Bookmark getPrevious() {
         decrementIndex();
         return bookmarks.get(index);
     }
@@ -89,7 +89,7 @@ public class BookmarkContainer {
         return bookmarks.size();
     }
 
-    public List<Lukuvinkki> getBookmarks() {
+    public List<Bookmark> getBookmarks() {
         return bookmarks;
     }
 

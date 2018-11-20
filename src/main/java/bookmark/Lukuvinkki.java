@@ -7,7 +7,7 @@ public abstract class Lukuvinkki {
     private String type="";
     private String title="";
     private List<String> tags=new ArrayList<>();
-    private List<String> prequisites=new ArrayList<>();
+    private List<String> prerequisites=new ArrayList<>();
     private List<String> liittyvatKurssit=new ArrayList<>();
     private String kommentti="";
     private boolean luettu=false;
@@ -25,7 +25,7 @@ public abstract class Lukuvinkki {
     }
 
     public void setEsitietokurssit(List<String> esitietokurssit) {
-        this.prequisites = esitietokurssit;
+        this.prerequisites = esitietokurssit;
     }
 
     public void setLiittyvatKurssit(List<String> liittyvatKurssit) {
@@ -53,7 +53,7 @@ public abstract class Lukuvinkki {
     }
 
     public List<String> getEsitietokurssit() {
-        return prequisites;
+        return prerequisites;
     }
 
     public List<String> getLiittyvatKurssit() {
@@ -91,7 +91,7 @@ public abstract class Lukuvinkki {
         return attributeToString("Tyyppi", type)+
                 attributeToString("Otsikko", title)+
                 attributeToString("Tagit", list(tags))+
-                attributeToString("Esitietokurssit", list(prequisites))+
+                attributeToString("Esitietokurssit", list(prerequisites))+
                 attributeToString("Aiheeseen liittyvät kurssit", list(liittyvatKurssit))+
                 attributeToString("Kommentti", kommentti);
     }

@@ -18,7 +18,7 @@ plugins {
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'mainApp.App'
 
 project.ext {
     cucumberVersion = '1.2.5'
@@ -62,7 +62,7 @@ jar {
   manifest {
     attributes(
       'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
-      'Main-Class': 'App'
+      'Main-Class': 'mainApp.App'
     )
   }
 }

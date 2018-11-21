@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
 
 public class BookmarkContainerTest {
 
-    Bookmark funnyBook;
-    Bookmark sillyBook;
-    List<Bookmark> lst = new ArrayList<>();
+    AbstractBookmark funnyBook;
+    AbstractBookmark sillyBook;
+    List<AbstractBookmark> lst = new ArrayList<>();
     BookmarkContainer bc;
 
     public BookmarkContainerTest() {

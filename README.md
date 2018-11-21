@@ -11,3 +11,10 @@
 [User manual](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/manual.md)
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
+
+## Sprint 1
+
+Acceptance Criteria by User Story:
+* [Can add new bookmark](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/new_bookmark.feature)
+* [Can browse bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/browsing_bookmarks.feature)
+* [Can edit bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/editing_bookmark.feature)

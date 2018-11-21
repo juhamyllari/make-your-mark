@@ -33,6 +33,15 @@ public class Stepdefs {
         inputLines.add("next");
     }
 
+    @Given("^command edit is given$")
+    public void command_edit_is_given() throws Throwable {
+        inputLines.add("edit");
+    }
+
+    @When("^a valid field \"([^\"]*)\" is entered$")
+    public void a_valid_field_is_entered(String field) throws Throwable {
+        inputLines.add(field);
+    }
 
     @When("^a valid type \"([^\"]*)\" is entered$")
     public void a_valid_type_is_entered(String type) throws Throwable {
@@ -47,6 +56,11 @@ public class Stepdefs {
 
     @When("^a valid title \"([^\"]*)\" is entered$")
     public void a_valid_title_is_entered(String title) throws Throwable {
+        inputLines.add(title);
+    }
+
+    @When("^an invalid title \"([^\"]*)\" is entered$")
+    public void an_invalid_title_is_entered(String title) throws Throwable {
         inputLines.add(title);
     }
 

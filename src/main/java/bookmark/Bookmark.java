@@ -78,7 +78,7 @@ public abstract class Bookmark {
     }
     
     // Seperates values with a comma
-    private static String list(List<String> list){
+    public static String list(List<String> list){
         String res="";
         for(int i=0;i<list.size();i++){
             if (i!=list.size()-1) {

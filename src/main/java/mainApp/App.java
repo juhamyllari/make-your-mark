@@ -63,10 +63,12 @@ public class App {
     }
 
     private static void edit(Bookmark bm, IO io) {
+        String fields = setFields(bm);
+
         while (true) {
-            String command = io.nextLine("Type which field to edit (title, tags, prerequisites, related, comment) or \"exit\" to stop editing.");
+            String field = io.nextLine("Type which field to edit (" + fields + ") or \"exit\" to stop editing.");
                 
-            if (command.equals("title")) {
+            if (field.equals("title")) {
                 String title = io.nextLine("Current title: " + bm.getTitle() + ". Set a new title or type the current title to remove it.");
                 if (title.equals(bm.getTitle())) {
                     bm.setTitle("");
@@ -77,7 +79,7 @@ public class App {
                 } else {
                     io.print("No change made.");
                 }
-            } else if (command.equals("comment")) {
+            } else if (field.equals("comment")) {
                 String comment = io.nextLine("Current comment: " + bm.getComment() + ". Set a new comment or type the current comment to remove it.");
                 if (comment.equals(bm.getComment())) {
                     bm.setComment("");
@@ -88,26 +90,61 @@ public class App {
                 } else {
                     io.print("No change made.");
                 }
-            } else if (command.equals("tags")) {
+            } else if (field.equals("tags")) {
                 List<String> tags = bm.getTags();
                 io.print(Bookmark.attributeToString("Tags: ", Bookmark.list(tags)));
                 String tag = io.nextLine("Type an existing tag to remove it or a new one to add it.");
                 addOrRemove(tags, tag, "Tag", io);
-            } else if (command.equals("prerequisites")) {
+            } else if (field.equals("prerequisites")) {
                 List<String> preC = bm.getPrerequisiteCourses();
                 io.print(Bookmark.attributeToString("Prerequisite courses: ", Bookmark.list(preC)));
                 String course = io.nextLine("Type an existing course to remove it or a new one to add it.");
-                addOrRemove(preC, course, "Course", io);
-                
-            } else if (command.equals("related")) {
+                addOrRemove(preC, course, "Course", io);               
+            } else if (field.equals("related")) {
                 List<String> relC = bm.getRelatedCourses();
                 io.print(Bookmark.attributeToString("Related courses: ", Bookmark.list(relC)));
                 String course = io.nextLine("Type an existing course to remove it or a new one to add it.");
                 addOrRemove(relC, course, "Course", io);
-            } else if(command.equals("exit")) {
+            } else if(field.equals("exit")) {
                 break;
+            } else if (bm.getType().equals("Book")) {
+                editBook(field, io, bm);
             } else {
                 io.print("Invalid field.");
+            }
+        }
+    }
+
+    private static String setFields(Bookmark bm) {
+        String fields = "title, tags, prerequisites, related, comment";
+        if (bm.getType().equals("Book")) {
+            fields = "author, isbn, " + fields;
+        }
+        return fields;
+    }
+
+    private static void editBook(String field, IO io, Bookmark bm) {
+        if (field.equals("author")) {
+            String author = io.nextLine("Current author: " + ((Book) bm).getAuthor() + ". Set a new author or type the current author to remove it.");
+            if (author.equals(((Book)bm).getAuthor())) {
+                ((Book)bm).setAuthor("");
+                io.print("Author removed.");
+            } else if (!author.trim().equals("")) {
+                ((Book)bm).setAuthor(author);
+                io.print("New author set.");
+            } else {
+                io.print("No change made.");
+            }
+        } else if (field.equals("isbn")) {
+            String isbn = io.nextLine("Current author: " + ((Book) bm).getIsbn() + ". Set a new ISBN or type the current ISBN to remove it.");
+            if (isbn.equals(((Book)bm).getIsbn())) {
+                ((Book)bm).setIsbn("");
+                io.print("ISBN removed.");
+            } else if (!isbn.trim().equals("")) {
+                ((Book)bm).setIsbn(isbn);
+                io.print("New ISBN set.");
+            } else {
+                io.print("No change made.");
             }
         }
     }

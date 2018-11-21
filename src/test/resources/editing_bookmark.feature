@@ -1,3 +1,5 @@
+# Throws java heap space error
+
 #Feature: As a user I want to edit reading tips
 #
 #    Scenario: User cannot set an empty title

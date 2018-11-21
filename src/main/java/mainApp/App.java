@@ -2,7 +2,6 @@ package mainApp;
 
 import IO.*;
 import bookmark.BookmarkContainer;
-import bookmark.AbstractBookmark;
 import bookmark.Bookmark;
 import bookmark.EntryListBookmark;
 import java.util.ArrayList;
@@ -64,66 +63,66 @@ public class App {
         }
     }
 
-    private static void edit(AbstractBookmark bm, IO io) {
-        String fields = setFields(bm);
-
-        while (true) {
-            String field = io.nextLine("Type which field to edit (" + fields + ") or \"exit\" to stop editing.");
-                
-            if (field.equals("title")) {
-                String title = io.nextLine("Current title: " + bm.getTitle() + ". Set a new title or type the current title to remove it.");
-                if (title.equals(bm.getTitle())) {
-                    bm.setTitle("");
-                    io.print("Title removed.");
-                } else if (!title.trim().equals("")) {
-                    bm.setTitle(title);
-                    io.print("New title set.");
-                } else {
-                    io.print("No change made.");
-                }
-            } else if (field.equals("comment")) {
-                String comment = io.nextLine("Current comment: " + bm.getComment() + ". Set a new comment or type the current comment to remove it.");
-                if (comment.equals(bm.getComment())) {
-                    bm.setComment("");
-                    io.print("Comment removed.");
-                } else if (!comment.trim().equals("")) {
-                    bm.setComment(comment);
-                    io.print("New comment set.");
-                } else {
-                    io.print("No change made.");
-                }
-            } else if (field.equals("tags")) {
-                List<String> tags = bm.getTags();
-                io.print(AbstractBookmark.attributeToString("Tags: ", AbstractBookmark.list(tags)));
-                String tag = io.nextLine("Type an existing tag to remove it or a new one to add it.");
-                addOrRemove(tags, tag, "Tag", io);
-            } else if (field.equals("prerequisites")) {
-                List<String> preC = bm.getPrerequisiteCourses();
-                io.print(AbstractBookmark.attributeToString("Prerequisite courses: ", AbstractBookmark.list(preC)));
-                String course = io.nextLine("Type an existing course to remove it or a new one to add it.");
-                addOrRemove(preC, course, "Course", io);               
-            } else if (field.equals("related")) {
-                List<String> relC = bm.getRelatedCourses();
-                io.print(AbstractBookmark.attributeToString("Related courses: ", AbstractBookmark.list(relC)));
-                String course = io.nextLine("Type an existing course to remove it or a new one to add it.");
-                addOrRemove(relC, course, "Course", io);
-            } else if(field.equals("exit")) {
-                break;
-            } else if (bm.getType().equals("Book")) {
-//                editBook(field, io, bm);
-            } else {
-                io.print("Invalid field.");
-            }
-        }
-    }
-
-    private static String setFields(AbstractBookmark bm) {
-        String fields = "title, tags, prerequisites, related, comment";
-        if (bm.getType().equals("Book")) {
-            fields = "author, isbn, " + fields;
-        }
-        return fields;
-    }
+//    private static void edit(AbstractBookmark bm, IO io) {
+//        String fields = setFields(bm);
+//
+//        while (true) {
+//            String field = io.nextLine("Type which field to edit (" + fields + ") or \"exit\" to stop editing.");
+//                
+//            if (field.equals("title")) {
+//                String title = io.nextLine("Current title: " + bm.getTitle() + ". Set a new title or type the current title to remove it.");
+//                if (title.equals(bm.getTitle())) {
+//                    bm.setTitle("");
+//                    io.print("Title removed.");
+//                } else if (!title.trim().equals("")) {
+//                    bm.setTitle(title);
+//                    io.print("New title set.");
+//                } else {
+//                    io.print("No change made.");
+//                }
+//            } else if (field.equals("comment")) {
+//                String comment = io.nextLine("Current comment: " + bm.getComment() + ". Set a new comment or type the current comment to remove it.");
+//                if (comment.equals(bm.getComment())) {
+//                    bm.setComment("");
+//                    io.print("Comment removed.");
+//                } else if (!comment.trim().equals("")) {
+//                    bm.setComment(comment);
+//                    io.print("New comment set.");
+//                } else {
+//                    io.print("No change made.");
+//                }
+//            } else if (field.equals("tags")) {
+//                List<String> tags = bm.getTags();
+//                io.print(AbstractBookmark.attributeToString("Tags: ", AbstractBookmark.list(tags)));
+//                String tag = io.nextLine("Type an existing tag to remove it or a new one to add it.");
+//                addOrRemove(tags, tag, "Tag", io);
+//            } else if (field.equals("prerequisites")) {
+//                List<String> preC = bm.getPrerequisiteCourses();
+//                io.print(AbstractBookmark.attributeToString("Prerequisite courses: ", AbstractBookmark.list(preC)));
+//                String course = io.nextLine("Type an existing course to remove it or a new one to add it.");
+//                addOrRemove(preC, course, "Course", io);               
+//            } else if (field.equals("related")) {
+//                List<String> relC = bm.getRelatedCourses();
+//                io.print(AbstractBookmark.attributeToString("Related courses: ", AbstractBookmark.list(relC)));
+//                String course = io.nextLine("Type an existing course to remove it or a new one to add it.");
+//                addOrRemove(relC, course, "Course", io);
+//            } else if(field.equals("exit")) {
+//                break;
+//            } else if (bm.getType().equals("Book")) {
+////                editBook(field, io, bm);
+//            } else {
+//                io.print("Invalid field.");
+//            }
+//        }
+//    }
+//
+//    private static String setFields(AbstractBookmark bm) {
+//        String fields = "title, tags, prerequisites, related, comment";
+//        if (bm.getType().equals("Book")) {
+//            fields = "author, isbn, " + fields;
+//        }
+//        return fields;
+//    }
 
 //    private static void editBook(String field, IO io, AbstractBookmark bm) {
 //        if (field.equals("author")) {
@@ -203,11 +202,10 @@ public class App {
             String author = io.nextLine("Author:");
             String isbn = io.nextLine("ISBN:");
             Bookmark newB = EntryListBookmark.createBook(title, author, isbn);
-//            newB.setPrerequisiteCourses(preC);
-//            newB.setComment(comment);
-//            newB.setRelatedCourses(relC);
-//            newB.setTitle(title);
-//            newB.setTags(tags);
+            newB.setListEntry("prerequisite courses", preC);
+            newB.setStringEntry("comment", comment);
+            newB.setListEntry("related courses", relC);
+            newB.setListEntry("tags", tags);
             container.add(newB);
             io.print("Bookmark created.");
         }

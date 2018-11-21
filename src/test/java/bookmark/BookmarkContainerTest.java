@@ -11,9 +11,9 @@ import static org.junit.Assert.*;
 
 public class BookmarkContainerTest {
 
-    AbstractBookmark funnyBook;
-    AbstractBookmark sillyBook;
-    List<AbstractBookmark> lst = new ArrayList<>();
+    Bookmark funnyBook;
+    Bookmark sillyBook;
+    List<Bookmark> lst = new ArrayList<>();
     BookmarkContainer bc;
 
     public BookmarkContainerTest() {
@@ -30,8 +30,8 @@ public class BookmarkContainerTest {
 
     @Before
     public void setUp() {
-        funnyBook = new Book("Funny Book", "Punny Guy", "1234");
-        sillyBook = new Book("Silly Book", "S. Illy Pherson", "9999");
+        funnyBook = EntryListBookmark.createBook("Funny Book", "Punny Guy", "1234");
+        sillyBook = EntryListBookmark.createBook("Silly Book", "S. Illy Pherson", "9999");
         lst.add(funnyBook);
         bc = new BookmarkContainer(lst);
     }

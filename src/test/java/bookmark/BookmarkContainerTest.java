@@ -50,11 +50,20 @@ public class BookmarkContainerTest {
     @Test
     public void testRemove() {
         assertEquals(1, bc.size());
-        bc.remove(sillyBook);
+        bc.add(sillyBook);
+        assertEquals(2, bc.size());
+        
+        assertEquals(0, bc.getIndex());
+        bc.getNext();
+        assertEquals(1, bc.getIndex());
+        bc.remove(funnyBook);
+        assertEquals(0, bc.getIndex());
+        assertEquals(sillyBook, bc.getCurrent());
         assertEquals(1, bc.size());
-        bc.remove(funnyBook);
+        
+        bc.remove(sillyBook);
         assertEquals(0, bc.size());
-        bc.remove(funnyBook);
+        bc.remove(sillyBook);
         assertEquals(0, bc.size());
     }
 

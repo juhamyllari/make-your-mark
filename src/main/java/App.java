@@ -23,7 +23,7 @@ public class App {
         
         BookmarkContainer container = new BookmarkContainer();
         while(true){
-            String command = io.nextLine("Type \"new\" to create a bookmark, \"browse\" to browse the bookmarks or \"exit\" to quit the application");
+            String command = io.nextLine("Type \"new\" to create a bookmark, \"browse\" to browse the bookmarks or \"exit\" to quit the application.");
 
             if(command.equals("new")){
                 createNew(container, io);
@@ -39,7 +39,7 @@ public class App {
                 container.add(new Book("Kalaopas", "Kimmo Kala", "8493-33"));
                 container.add(new Book("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432"));
             } else {
-                io.print("Not a command");
+                io.print("Invalid command");
             }
         }
     }
@@ -64,46 +64,68 @@ public class App {
 
     private static void edit(Bookmark bm, IO io) {
         while (true) {
-            String command = io.nextLine("Type which field to edit (title, tags, prerequisites, related, comment).");
-            if(command.trim().equals("")) break;
+            String command = io.nextLine("Type which field to edit (title, tags, prerequisites, related, comment) or \"exit\" to stop editing.");
                 
             if (command.equals("title")) {
-                String title = io.nextLine("Current title: " + bm.getTitle() + ". Set new:");
-                if (!title.trim().equals("")) bm.setTitle(title);
+                String title = io.nextLine("Current title: " + bm.getTitle() + ". Set a new title or type the current title to remove it.");
+                if (title.equals(bm.getTitle())) {
+                    bm.setTitle("");
+                    io.print("Title removed.");
+                } else if (!title.trim().equals("")) {
+                    bm.setTitle(title);
+                    io.print("New title set.");
+                } else {
+                    io.print("No change made.");
+                }
+            } else if (command.equals("comment")) {
+                String comment = io.nextLine("Current comment: " + bm.getComment() + ". Set a new comment or type the current comment to remove it.");
+                if (comment.equals(bm.getComment())) {
+                    bm.setComment("");
+                    io.print("Comment removed.");
+                } else if (!comment.trim().equals("")) {
+                    bm.setComment(comment);
+                    io.print("New comment set.");
+                } else {
+                    io.print("No change made.");
+                }
             } else if (command.equals("tags")) {
                 List<String> tags = bm.getTags();
                 io.print(Bookmark.attributeToString("Tags: ", Bookmark.list(tags)));
                 String tag = io.nextLine("Type an existing tag to remove it or a new one to add it.");
-                addOrRemove(tags, tag);
+                addOrRemove(tags, tag, "Tag", io);
             } else if (command.equals("prerequisites")) {
                 List<String> preC = bm.getPrerequisiteCourses();
                 io.print(Bookmark.attributeToString("Prerequisite courses: ", Bookmark.list(preC)));
                 String course = io.nextLine("Type an existing course to remove it or a new one to add it.");
-                addOrRemove(preC, course);
+                addOrRemove(preC, course, "Course", io);
+                
             } else if (command.equals("related")) {
                 List<String> relC = bm.getRelatedCourses();
                 io.print(Bookmark.attributeToString("Related courses: ", Bookmark.list(relC)));
                 String course = io.nextLine("Type an existing course to remove it or a new one to add it.");
-                addOrRemove(relC, course);
-            } else if (command.equals("comment")) {
-                String comment = io.nextLine("Current comment: " + bm.getComment() + ". Set new:");
-                if (!comment.trim().equals("")) bm.setComment(comment);
+                addOrRemove(relC, course, "Course", io);
+            } else if(command.equals("exit")) {
+                break;
             } else {
-                io.print("Not a command.");
+                io.print("Invalid field.");
             }
         }
     }
 
-    private static void addOrRemove(List<String> list, String item) {
+    private static void addOrRemove(List<String> list, String item, String field, IO io) {
         if (list.contains(item)) {
             for (Iterator<String> iter = list.listIterator(); iter.hasNext();) {
                 String a = iter.next();
                 if (a.equals(item)) {
                     iter.remove();
+                    io.print(field + " removed.");
                 }
             }
         } else if (!item.trim().equals("")){
             list.add(item);
+            io.print("New " + field.toLowerCase() + " added.");
+        } else {
+            io.print("No change made.");
         }
     }
     

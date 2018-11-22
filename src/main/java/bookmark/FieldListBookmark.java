@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A bookmark implemented as a list of Field objects.
+ * To create an empty bookmark call the factory method createBookmark.
+ */
 public class FieldListBookmark implements Bookmark {
 
     private List<Field> fields;

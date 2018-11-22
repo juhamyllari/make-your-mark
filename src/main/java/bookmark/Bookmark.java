@@ -2,6 +2,9 @@ package bookmark;
 
 import java.util.List;
 
+/**
+ * For the current primary implementation see class FieldListBookmark.
+ */
 public interface Bookmark {
 
     public List<String> getListField(String title);

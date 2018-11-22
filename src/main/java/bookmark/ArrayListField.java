@@ -4,6 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * A Field implemented using an ArrayList.
+ * The object contains the name of the field and the data held by the field.
+ * The boolean isStringField indicates whether the Field is intended to hold
+ * only one String. If the value is false, the Field can hold a list of Strings.
+ * If the Field is a String Field, the sole item is retrieved by the getFirst()
+ * method.
+ */
 public class ArrayListField implements Field {
     
     private String name;

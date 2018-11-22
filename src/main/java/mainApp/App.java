@@ -100,6 +100,9 @@ public class App {
             io.print("No change made.");
         } else {
             bm.setField(field, newEntry);
+            io.print("New "
+                    + field 
+                    + " set.");
         }
         
     }

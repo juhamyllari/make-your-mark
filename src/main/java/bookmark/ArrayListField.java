@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ListField implements Field {
+public class ArrayListField implements Field {
     
     private String name;
     private List<String> data;
     private boolean isStringField;
 
-    public ListField(String name, List<String> items) {
+    public ArrayListField(String name, List<String> items) {
         this.name = name;
         this.data = items;
         this.isStringField = false;
     }
     
-    public ListField(String name, String data) {
+    public ArrayListField(String name, String data) {
         this.name = name;
         this.data = new ArrayList<>();
         this.data.add(data);

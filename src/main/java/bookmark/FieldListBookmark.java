@@ -19,9 +19,9 @@ public class FieldListBookmark implements Bookmark {
     }
 
     public void setField(String field, List<String> newContent) {
-        ListField entry = (ListField) fieldByName(field);
+        ArrayListField entry = (ArrayListField) fieldByName(field);
         if (entry == null) {
-            entry = new ListField(field, newContent);
+            entry = new ArrayListField(field, newContent);
             this.fields.add(entry);
         } else {
             entry.setName(field);
@@ -45,10 +45,10 @@ public class FieldListBookmark implements Bookmark {
 
     public static FieldListBookmark createBook(String title, String author, String isbn) {
         List<Field> entries = new ArrayList<>();
-        entries.add(new ListField("type", "Book"));
-        entries.add(new ListField("title", title));
-        entries.add(new ListField("author", author));
-        entries.add(new ListField("isbn", isbn));
+        entries.add(new ArrayListField("type", "Book"));
+        entries.add(new ArrayListField("title", title));
+        entries.add(new ArrayListField("author", author));
+        entries.add(new ArrayListField("isbn", isbn));
         return new FieldListBookmark(entries);
     }
 

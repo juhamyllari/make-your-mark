@@ -4,9 +4,11 @@ import java.util.List;
 
 public interface Bookmark {
 
-    public String getStringEntry(String title);
-    public List<String> getListEntry(String title);
-    public void setStringEntry(String name, String data);
-    public void setListEntry(String name, List<String> data);
+    public List<String> getListField(String title);
+    public String getStringField(String title);
+    public void setField(String name, List<String> data);
+    public void setField(String name, String data);
+    public List<String> getFieldNames();
+    public boolean fieldIsString(String fieldName);
     
 }

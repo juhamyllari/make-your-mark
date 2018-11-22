@@ -52,6 +52,20 @@ public class FieldListBookmark implements Bookmark {
         return new FieldListBookmark(entries);
     }
 
+    public static FieldListBookmark createBookmark() {
+        List<Field> entries = new ArrayList<>();
+        entries.add(new ArrayListField("title", ""));
+        entries.add(new ArrayListField("url", ""));
+        entries.add(new ArrayListField("description", ""));
+        entries.add(new ArrayListField("author", ""));
+        entries.add(new ArrayListField("comment", ""));
+        entries.add(new ArrayListField("isbn", ""));
+        entries.add(new ArrayListField("tags", ""));
+        entries.add(new ArrayListField("prerequisite courses", ""));
+        entries.add(new ArrayListField("related courses", ""));
+        return new FieldListBookmark(entries);
+    }
+
     @Override
     public List<String> getListField(String title) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

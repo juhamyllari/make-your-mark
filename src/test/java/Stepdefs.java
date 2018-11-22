@@ -87,6 +87,7 @@ public class Stepdefs {
     public void system_will_respond_with(String expected) throws Throwable {
         inputLines.add("exit");
         inputLines.add("exit");
+        inputLines.add("exit");
         io = new StubIO(inputLines);
         App.run(io);
         assertTrue(io.getPrints().contains(expected));

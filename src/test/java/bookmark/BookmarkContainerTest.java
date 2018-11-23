@@ -1,6 +1,7 @@
 package bookmark;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -13,7 +14,7 @@ public class BookmarkContainerTest {
 
     Bookmark funnyBook;
     Bookmark sillyBook;
-    List<Bookmark> lst = new ArrayList<>();
+    LinkedList<Bookmark> lst = new LinkedList<>();
     BookmarkContainer bc;
 
     public BookmarkContainerTest() {
@@ -70,20 +71,20 @@ public class BookmarkContainerTest {
     @Test
     public void testGetCurrent() {
         bc.add(sillyBook);
-        assertEquals(funnyBook, bc.getCurrent());
+        assertEquals(sillyBook, bc.getCurrent());
     }
 
     @Test
     public void testGetNext() {
         bc.add(sillyBook);
-        assertEquals(sillyBook, bc.getNext());
+        assertEquals(funnyBook, bc.getNext());
     }
 
     @Test
     public void testGetPrevious() {
         bc.add(sillyBook);
-        bc.getNext();
         assertEquals(funnyBook, bc.getPrevious());
+        assertEquals(sillyBook, bc.getPrevious());
     }
 
     @Test

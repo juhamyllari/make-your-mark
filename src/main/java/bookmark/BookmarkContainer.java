@@ -1,20 +1,22 @@
 package bookmark;
 
 import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 
 public class BookmarkContainer {
 
-    private final List<Bookmark> bookmarks;
+    private final LinkedList<Bookmark> bookmarks;
     private int index;
 
-    public BookmarkContainer(List<Bookmark> bookmarks) {
+    public BookmarkContainer(LinkedList<Bookmark> bookmarks) {
         this.bookmarks = bookmarks;
         this.index = 0;
     }
 
     public BookmarkContainer() {
-        this(new ArrayList<>());
+        this(new LinkedList<>());
     }
 
     /**
@@ -25,7 +27,8 @@ public class BookmarkContainer {
      */
     public void add(Bookmark bookmark) {
         if (!bookmarks.contains(bookmark)) {
-            bookmarks.add(bookmark);
+            bookmarks.addFirst(bookmark);
+            index = 0;
         }
     }
 
@@ -40,6 +43,8 @@ public class BookmarkContainer {
             bookmarks.remove(bookmark);
             if (indexToRemove < index) {
                 index--;
+            } else if (indexToRemove == index) {
+                index = 0;
             }
         }
     }

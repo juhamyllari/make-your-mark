@@ -37,8 +37,8 @@ public class App {
             } else if (command.equals("exit")) {
                 break;
             } else if (command.equals("samples")) {
-                container.add(FieldListBookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33"));
                 container.add(FieldListBookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432"));
+                container.add(FieldListBookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33"));
             } else {
                 io.print("Invalid command");
             }

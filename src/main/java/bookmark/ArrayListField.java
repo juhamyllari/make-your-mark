@@ -58,5 +58,10 @@ public class ArrayListField implements Field {
     public boolean isStringField() {
         return isStringField;
     }
+
+    @Override
+    public List<String> getList() {
+        return data;
+    }
     
 }

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * A bookmark implemented as a list of Field objects.
- * To create an empty bookmark call the factory method createBookmark.
+ * A bookmark implemented as a list of Field objects. To create an empty
+ * bookmark call the factory method createBookmark.
  */
 public class FieldListBookmark implements Bookmark {
 
@@ -47,39 +47,10 @@ public class FieldListBookmark implements Bookmark {
                 .orElse(null);
     }
 
-    public static FieldListBookmark createBook(String title, String author, String isbn) {
-        List<Field> entries = new ArrayList<>();
-        entries.add(new ArrayListField("type", "Book"));
-        entries.add(new ArrayListField("title", title));
-        entries.add(new ArrayListField("author", author));
-        entries.add(new ArrayListField("isbn", isbn));
-        return new FieldListBookmark(entries);
-    }
-
-    public static FieldListBookmark createBookmark() {
-        List<Field> entries = new ArrayList<>();
-        entries.add(new ArrayListField("title", ""));
-        entries.add(new ArrayListField("url", ""));
-        entries.add(new ArrayListField("description", ""));
-        entries.add(new ArrayListField("author", ""));
-        entries.add(new ArrayListField("comment", ""));
-        entries.add(new ArrayListField("isbn", ""));
-        entries.add(new ArrayListField("tags", ""));
-        entries.add(new ArrayListField("prerequisite courses", ""));
-        entries.add(new ArrayListField("related courses", ""));
-        return new FieldListBookmark(entries);
-    }
-
     @Override
     public List<String> getListField(String title) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public String toString() {
-        return fields.stream()
-                .map(entry -> entry.toString())
-                .collect(Collectors.joining("\n"));
+        Field entry = fieldByName(title);
+        return entry.getList();
     }
 
     @Override
@@ -101,4 +72,38 @@ public class FieldListBookmark implements Bookmark {
         return field.isStringField();
     }
 
+    @Override
+    public String toString() {
+        return fields.stream()
+                .map(entry -> entry.toString())
+                .collect(Collectors.joining("\n"));
+    }
+
+    public static FieldListBookmark createBook(String title, String author, String isbn) {
+        List<Field> entries = new ArrayList<>();
+        entries.add(new ArrayListField("type", "Book"));
+        entries.add(new ArrayListField("title", title));
+        entries.add(new ArrayListField("author", author));
+        entries.add(new ArrayListField("isbn", isbn));
+        return new FieldListBookmark(entries);
+    }
+
+    /**
+     * Create a new Bookmark.
+     * String fields are initialized with empty strings. List fields are
+     * initialized with empty lists.
+     */
+    public static FieldListBookmark createBookmark() {
+        List<Field> entries = new ArrayList<>();
+        entries.add(new ArrayListField("title", ""));
+        entries.add(new ArrayListField("url", ""));
+        entries.add(new ArrayListField("description", ""));
+        entries.add(new ArrayListField("author", ""));
+        entries.add(new ArrayListField("comment", ""));
+        entries.add(new ArrayListField("isbn", ""));
+        entries.add(new ArrayListField("tags", new ArrayList<String>()));
+        entries.add(new ArrayListField("prerequisite courses", new ArrayList<String>()));
+        entries.add(new ArrayListField("related courses", new ArrayList<String>()));
+        return new FieldListBookmark(entries);
+    }
 }

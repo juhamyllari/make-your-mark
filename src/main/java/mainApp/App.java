@@ -3,7 +3,6 @@ package mainApp;
 import IO.*;
 import bookmark.BookmarkContainer;
 import bookmark.Bookmark;
-import bookmark.FieldListBookmark;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -37,8 +36,8 @@ public class App {
             } else if (command.equals("exit")) {
                 break;
             } else if (command.equals("samples")) {
-                container.add(FieldListBookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432"));
-                container.add(FieldListBookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33"));
+                container.add(Bookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432"));
+                container.add(Bookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33"));
             } else {
                 io.print("Invalid command");
             }
@@ -255,7 +254,7 @@ public class App {
         if (type.equals("book")) {
             String author = io.nextLine("Author:");
             String isbn = io.nextLine("ISBN:");
-            Bookmark newB = FieldListBookmark.createBook(title, author, isbn);
+            Bookmark newB = Bookmark.createBook(title, author, isbn);
             newB.setField("prerequisite courses", preC);
             newB.setField("comment", comment);
             newB.setField("related courses", relC);

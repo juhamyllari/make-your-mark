@@ -9,13 +9,13 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-public class FieldListBookmarkTest {
+public class BookmarkTest {
     
-    FieldListBookmark bmDefault;
-    FieldListBookmark bmTagged;
+    Bookmark bmDefault;
+    Bookmark bmTagged;
     List<String> lst;
     
-    public FieldListBookmarkTest() {
+    public BookmarkTest() {
     }
     
     @BeforeClass
@@ -28,8 +28,8 @@ public class FieldListBookmarkTest {
     
     @Before
     public void setUp() {
-        bmDefault = new FieldListBookmark();
-        bmTagged = FieldListBookmark.createBookmark();
+        bmDefault = new Bookmark();
+        bmTagged = Bookmark.createBookmark();
         lst = new ArrayList<>();
         lst.add("tag1");
         lst.add("tag2");
@@ -59,7 +59,7 @@ public class FieldListBookmarkTest {
 
     @Test
     public void testCreateBookmark() {
-        Bookmark bm = FieldListBookmark.createBookmark();
+        Bookmark bm = Bookmark.createBookmark();
         assertEquals("", bm.getStringField("title"));
         assertEquals("", bm.getStringField("url"));
         assertEquals("", bm.getStringField("description"));

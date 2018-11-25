@@ -39,6 +39,10 @@ public class Field {
     public void setData(List<String> data) {
         this.data = data;
     }
+    
+    public void addToList(String newItem) {
+        this.data.add(newItem);
+    }
 
     public String getName() {
         return name;

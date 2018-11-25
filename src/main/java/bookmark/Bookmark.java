@@ -1,13 +1,13 @@
 package bookmark;
 
+import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Represents a single bookmark.
- * The object contains a list of Field objects corresponding to the fields
- * of the bookmark.
+ * Represents a single bookmark. The object contains a list of Field objects
+ * corresponding to the fields of the bookmark.
  */
 public class Bookmark {
 
@@ -38,6 +38,21 @@ public class Bookmark {
         List<String> list = new ArrayList<>();
         list.add(data);
         setField(name, list);
+    }
+
+    /**
+     * Add a new element to a list field.
+     *
+     * @param fieldName
+     * @param newElement
+     */
+    public void addToField(String fieldName, String newElement) {
+        Field field = fieldByName(fieldName);
+        if (field == null) {
+            fields.add(new Field(fieldName, newElement));
+        } else {
+            field.addToList(newElement);
+        }
     }
 
     private Field fieldByName(String name) {
@@ -100,6 +115,17 @@ public class Bookmark {
         entries.add(new Field("prerequisite courses", new ArrayList<String>()));
         entries.add(new Field("related courses", new ArrayList<String>()));
         return new Bookmark(entries);
+    }
+
+    public static String serializeBookmark(Bookmark bm) {
+        Gson gson = new Gson();
+        return gson.toJson(bm);
+    }
+
+    public static Bookmark deserializeBookmark(String json) {
+        Gson gson = new Gson();
+        Bookmark bm = gson.fromJson(json, Bookmark.class);
+        return bm;
     }
 
 }

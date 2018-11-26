@@ -69,11 +69,34 @@ public class App {
                     }
                     tags.add(newTag);
                 }
-                browse(new BookmarkContainer(container.searchByTags(tags)), io);
+                BookmarkContainer searchResult = new BookmarkContainer(container.searchByTags(tags));
+                if(searchResult.size()==0){
+                    System.out.println("No bookmarks matching the search criteria.");
+                }else{
+                    browseList(new BookmarkContainer(container.searchByTags(tags)), io);
+                }
             } else if (command.equals("edit")) {
                 edit(container.getCurrent(), io);
             } else if (command.equals("ser")) {
                 testBookmarkSerialization(container.getCurrent(), io);
+            } else if (command.equals("exit")) {
+                break;
+            } else {
+                io.print("Invalid command.");
+            }
+        }
+    }
+    
+    private static void browseList(BookmarkContainer container, IO io) {
+        while (true) {
+            io.print(container.getCurrent().getStringField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
+            String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, or \"exit\" to stop browsing search results.");
+            if (command.equals("next")) {
+                container.getNext();
+            }else if (command.equals("prev")) {
+                container.getPrevious();
+            } else if (command.equals("show")) {
+                io.print(container.getCurrent().toString());
             } else if (command.equals("exit")) {
                 break;
             } else {

@@ -117,7 +117,6 @@ public class BookmarkContainer {
     }
     
     public LinkedList<Bookmark> searchByTags(List<String> tags){
-        List<Bookmark> list = new ArrayList<>();
         Function<Stream<Bookmark>,Stream<Bookmark>> f = x -> x;
         for(String tag:tags) f=f.compose(x -> x.filter(y -> y.getListField("tags").contains(tag)));
         return f.apply(bookmarks.stream()).collect(Collectors.toCollection(LinkedList::new));

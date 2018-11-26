@@ -53,13 +53,23 @@ public class App {
     private static void browse(BookmarkContainer container, IO io) {
         while (true) {
             io.print(container.getCurrent().getStringField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
-            String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"edit\" to edit the current one, \"ser\" to test bookmark serialization or \"exit\" to stop browsing bookmarks.");
+            String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"search\" to search for bookmarks, \"edit\" to edit the current one, \"ser\" to test bookmark serialization or \"exit\" to stop browsing bookmarks.");
             if (command.equals("next")) {
                 container.getNext();
             }else if (command.equals("prev")) {
                 container.getPrevious();
             } else if (command.equals("show")) {
                 io.print(container.getCurrent().toString());
+            } else if (command.equals("search")) {
+                ArrayList<String> tags = new ArrayList<>();
+                while (true) {
+                    String newTag = io.nextLine("Give tags one by one for as long as you want; input an empty line to stop.");
+                    if (newTag.trim().equals("")) {
+                        break;
+                    }
+                    tags.add(newTag);
+                }
+                browse(new BookmarkContainer(container.searchByTags(tags)), io);
             } else if (command.equals("edit")) {
                 edit(container.getCurrent(), io);
             } else if (command.equals("ser")) {
@@ -71,7 +81,7 @@ public class App {
             }
         }
     }
-
+    
     private static void edit(Bookmark bm, IO io) {
         List<String> allFields = bm.getFieldNames();
         String field = io.nextLine("Type which field to edit ("

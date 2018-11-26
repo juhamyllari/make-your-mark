@@ -64,12 +64,18 @@ public class Bookmark {
 
     public List<String> getListField(String title) {
         Field entry = fieldByName(title);
-        return entry.getList();
+        if(entry!=null){
+            return entry.getList();
+        }
+        return new ArrayList<>();
     }
 
     public String getStringField(String title) {
         Field entry = fieldByName(title);
-        return entry.getFirst();
+        if(entry!=null){
+            return entry.getFirst();
+        }
+        return "";
     }
 
     public List<String> getFieldNames() {

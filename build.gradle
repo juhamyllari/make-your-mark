@@ -29,7 +29,6 @@ dependencies {
     testCompile 'info.cukes:cucumber-java:' + cucumberVersion
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
     testCompile 'junit:junit:' + junitVersion
-    implementation 'com.google.code.gson:gson:2.8.5'
 }
 
 repositories {

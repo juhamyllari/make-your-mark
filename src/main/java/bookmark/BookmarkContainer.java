@@ -1,11 +1,9 @@
 package bookmark;
 
-import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BookmarkContainer {
 
@@ -112,23 +110,5 @@ public class BookmarkContainer {
         if (index < 0) {
             index = bookmarks.size() - 1;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "BookmarkContainer containing:\n" 
-                + bookmarks.stream()
-                .map(bm -> bm.toString())
-                .collect(Collectors.joining("\n--\n"));
-    }
-    
-    public static String serializeBookmarkContainer(BookmarkContainer container) {
-        Gson gson = new Gson();
-        return gson.toJson(container);
-    }
-    
-    public static BookmarkContainer deserializeBookmarkContainer(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, BookmarkContainer.class);
     }
 }

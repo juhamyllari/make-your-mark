@@ -3,6 +3,7 @@ package mainApp;
 import IO.*;
 import bookmark.BookmarkContainer;
 import bookmark.Bookmark;
+import bookmark.FieldListBookmark;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -23,27 +24,21 @@ public class App {
         // samples option for cucumber testing
         BookmarkContainer container = new BookmarkContainer();
         while (true) {
-            String command = io.nextLine("Type \"(n)ew\" to create a bookmark, \"(b)rowse\" to browse the bookmarks, \"ser\" to test container serialization or \"(e)xit\" to quit the application.");
+            String command = io.nextLine("Type \"new\" to create a bookmark, \"browse\" to browse the bookmarks or \"exit\" to quit the application.");
 
-            if (command.equals("new") || command.equals("n")) {
+            if (command.equals("new")) {
                 createNew(container, io);
-            } else if (command.equals("browse") || command.equals("b")) {
+            } else if (command.equals("browse")) {
                 if (container.size() == 0) {
                     io.print("No bookmarks");
                 } else {
                     browse(container, io);
                 }
-            } else if (command.equals("exit") || command.equals("e")) {
+            } else if (command.equals("exit")) {
                 break;
-            } else if (command.equals("ser")) {
-                testContainerSerialization(container, io);
-            } else if (command.equals("samples") || command.equals("s")) {
-                container.add(Bookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432"));
-                
-                Bookmark fishBook = Bookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33");
-                fishBook.addToField("tags", "hobbies");
-                fishBook.addToField("tags", "fishy");
-                container.add(fishBook);
+            } else if (command.equals("samples")) {
+                container.add(FieldListBookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432"));
+                container.add(FieldListBookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33"));
             } else {
                 io.print("Invalid command");
             }
@@ -53,7 +48,7 @@ public class App {
     private static void browse(BookmarkContainer container, IO io) {
         while (true) {
             io.print(container.getCurrent().getStringField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
-            String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"edit\" to edit the current one, \"ser\" to test bookmark serialization or \"exit\" to stop browsing bookmarks.");
+            String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"edit\" to edit the current one or \"exit\" to stop browsing bookmarks.");
             if (command.equals("next")) {
                 container.getNext();
             }else if (command.equals("prev")) {
@@ -62,8 +57,6 @@ public class App {
                 io.print(container.getCurrent().toString());
             } else if (command.equals("edit")) {
                 edit(container.getCurrent(), io);
-            } else if (command.equals("ser")) {
-                testBookmarkSerialization(container.getCurrent(), io);
             } else if (command.equals("exit")) {
                 break;
             } else {
@@ -267,25 +260,5 @@ public class App {
         container.add(newB);
         io.print("Bookmark created.");
     }
-    
-    private static void testBookmarkSerialization(Bookmark bm, IO io) {
-        String json = Bookmark.serializeBookmark(bm);
-        io.print("The bookmark in JSON:");
-        io.print(json);
-        
-        Bookmark deserialized = Bookmark.deserializeBookmark(json);
-        io.print("The bookmark deserialized from JSON:");
-        io.print(deserialized.toString());
-    }
-    
-    private static void testContainerSerialization(BookmarkContainer container, IO io) {
-        String json = BookmarkContainer.serializeBookmarkContainer(container);
-        io.print("The container in JSON:");
-        io.print(json);
-        
-        BookmarkContainer deserialized = BookmarkContainer.deserializeBookmarkContainer(json);
-        io.print("The container deserialized from JSON:");
-        io.print(deserialized.toString());
-    }
-    
+
 }

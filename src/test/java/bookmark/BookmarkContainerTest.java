@@ -31,8 +31,8 @@ public class BookmarkContainerTest {
 
     @Before
     public void setUp() {
-        funnyBook = FieldListBookmark.createBook("Funny Book", "Punny Guy", "1234");
-        sillyBook = FieldListBookmark.createBook("Silly Book", "S. Illy Pherson", "9999");
+        funnyBook = Bookmark.createBook("Funny Book", "Punny Guy", "1234");
+        sillyBook = Bookmark.createBook("Silly Book", "S. Illy Pherson", "9999");
         lst.add(funnyBook);
         bc = new BookmarkContainer(lst);
     }

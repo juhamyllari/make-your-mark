@@ -254,7 +254,7 @@ public class App {
             }
             relC.add(newC);
         }
-        Bookmark newB = FieldListBookmark.createBookmark();
+        Bookmark newB = Bookmark.createBookmark();
         newB.setField("prerequisite courses", preC);
         newB.setField("comment", comment);
         newB.setField("author", author);

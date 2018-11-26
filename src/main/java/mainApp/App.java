@@ -48,9 +48,11 @@ public class App {
     private static void browse(BookmarkContainer container, IO io) {
         while (true) {
             io.print(container.getCurrent().getStringField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
-            String command = io.nextLine("Type \"next\" to see the next bookmark, \"show\" to show more information on the current one, \"edit\" to edit the current one or \"exit\" to stop browsing bookmarks.");
+            String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"edit\" to edit the current one or \"exit\" to stop browsing bookmarks.");
             if (command.equals("next")) {
                 container.getNext();
+            }else if (command.equals("prev")) {
+                container.getPrevious();
             } else if (command.equals("show")) {
                 io.print(container.getCurrent().toString());
             } else if (command.equals("edit")) {
@@ -214,18 +216,12 @@ public class App {
 //    }
 
     private static void createNew(BookmarkContainer container, IO io) {
-        io.print("Provide the information, please.");
-        String type = io.nextLine("What kind of a bookmark would you like to save? (book) Type \"exit\" to return.");
-        ArrayList<String> types = new ArrayList<>();
-        types.add("book");
-        types.add("exit");
-        while (!types.contains(type)) {
-            type = io.nextLine("Invalid type.");
-        }
-        if (type.equals("exit")) {
-            return;
-        }
+        io.print("Provide the information, please (do not enter any text if you wish to leave the field blank)");
         String title = io.nextLine("Title:");
+        String author = io.nextLine("Author:");
+        String url = io.nextLine("Url:");
+        String description = io.nextLine("Description:");
+        String isbn = io.nextLine("ISBN:");
         ArrayList<String> tags = new ArrayList<>();
         while (true) {
             String newTag = io.nextLine("Give tags one by one for as long as you want; input an empty line to stop.");
@@ -251,18 +247,18 @@ public class App {
             }
             relC.add(newC);
         }
-
-        if (type.equals("book")) {
-            String author = io.nextLine("Author:");
-            String isbn = io.nextLine("ISBN:");
-            Bookmark newB = FieldListBookmark.createBook(title, author, isbn);
-            newB.setField("prerequisite courses", preC);
-            newB.setField("comment", comment);
-            newB.setField("related courses", relC);
-            newB.setField("tags", tags);
-            container.add(newB);
-            io.print("Bookmark created.");
-        }
+        Bookmark newB = FieldListBookmark.createBookmark();
+        newB.setField("prerequisite courses", preC);
+        newB.setField("comment", comment);
+        newB.setField("author", author);
+        newB.setField("isbn", isbn);
+        newB.setField("title", title);
+        newB.setField("related courses", relC);
+        newB.setField("tags", tags);
+        newB.setField("url", url);
+        newB.setField("description", description);
+        container.add(newB);
+        io.print("Bookmark created.");
     }
 
 }

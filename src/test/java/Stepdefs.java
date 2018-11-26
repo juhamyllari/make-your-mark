@@ -72,6 +72,12 @@ public class Stepdefs {
         inputLines.add("");
         inputLines.add("");
     }
+    
+    @When("^two empty answers are entered$")
+    public void two_empty_answers_are_entered() throws Throwable {
+        inputLines.add("");
+        inputLines.add("");
+    }
 
     @When("^a valid author \"([^\"]*)\" is entered$")
     public void a_valid_author_is_entered(String author) throws Throwable {

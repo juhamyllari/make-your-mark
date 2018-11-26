@@ -4,7 +4,6 @@ import IO.*;
 import bookmark.BookmarkContainer;
 import bookmark.Bookmark;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,11 +37,14 @@ public class App {
             } else if (command.equals("ser")) {
                 testContainerSerialization(container, io);
             } else if (command.equals("samples") || command.equals("s")) {
-                container.add(Bookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432"));
+                Bookmark routerBook = Bookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432");
+                routerBook.addToField("tags", "guide");
+                container.add(routerBook);
                 
                 Bookmark fishBook = Bookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33");
                 fishBook.addToField("tags", "hobbies");
                 fishBook.addToField("tags", "fishy");
+                fishBook.addToField("tags", "guide");
                 container.add(fishBook);
             } else {
                 io.print("Invalid command");
@@ -61,20 +63,7 @@ public class App {
             } else if (command.equals("show")) {
                 io.print(container.getCurrent().toString());
             } else if (command.equals("search")) {
-                ArrayList<String> tags = new ArrayList<>();
-                while (true) {
-                    String newTag = io.nextLine("Give tags one by one for as long as you want; input an empty line to stop.");
-                    if (newTag.trim().equals("")) {
-                        break;
-                    }
-                    tags.add(newTag);
-                }
-                BookmarkContainer searchResult = new BookmarkContainer(container.searchByTags(tags));
-                if(searchResult.size()==0){
-                    System.out.println("No bookmarks matching the search criteria.");
-                }else{
-                    browseList(new BookmarkContainer(container.searchByTags(tags)), io);
-                }
+                search(io, container);
             } else if (command.equals("edit")) {
                 edit(container.getCurrent(), io);
             } else if (command.equals("ser")) {
@@ -84,6 +73,23 @@ public class App {
             } else {
                 io.print("Invalid command.");
             }
+        }
+    }
+
+    private static void search(IO io, BookmarkContainer container) {
+        ArrayList<String> tags = new ArrayList<>();
+        while (true) {
+            String newTag = io.nextLine("Give tags one by one for as long as you want; input an empty line to stop.");
+            if (newTag.trim().equals("")) {
+                break;
+            }
+            tags.add(newTag);
+        }
+        BookmarkContainer searchResult = new BookmarkContainer(container.searchByTags(tags));
+        if(searchResult.size()==0){
+            System.out.println("No bookmarks matching the search criteria.");
+        }else{
+            browseList(new BookmarkContainer(container.searchByTags(tags)), io);
         }
     }
     
@@ -105,6 +111,8 @@ public class App {
         }
     }
     
+    // List editing unfinished: User can only replace or remove all elements of
+    // a list field with one value.
     private static void edit(Bookmark bm, IO io) {
         List<String> allFields = bm.getFieldNames();
         String field = io.nextLine("Type which field to edit ("
@@ -123,7 +131,7 @@ public class App {
         if (bm.fieldIsString(field)) {
             editStringField(bm, field, io);
         } else {
-            editListField(bm, field, io);
+            //editListField(bm, field, io);
         }
 
     }
@@ -133,7 +141,7 @@ public class App {
                 + field + ": "
                 + bm.getStringField(field)
                 + ". Set a new " + field
-                + " or type the current title to remove it.");
+                + " or type the current " + field + " to remove it.");
         
         if (newEntry.equals(bm.getStringField(field))) {
             bm.setField(field, "");
@@ -149,9 +157,9 @@ public class App {
         
     }
 
-    private static void editListField(Bookmark bm, String field, IO io) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+//    private static void editListField(Bookmark bm, String field, IO io) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
 
 //    private static void edit(AbstractBookmark bm, IO io) {
 //        String fields = setFields(bm);

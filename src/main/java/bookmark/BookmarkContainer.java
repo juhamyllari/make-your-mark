@@ -1,8 +1,6 @@
 package bookmark;
 
 import com.google.gson.Gson;
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;

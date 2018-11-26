@@ -85,11 +85,11 @@ public class App {
             }
             tags.add(newTag);
         }
-        BookmarkContainer searchResult = new BookmarkContainer(container.searchByTags(tags));
+        BookmarkContainer searchResult = new BookmarkContainer(container.searchByTagsOR(tags));
         if(searchResult.size()==0){
             System.out.println("No bookmarks matching the search criteria.");
         }else{
-            browseList(new BookmarkContainer(container.searchByTags(tags)), io);
+            browseList(new BookmarkContainer(container.searchByTagsOR(tags)), io);
         }
     }
     

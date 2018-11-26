@@ -3,6 +3,12 @@ package mainApp;
 import IO.*;
 import bookmark.BookmarkContainer;
 import bookmark.Bookmark;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,6 +18,8 @@ import java.util.stream.Collectors;
  */
 public class App {
 
+    public static final String BOOKMARK_FILE = "saved_bookmarks.txt";
+
     public static void main(String[] args) {
         IO io = new ConsoleIO();
         run(io);
@@ -20,7 +28,12 @@ public class App {
     public static void run(IO io) {
 
         // samples option for cucumber testing
-        BookmarkContainer container = new BookmarkContainer();
+        BookmarkContainer container;
+        if (Files.exists(Paths.get(BOOKMARK_FILE))) {
+            container = loadContainerFromFile();
+        } else {
+            container = new BookmarkContainer();
+        }
         while (true) {
             String command = io.nextLine("Type \"(n)ew\" to create a bookmark, \"(b)rowse\" to browse the bookmarks, \"ser\" to test container serialization or \"(e)xit\" to quit the application.");
 
@@ -40,7 +53,7 @@ public class App {
                 Bookmark routerBook = Bookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432");
                 routerBook.addToField("tags", "guide");
                 container.add(routerBook);
-                
+
                 Bookmark fishBook = Bookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33");
                 fishBook.addToField("tags", "hobbies");
                 fishBook.addToField("tags", "fishy");
@@ -50,6 +63,14 @@ public class App {
                 io.print("Invalid command");
             }
         }
+        String save = io.nextLine("Save changes to file? yes/no");
+        if (save.toLowerCase().equals("yes") || save.toLowerCase().equals("y")) {
+            // TODO: confirm whether saved successfully
+            saveContainerToFile(container);
+            io.print("Saved.");
+        } else {
+            io.print("Quitting without saving.");
+        }
     }
 
     private static void browse(BookmarkContainer container, IO io) {
@@ -58,7 +79,7 @@ public class App {
             String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"search\" to search for bookmarks, \"edit\" to edit the current one, \"ser\" to test bookmark serialization or \"exit\" to stop browsing bookmarks.");
             if (command.equals("next")) {
                 container.getNext();
-            }else if (command.equals("prev")) {
+            } else if (command.equals("prev")) {
                 container.getPrevious();
             } else if (command.equals("show")) {
                 io.print(container.getCurrent().toString());
@@ -86,20 +107,20 @@ public class App {
             tags.add(newTag);
         }
         BookmarkContainer searchResult = new BookmarkContainer(container.searchByTagsOR(tags));
-        if(searchResult.size()==0){
+        if (searchResult.size() == 0) {
             System.out.println("No bookmarks matching the search criteria.");
-        }else{
+        } else {
             browseList(new BookmarkContainer(container.searchByTagsOR(tags)), io);
         }
     }
-    
+
     private static void browseList(BookmarkContainer container, IO io) {
         while (true) {
             io.print(container.getCurrent().getStringField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
             String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, or \"exit\" to stop browsing search results.");
             if (command.equals("next")) {
                 container.getNext();
-            }else if (command.equals("prev")) {
+            } else if (command.equals("prev")) {
                 container.getPrevious();
             } else if (command.equals("show")) {
                 io.print(container.getCurrent().toString());
@@ -110,7 +131,7 @@ public class App {
             }
         }
     }
-    
+
     // List editing unfinished: User can only replace or remove all elements of
     // a list field with one value.
     private static void edit(Bookmark bm, IO io) {
@@ -142,7 +163,7 @@ public class App {
                 + bm.getStringField(field)
                 + ". Set a new " + field
                 + " or type the current " + field + " to remove it.");
-        
+
         if (newEntry.equals(bm.getStringField(field))) {
             bm.setField(field, "");
             io.print(field + " removed.");
@@ -151,16 +172,15 @@ public class App {
         } else {
             bm.setField(field, newEntry);
             io.print("New "
-                    + field 
+                    + field
                     + " set.");
         }
-        
+
     }
 
 //    private static void editListField(Bookmark bm, String field, IO io) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
-
 //    private static void edit(AbstractBookmark bm, IO io) {
 //        String fields = setFields(bm);
 //
@@ -262,7 +282,6 @@ public class App {
 //            io.print("No change made.");
 //        }
 //    }
-
     private static void createNew(BookmarkContainer container, IO io) {
         io.print("Provide the information, please (do not enter any text if you wish to leave the field blank)");
         String title = io.nextLine("Title:");
@@ -308,25 +327,49 @@ public class App {
         container.add(newB);
         io.print("Bookmark created.");
     }
-    
+
     private static void testBookmarkSerialization(Bookmark bm, IO io) {
         String json = Bookmark.serializeBookmark(bm);
         io.print("The bookmark in JSON:");
         io.print(json);
-        
+
         Bookmark deserialized = Bookmark.deserializeBookmark(json);
         io.print("The bookmark deserialized from JSON:");
         io.print(deserialized.toString());
     }
-    
+
     private static void testContainerSerialization(BookmarkContainer container, IO io) {
         String json = BookmarkContainer.serializeBookmarkContainer(container);
         io.print("The container in JSON:");
         io.print(json);
-        
+
         BookmarkContainer deserialized = BookmarkContainer.deserializeBookmarkContainer(json);
         io.print("The container deserialized from JSON:");
         io.print(deserialized.toString());
     }
-    
+
+    private static void saveContainerToFile(BookmarkContainer container) {
+        String json = BookmarkContainer.serializeBookmarkContainer(container);
+        Path path = Paths.get(BOOKMARK_FILE);
+
+        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
+            writer.write(json);
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
+        }
+
+    }
+
+    private static BookmarkContainer loadContainerFromFile() {
+        Path path = Paths.get(BOOKMARK_FILE);
+        String json = "";
+
+        try (BufferedReader reader = Files.newBufferedReader(path)) {
+            json = reader.readLine();
+        } catch (IOException e) {
+            System.err.format("IOException: %s%n", e);
+        }
+        return BookmarkContainer.deserializeBookmarkContainer(json);
+    }
+
 }

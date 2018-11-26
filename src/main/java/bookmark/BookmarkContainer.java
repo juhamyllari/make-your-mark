@@ -116,10 +116,14 @@ public class BookmarkContainer {
         }
     }
     
-    public LinkedList<Bookmark> searchByTags(List<String> tags){
+    public LinkedList<Bookmark> searchByTagsAND(List<String> tags){
         Function<Stream<Bookmark>,Stream<Bookmark>> f = x -> x;
         for(String tag:tags) f=f.compose(x -> x.filter(y -> y.getListField("tags").contains(tag)));
         return f.apply(bookmarks.stream()).collect(Collectors.toCollection(LinkedList::new));
+    }
+    
+    public LinkedList<Bookmark> searchByTagsOR(List<String> tags){
+        return bookmarks.stream().filter(x -> tags.stream().anyMatch(y -> x.getListField("tags").contains(y))).collect(Collectors.toCollection(LinkedList::new));
     }
     
     @Override

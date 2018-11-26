@@ -95,7 +95,7 @@ public class Stepdefs {
         inputLines.add("exit");
         inputLines.add("exit");
         io = new StubIO(inputLines);
-        App.run(io);
+        App.run(io, false);
         assertTrue(io.getPrints().contains(expected));
     }
 

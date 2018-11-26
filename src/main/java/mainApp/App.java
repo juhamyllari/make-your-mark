@@ -22,10 +22,10 @@ public class App {
 
     public static void main(String[] args) {
         IO io = new ConsoleIO();
-        run(io);
+        run(io, true);
     }
 
-    public static void run(IO io) {
+    public static void run(IO io, boolean loadBookmarks) {
 
         // samples option for cucumber testing
         BookmarkContainer container;

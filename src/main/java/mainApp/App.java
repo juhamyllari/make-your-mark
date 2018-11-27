@@ -5,6 +5,7 @@ import bookmark.BookmarkContainer;
 import bookmark.Bookmark;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,7 +27,6 @@ public class App {
     }
 
     public static void run(IO io, boolean loadBookmarks) {
-
         // samples option for cucumber testing
         BookmarkContainer container;
         if (Files.exists(Paths.get(BOOKMARK_FILE))) {
@@ -50,27 +50,37 @@ public class App {
             } else if (command.equals("ser")) {
                 testContainerSerialization(container, io);
             } else if (command.equals("samples") || command.equals("s")) {
-                Bookmark routerBook = Bookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432");
-                routerBook.addToField("tags", "guide");
-                container.add(routerBook);
-
-                Bookmark fishBook = Bookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33");
-                fishBook.addToField("tags", "hobbies");
-                fishBook.addToField("tags", "fishy");
-                fishBook.addToField("tags", "guide");
-                container.add(fishBook);
+                createSamples(container);
             } else {
                 io.print("Invalid command");
             }
         }
         String save = io.nextLine("Save changes to file? yes/no");
         if (save.toLowerCase().equals("yes") || save.toLowerCase().equals("y")) {
-            // TODO: confirm whether saved successfully
-            saveContainerToFile(container);
-            io.print("Saved.");
+            if (saveContainerToFile(container)) {
+                io.print("Saved.");
+            }
         } else {
             io.print("Quitting without saving.");
         }
+    }
+
+    public static void createSamplesForTesting() {
+        BookmarkContainer bmc = new BookmarkContainer();
+        createSamples(bmc);
+        saveContainerToFile(bmc);
+    }
+    
+    private static void createSamples(BookmarkContainer container) {
+        Bookmark routerBook = Bookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432");
+        routerBook.addToField("tags", "guide");
+        container.add(routerBook);
+
+        Bookmark fishBook = Bookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33");
+        fishBook.addToField("tags", "hobbies");
+        fishBook.addToField("tags", "fishy");
+        fishBook.addToField("tags", "guide");
+        container.add(fishBook);
     }
 
     private static void browse(BookmarkContainer container, IO io) {
@@ -175,12 +185,13 @@ public class App {
                     + field
                     + " set.");
         }
-
     }
 
 //    private static void editListField(Bookmark bm, String field, IO io) {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 //    }
+//
+//    Deprecated implementation of editing
 //    private static void edit(AbstractBookmark bm, IO io) {
 //        String fields = setFields(bm);
 //
@@ -282,6 +293,7 @@ public class App {
 //            io.print("No change made.");
 //        }
 //    }
+//
     private static void createNew(BookmarkContainer container, IO io) {
         io.print("Provide the information, please (do not enter any text if you wish to leave the field blank)");
         String title = io.nextLine("Title:");
@@ -348,16 +360,17 @@ public class App {
         io.print(deserialized.toString());
     }
 
-    private static void saveContainerToFile(BookmarkContainer container) {
+    private static boolean saveContainerToFile(BookmarkContainer container) {
         String json = BookmarkContainer.serializeBookmarkContainer(container);
         Path path = Paths.get(BOOKMARK_FILE);
 
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
             writer.write(json);
+            return true;
         } catch (IOException e) {
             System.err.format("IOException: %s%n", e);
         }
-
+        return false;
     }
 
     private static BookmarkContainer loadContainerFromFile() {
@@ -371,5 +384,4 @@ public class App {
         }
         return BookmarkContainer.deserializeBookmarkContainer(json);
     }
-
 }

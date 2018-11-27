@@ -1,6 +1,7 @@
 
 import mainApp.App;
 import IO.StubIO;
+import bookmark.BookmarkContainer;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -38,6 +39,21 @@ public class Stepdefs {
     public void command_edit_is_given() throws Throwable {
         inputLines.add("edit");
     }
+    
+     @Given("^command exit is given$")
+    public void command_exit_is_given() throws Throwable {
+        inputLines.add("exit");
+    }
+
+    @Given("^command yes is given$")
+    public void command_yes_is_given() throws Throwable {
+        inputLines.add("yes");
+    }
+
+    @Given("^command no is given$")
+    public void command_no_is_given() throws Throwable {
+        inputLines.add("no");
+    }
 
     @When("^a valid field \"([^\"]*)\" is entered$")
     public void a_valid_field_is_entered(String field) throws Throwable {
@@ -53,7 +69,6 @@ public class Stepdefs {
     public void an_invalid_type_is_entered(String type) throws Throwable {
         inputLines.add(type);
     }
-
 
     @When("^a valid title \"([^\"]*)\" is entered$")
     public void a_valid_title_is_entered(String title) throws Throwable {
@@ -99,4 +114,14 @@ public class Stepdefs {
         assertTrue(io.getPrints().contains(expected));
     }
 
+    @Then("^system with save file will respond with \"([^\"]*)\"$")
+    public void system_with_save_file_will_respond_with(String expected) throws Throwable {
+        App.createSamplesForTesting();
+        inputLines.add("exit");
+        inputLines.add("exit");
+        inputLines.add("exit");
+        io = new StubIO(inputLines);
+        App.run(io, true);
+        assertTrue(io.getPrints().contains(expected));
+    }
  }

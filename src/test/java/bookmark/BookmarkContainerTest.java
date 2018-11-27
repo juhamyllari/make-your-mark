@@ -53,7 +53,7 @@ public class BookmarkContainerTest {
         assertEquals(1, bc.size());
         bc.add(sillyBook);
         assertEquals(2, bc.size());
-        
+
         assertEquals(0, bc.getIndex());
         bc.getNext();
         assertEquals(1, bc.getIndex());
@@ -61,7 +61,7 @@ public class BookmarkContainerTest {
         assertEquals(0, bc.getIndex());
         assertEquals(sillyBook, bc.getCurrent());
         assertEquals(1, bc.size());
-        
+
         bc.remove(sillyBook);
         assertEquals(0, bc.size());
         bc.remove(sillyBook);
@@ -113,6 +113,26 @@ public class BookmarkContainerTest {
     @Test
     public void testGetBookmarks() {
         assertEquals(lst, bc.getBookmarks());
+    }
+
+    @Test
+    public void testOrSearchAndFind() {
+        funnyBook.setField("tags", "fun");
+        bc.add(funnyBook);
+        bc.add(sillyBook);
+        List<String> tags = new ArrayList();
+        tags.add("epic");
+        tags.add("fun");
+        assertEquals(1, bc.searchByTagsOR(tags).size());
+    }
+
+    @Test
+    public void testOrSearchAndNotFind() {
+        bc.add(funnyBook);
+        bc.add(sillyBook);
+        List<String> tags = new ArrayList();
+        tags.add("nope");
+        assertEquals(0, bc.searchByTagsOR(tags).size());
     }
 
 }

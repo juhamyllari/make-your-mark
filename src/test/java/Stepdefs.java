@@ -1,7 +1,6 @@
 
 import mainApp.App;
 import IO.StubIO;
-import bookmark.BookmarkContainer;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -10,26 +9,26 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class Stepdefs {
-    
+
     List<String> inputLines = new ArrayList<>();
     StubIO io;
     App app;
-    
+
     @Given("^command new is given$")
     public void command_new_is_given() throws Throwable {
         inputLines.add("new");
     }
-    
+
     @Given("^command browse is given$")
     public void command_browse_is_given() throws Throwable {
         inputLines.add("browse");
     }
-    
+
     @Given("^command samples is given$")
     public void command_samples_is_given() throws Throwable {
         inputLines.add("samples");
     }
-    
+
     @Given("^command next is given$")
     public void command_next_is_given() throws Throwable {
         inputLines.add("next");
@@ -55,6 +54,27 @@ public class Stepdefs {
         inputLines.add("no");
     }
 
+    @Given("^command search is given$")
+    public void command_search_is_given() throws Throwable {
+        inputLines.add("search");
+    }
+
+    //this didn't work so I had to add the two ones below
+    @Given("^tag \"([^\"]*)\" is entered$")
+    public void tag_is_entered(String field) throws Throwable {
+        inputLines.add(field);
+    }
+
+    @Given("^tag hobbies is entered$")
+    public void tag_hobbies_is_entered() throws Throwable {
+        inputLines.add("hobbies");
+    }
+
+    @Given("^tag none is entered$")
+    public void tag_none_is_entered() throws Throwable {
+        inputLines.add("none");
+    }
+
     @When("^a valid field \"([^\"]*)\" is entered$")
     public void a_valid_field_is_entered(String field) throws Throwable {
         inputLines.add(field);
@@ -64,7 +84,7 @@ public class Stepdefs {
     public void a_valid_type_is_entered(String type) throws Throwable {
         inputLines.add(type);
     }
-    
+
     @When("^an invalid type \"([^\"]*)\" is entered$")
     public void an_invalid_type_is_entered(String type) throws Throwable {
         inputLines.add(type);
@@ -87,10 +107,15 @@ public class Stepdefs {
         inputLines.add("");
         inputLines.add("");
     }
-    
+
     @When("^two empty answers are entered$")
     public void two_empty_answers_are_entered() throws Throwable {
         inputLines.add("");
+        inputLines.add("");
+    }
+
+    @When("^one empty answer is entered$")
+    public void one_empty_answer_is_entered() throws Throwable {
         inputLines.add("");
     }
 

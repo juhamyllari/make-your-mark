@@ -59,35 +59,19 @@ public class Stepdefs {
         inputLines.add("search");
     }
 
-    //this didn't work so I had to add the two ones below
-    @Given("^tag \"([^\"]*)\" is entered$")
-    public void tag_is_entered(String field) throws Throwable {
-        inputLines.add(field);
+    @When("^a valid tag \"([^\"]*)\" is entered$")
+    public void a_valid_tag_hobbies_is_entered(String tag) throws Throwable {
+        inputLines.add(tag);
     }
 
-    @Given("^tag hobbies is entered$")
-    public void tag_hobbies_is_entered() throws Throwable {
-        inputLines.add("hobbies");
-    }
-
-    @Given("^tag none is entered$")
-    public void tag_none_is_entered() throws Throwable {
-        inputLines.add("none");
+    @When("^an invalid tag \"([^\"]*)\" is entered$")
+    public void an_invalid_tag_none_is_entered(String tag) throws Throwable {
+        inputLines.add(tag);
     }
 
     @When("^a valid field \"([^\"]*)\" is entered$")
     public void a_valid_field_is_entered(String field) throws Throwable {
         inputLines.add(field);
-    }
-
-    @When("^a valid type \"([^\"]*)\" is entered$")
-    public void a_valid_type_is_entered(String type) throws Throwable {
-        inputLines.add(type);
-    }
-
-    @When("^an invalid type \"([^\"]*)\" is entered$")
-    public void an_invalid_type_is_entered(String type) throws Throwable {
-        inputLines.add(type);
     }
 
     @When("^a valid title \"([^\"]*)\" is entered$")
@@ -141,7 +125,7 @@ public class Stepdefs {
 
     @Then("^system with save file will respond with \"([^\"]*)\"$")
     public void system_with_save_file_will_respond_with(String expected) throws Throwable {
-        App.createSamplesForTesting();
+        App.createSampleSaveFile();
         inputLines.add("exit");
         inputLines.add("exit");
         inputLines.add("exit");

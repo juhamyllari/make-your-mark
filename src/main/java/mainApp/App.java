@@ -5,7 +5,6 @@ import bookmark.BookmarkContainer;
 import bookmark.Bookmark;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,7 +28,7 @@ public class App {
     public static void run(IO io, boolean loadBookmarks) {
         // samples option for cucumber testing
         BookmarkContainer container;
-        if (Files.exists(Paths.get(BOOKMARK_FILE))) {
+        if (loadBookmarks && Files.exists(Paths.get(BOOKMARK_FILE))) {
             container = loadContainerFromFile();
         } else {
             container = new BookmarkContainer();
@@ -65,7 +64,7 @@ public class App {
         }
     }
 
-    public static void createSamplesForTesting() {
+    public static void createSampleSaveFile() {
         BookmarkContainer bmc = new BookmarkContainer();
         createSamples(bmc);
         saveContainerToFile(bmc);
@@ -118,7 +117,7 @@ public class App {
         }
         BookmarkContainer searchResult = new BookmarkContainer(container.searchByTagsOR(tags));
         if (searchResult.size() == 0) {
-            System.out.println("No bookmarks matching the search criteria.");
+            io.print("No bookmarks matching the search criteria.");
         } else {
             browseList(new BookmarkContainer(container.searchByTagsOR(tags)), io);
         }

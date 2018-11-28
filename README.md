@@ -12,9 +12,13 @@
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
 
+[Test coverage report]()
+
 ## Sprint 1
 
 Acceptance Criteria by User Story:
 * [Can add new bookmark](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/new_bookmark.feature)
 * [Can browse bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/browsing_bookmarks.feature)
-* [Can edit bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/editing_bookmark.feature)
+* [Can save bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/saving_bookmarks.feature)
+* [Can load bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/loading_bookmarks.feature)
+* [Can search bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/searching_bookmarks.feature)

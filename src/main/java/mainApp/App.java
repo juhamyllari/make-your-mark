@@ -81,6 +81,8 @@ public class App {
         fishBook.addToField("tags", "fishy");
         fishBook.addToField("tags", "guide");
         container.add(fishBook);
+        
+        changes = true;
     }
 
     private static void browse(BookmarkContainer container, IO io) {

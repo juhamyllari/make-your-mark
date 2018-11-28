@@ -3,3 +3,4 @@ build/
 .nb-gradle/
 .nbproject/
 **/saved_bookmarks.txt
+!build/reports/jacoco/test/html/index.html

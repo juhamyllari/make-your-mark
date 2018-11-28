@@ -53,11 +53,6 @@ public class BookmarkTest {
     }
 
     @Test
-    public void testCreateBook() {
-        // Method likely to be removed. Not tested at this point.
-    }
-
-    @Test
     public void testCreateBookmark() {
         Bookmark bm = Bookmark.createBookmark();
         assertEquals("", bm.getStringField("title"));

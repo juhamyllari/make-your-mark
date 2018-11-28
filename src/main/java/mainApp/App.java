@@ -300,49 +300,31 @@ public class App {
 //
     private static void createNew(BookmarkContainer container, IO io) {
         io.print("Provide the information, please (do not enter any text if you wish to leave the field blank)");
-        String title = io.nextLine("Title:");
-        String author = io.nextLine("Author:");
-        String url = io.nextLine("Url:");
-        String description = io.nextLine("Description:");
-        String isbn = io.nextLine("ISBN:");
-        ArrayList<String> tags = new ArrayList<>();
-        while (true) {
-            String newTag = io.nextLine("Give tags one by one for as long as you want; input an empty line to stop.");
-            if (newTag.trim().equals("")) {
-                break;
-            }
-            tags.add(newTag);
-        }
-        String comment = io.nextLine("Type a comment if you want to leave one.");
-        ArrayList<String> preC = new ArrayList<>();
-        while (true) {
-            String newC = io.nextLine("Give as many prerequisite courses as you want.");
-            if (newC.trim().equals("")) {
-                break;
-            }
-            preC.add(newC);
-        }
-        ArrayList<String> relC = new ArrayList<>();
-        while (true) {
-            String newC = io.nextLine("Give as many related courses as you want.");
-            if (newC.trim().equals("")) {
-                break;
-            }
-            relC.add(newC);
-        }
         Bookmark newB = Bookmark.createBookmark();
-        newB.setField("prerequisite courses", preC);
-        newB.setField("comment", comment);
-        newB.setField("author", author);
-        newB.setField("isbn", isbn);
-        newB.setField("title", title);
-        newB.setField("related courses", relC);
-        newB.setField("tags", tags);
-        newB.setField("url", url);
-        newB.setField("description", description);
+        newB.setField("title", io.nextLine("Title:"));
+        newB.setField("author", io.nextLine("Author:"));
+        newB.setField("url", io.nextLine("Url:"));
+        newB.setField("description", io.nextLine("Description:"));
+        newB.setField("isbn", io.nextLine("ISBN:"));  
+        newB.setField("tags", addList(io, "Give tags one by one for as long as you want; input an empty line to stop."));
+        newB.setField("comment", io.nextLine("Type a comment if you want to leave one."));
+        newB.setField("prerequisite courses", addList(io, "Give as many prerequisite courses as you want."));
+        newB.setField("related courses", addList(io, "Give as many related courses as you want."));
         container.add(newB);
         io.print("Bookmark created.");
         changes = true;
+    }
+    
+    private static ArrayList<String> addList(IO io, String printLine) {
+        ArrayList<String> list = new ArrayList<>();
+        while (true) {
+            String newO = io.nextLine(printLine);
+            if (newO.trim().equals("")) {
+                break;
+            }
+            list.add(newO);
+        }    
+        return list;
     }
 
     private static void testBookmarkSerialization(Bookmark bm, IO io) {

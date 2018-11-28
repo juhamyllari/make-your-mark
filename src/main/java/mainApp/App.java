@@ -177,6 +177,7 @@ public class App {
         if (newEntry.equals(bm.getStringField(field))) {
             bm.setField(field, "");
             io.print(field + " removed.");
+            changes = true;
         } else if (newEntry.trim().equals("")) {
             io.print("No change made.");
         } else {
@@ -184,8 +185,8 @@ public class App {
             io.print("New "
                     + field
                     + " set.");
+            changes = true;
         }
-        changes = true;
     }
 
 //    private static void editListField(Bookmark bm, String field, IO io) {

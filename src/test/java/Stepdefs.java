@@ -1,4 +1,5 @@
 
+import IO.FileIO;
 import mainApp.App;
 import IO.StubIO;
 import cucumber.api.java.en.Given;
@@ -125,7 +126,7 @@ public class Stepdefs {
 
     @Then("^system with save file will respond with \"([^\"]*)\"$")
     public void system_with_save_file_will_respond_with(String expected) throws Throwable {
-        App.createSampleSaveFile();
+        App.createSampleSaveFile(new FileIO());
         inputLines.add("exit");
         inputLines.add("exit");
         inputLines.add("exit");

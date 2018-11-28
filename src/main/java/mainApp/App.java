@@ -3,11 +3,7 @@ package mainApp;
 import IO.*;
 import bookmark.BookmarkContainer;
 import bookmark.Bookmark;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +25,9 @@ public class App {
     public static void run(IO io, boolean loadBookmarks) {
         // samples option for cucumber testing
         BookmarkContainer container;
+        FileIO fio = new FileIO();
         if (loadBookmarks && Files.exists(Paths.get(BOOKMARK_FILE))) {
-            container = loadContainerFromFile();
+            container = fio.loadContainerFromFile(BOOKMARK_FILE);
         } else {
             container = new BookmarkContainer();
         }
@@ -59,7 +56,7 @@ public class App {
         if (changes) {
             String save = io.nextLine("Save changes to file? yes/no");
             if (save.toLowerCase().equals("yes") || save.toLowerCase().equals("y")) {
-                if (saveContainerToFile(container)) {
+                if (fio.saveContainerToFile(container, BOOKMARK_FILE)) {
                     io.print("Saved.");
                 }
             } else {
@@ -68,10 +65,10 @@ public class App {
         }
     }
 
-    public static void createSampleSaveFile() {
+    public static void createSampleSaveFile(FileIO fio) {
         BookmarkContainer bmc = new BookmarkContainer();
         createSamples(bmc);
-        saveContainerToFile(bmc);
+        fio.saveContainerToFile(bmc, BOOKMARK_FILE);
     }
     
     private static void createSamples(BookmarkContainer container) {
@@ -345,30 +342,5 @@ public class App {
         BookmarkContainer deserialized = BookmarkContainer.deserializeBookmarkContainer(json);
         io.print("The container deserialized from JSON:");
         io.print(deserialized.toString());
-    }
-
-    private static boolean saveContainerToFile(BookmarkContainer container) {
-        String json = BookmarkContainer.serializeBookmarkContainer(container);
-        Path path = Paths.get(BOOKMARK_FILE);
-
-        try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            writer.write(json);
-            return true;
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
-        return false;
-    }
-
-    private static BookmarkContainer loadContainerFromFile() {
-        Path path = Paths.get(BOOKMARK_FILE);
-        String json = "";
-
-        try (BufferedReader reader = Files.newBufferedReader(path)) {
-            json = reader.readLine();
-        } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
-        }
-        return BookmarkContainer.deserializeBookmarkContainer(json);
     }
 }

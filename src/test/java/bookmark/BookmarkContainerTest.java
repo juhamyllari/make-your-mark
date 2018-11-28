@@ -134,5 +134,4 @@ public class BookmarkContainerTest {
         tags.add("nope");
         assertEquals(0, bc.searchByTagsOR(tags).size());
     }
-
 }

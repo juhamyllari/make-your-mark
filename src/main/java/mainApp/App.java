@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 public class App {
 
     public static final String BOOKMARK_FILE = "saved_bookmarks.txt";
+    private static boolean changes = false;
 
     public static void main(String[] args) {
         IO io = new ConsoleIO();
@@ -54,13 +55,16 @@ public class App {
                 io.print("Invalid command");
             }
         }
-        String save = io.nextLine("Save changes to file? yes/no");
-        if (save.toLowerCase().equals("yes") || save.toLowerCase().equals("y")) {
-            if (saveContainerToFile(container)) {
-                io.print("Saved.");
-            }
-        } else {
-            io.print("Quitting without saving.");
+        
+        if (changes) {
+            String save = io.nextLine("Save changes to file? yes/no");
+            if (save.toLowerCase().equals("yes") || save.toLowerCase().equals("y")) {
+                if (saveContainerToFile(container)) {
+                    io.print("Saved.");
+                }
+            } else {
+                io.print("Quitting without saving.");
+            }  
         }
     }
 
@@ -184,6 +188,7 @@ public class App {
                     + field
                     + " set.");
         }
+        changes = true;
     }
 
 //    private static void editListField(Bookmark bm, String field, IO io) {
@@ -337,6 +342,7 @@ public class App {
         newB.setField("description", description);
         container.add(newB);
         io.print("Bookmark created.");
+        changes = true;
     }
 
     private static void testBookmarkSerialization(Bookmark bm, IO io) {

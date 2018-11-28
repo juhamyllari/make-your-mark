@@ -1,5 +1,4 @@
-build/*
-!build/reports/jacoco/test/html/index.html
+build/
 .gradle/
 .nb-gradle/
 .nbproject/

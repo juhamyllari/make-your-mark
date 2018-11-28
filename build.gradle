@@ -32,6 +32,8 @@ dependencies {
     testCompile 'info.cukes:cucumber-junit:' + cucumberVersion
     testCompile 'junit:junit:' + junitVersion
     implementation 'com.google.code.gson:gson:2.8.5'
+    compile 'org.mongodb:mongodb-driver:3.9.1'
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.9.0'
 }
 
 repositories {

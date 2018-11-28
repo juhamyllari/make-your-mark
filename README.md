@@ -12,7 +12,7 @@
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
 
-[Test coverage report](https://github.com/juhamyllari/make-your-mark/build/reports/jacoco/test/html/index.html)
+[Test coverage report](https://github.com/juhamyllari/make-your-mark/blob/master/build/reports/jacoco/test/html/index.html)
 
 ## Sprint 2
 

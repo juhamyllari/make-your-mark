@@ -12,8 +12,6 @@
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
 
-[Test coverage report]()
-
 ## Sprint 1
 
 Acceptance Criteria by User Story:

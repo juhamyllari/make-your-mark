@@ -12,11 +12,15 @@
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
 
+## Sprint 2
+
+Acceptance Criteria by User Story:
+* [Can save bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/saving_bookmarks.feature)
+* [Can load bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/loading_bookmarks.feature)
+* [Can search bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/searching_bookmarks.feature)
+
 ## Sprint 1
 
 Acceptance Criteria by User Story:
 * [Can add new bookmark](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/new_bookmark.feature)
 * [Can browse bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/browsing_bookmarks.feature)
-* [Can save bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/saving_bookmarks.feature)
-* [Can load bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/loading_bookmarks.feature)
-* [Can search bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/searching_bookmarks.feature)

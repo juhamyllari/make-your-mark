@@ -98,7 +98,6 @@ public class Bookmark {
 
     public static Bookmark createBook(String title, String author, String isbn) {
         List<Field> entries = new ArrayList<>();
-        entries.add(new Field("type", "Book"));
         entries.add(new Field("title", title));
         entries.add(new Field("author", author));
         entries.add(new Field("isbn", isbn));

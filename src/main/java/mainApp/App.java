@@ -34,7 +34,7 @@ public class App {
             container = new BookmarkContainer();
         }
         while (true) {
-            String command = io.nextLine("Type \"(n)ew\" to create a bookmark, \"(b)rowse\" to browse the bookmarks, \"ser\" to test container serialization or \"(e)xit\" to quit the application.");
+            String command = io.nextLine("Type \"(n)ew\" to create a bookmark, \"(b)rowse\" to browse the bookmarks or \"(e)xit\" to quit the application.");
 
             if (command.equals("new") || command.equals("n")) {
                 createNew(container, io);
@@ -85,7 +85,7 @@ public class App {
     private static void browse(BookmarkContainer container, IO io) {
         while (true) {
             io.print(container.getCurrent().getStringField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
-            String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"search\" to search for bookmarks, \"edit\" to edit the current one, \"ser\" to test bookmark serialization or \"exit\" to stop browsing bookmarks.");
+            String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"search\" to search for bookmarks, \"edit\" to edit the current one or \"exit\" to stop browsing bookmarks.");
             if (command.equals("next")) {
                 container.getNext();
             } else if (command.equals("prev")) {

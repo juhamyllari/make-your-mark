@@ -33,7 +33,7 @@ public class BookmarkTest {
         lst = new ArrayList<>();
         lst.add("tag1");
         lst.add("tag2");
-        bmTagged.setField("tags", lst);
+        bmTagged.setListField("tags", lst);
     }
     
     @After
@@ -42,13 +42,13 @@ public class BookmarkTest {
 
     @Test
     public void testSetField_String_List() {
-        bmDefault.setField("tags", lst);
+        bmDefault.setListField("tags", lst);
         assertEquals(lst, bmDefault.getListField("tags"));
     }
 
     @Test
     public void testSetField_String_String() {
-        bmDefault.setField("title", "The Book");
+        bmDefault.setSingleField("title", "The Book");
         assertEquals("The Book", bmDefault.getSingleField("title"));
     }
 
@@ -65,7 +65,7 @@ public class BookmarkTest {
         assertEquals(0, bm.getListField("prerequisite courses").size());
         assertEquals(0, bm.getListField("related courses").size());
         
-        bm.setField("tags", lst);
+        bm.setListField("tags", lst);
         assertEquals(2, bm.getListField("tags").size());
     }
 

@@ -22,8 +22,12 @@ public class Bookmark {
     public Bookmark() {
         this(new ArrayList<Field>());
     }
+    
+    public boolean containsField(String fieldName) {
+        return fieldByName(fieldName) != null;
+    }
 
-    public void setField(String field, List<String> newContent) {
+    public void setListField(String field, List<String> newContent) {
         Field entry = fieldByName(field);
         if (entry == null) {
             entry = new Field(field, newContent);
@@ -34,10 +38,10 @@ public class Bookmark {
         }
     }
 
-    public void setField(String name, String data) {
+    public void setSingleField(String name, String data) {
         List<String> list = new ArrayList<>();
         list.add(data);
-        setField(name, list);
+        setListField(name, list);
     }
 
     /**
@@ -57,7 +61,7 @@ public class Bookmark {
 
     private Field fieldByName(String name) {
         return fields.stream()
-                .filter(entry -> entry.getName().equals(name))
+                .filter(entry -> entry.getName().toLowerCase().equals(name.toLowerCase()))
                 .findFirst()
                 .orElse(null);
     }
@@ -98,9 +102,9 @@ public class Bookmark {
 
     public static Bookmark createBook(String title, String author, String isbn) {
         List<Field> entries = new ArrayList<>();
-        entries.add(new Field("title", title));
-        entries.add(new Field("author", author));
-        entries.add(new Field("isbn", isbn));
+        entries.add(new Field("Title", title));
+        entries.add(new Field("Author", author));
+        entries.add(new Field("ISBN", isbn));
         return new Bookmark(entries);
     }
 
@@ -110,15 +114,15 @@ public class Bookmark {
      */
     public static Bookmark createBookmark() {
         List<Field> entries = new ArrayList<>();
-        entries.add(new Field("title", ""));
-        entries.add(new Field("url", ""));
-        entries.add(new Field("description", ""));
-        entries.add(new Field("author", ""));
-        entries.add(new Field("comment", ""));
-        entries.add(new Field("isbn", ""));
-        entries.add(new Field("tags", new ArrayList<String>()));
-        entries.add(new Field("prerequisite courses", new ArrayList<String>()));
-        entries.add(new Field("related courses", new ArrayList<String>()));
+        entries.add(new Field("Title", ""));
+        entries.add(new Field("URL", ""));
+        entries.add(new Field("Description", ""));
+        entries.add(new Field("Author", ""));
+        entries.add(new Field("Comment", ""));
+        entries.add(new Field("ISBN", ""));
+        entries.add(new Field("Tags", new ArrayList<String>()));
+        entries.add(new Field("Prerequisite courses", new ArrayList<String>()));
+        entries.add(new Field("Related courses", new ArrayList<String>()));
         return new Bookmark(entries);
     }
 

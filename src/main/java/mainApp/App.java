@@ -52,7 +52,7 @@ public class App {
                 io.print("Invalid command");
             }
         }
-        
+
         if (changes) {
             String save = io.nextLine("Save changes to file? yes/no");
             if (save.toLowerCase().equals("yes") || save.toLowerCase().equals("y")) {
@@ -61,7 +61,7 @@ public class App {
                 }
             } else {
                 io.print("Quitting without saving.");
-            }  
+            }
         }
     }
 
@@ -70,18 +70,24 @@ public class App {
         createSamples(bmc);
         fio.saveContainerToFile(bmc, BOOKMARK_FILE);
     }
-    
+
     private static void createSamples(BookmarkContainer container) {
-        Bookmark routerBook = Bookmark.createBook("Reitittimet 1992-1996", "Koodi Kalevi", "43289-23432");
-        routerBook.addToField("tags", "guide");
+        Bookmark routerBook = Bookmark.createBookmark();
+        routerBook.setSingleField("Title", "Reitittimet 1992-1996");
+        routerBook.setSingleField("Author", "Koodi Kalevi");
+        routerBook.setSingleField("ISBN", "43289-23432");
+        routerBook.addToField("Tags", "guide");
         container.add(routerBook);
 
-        Bookmark fishBook = Bookmark.createBook("Kalaopas", "Kimmo Kala", "8493-33");
-        fishBook.addToField("tags", "hobbies");
-        fishBook.addToField("tags", "fishy");
-        fishBook.addToField("tags", "guide");
+        Bookmark fishBook = Bookmark.createBookmark();
+        fishBook.setSingleField("Title", "Kalaopas");
+        fishBook.setSingleField("Author", "Kimmo Kala");
+        fishBook.setSingleField("ISBN", "8493-33");
+        fishBook.addToField("Tags", "hobbies");
+        fishBook.addToField("Tags", "fishing");
+        fishBook.addToField("Tags", "guide");
         container.add(fishBook);
-        
+
         changes = true;
     }
 
@@ -156,9 +162,10 @@ public class App {
             return;
         }
 
-        if (!allFields.contains(field)) {
+        if (!bm.containsField(field)) {
             io.print("Invalid field.");
             edit(bm, io);
+            return;
         }
 
         if (bm.fieldIsSingle(field)) {
@@ -177,13 +184,13 @@ public class App {
                 + " or type the current " + field + " to remove it.");
 
         if (newEntry.equals(bm.getSingleField(field))) {
-            bm.setField(field, "");
+            bm.setSingleField(field, "");
             io.print(field + " removed.");
             changes = true;
         } else if (newEntry.trim().equals("")) {
             io.print("No change made.");
         } else {
-            bm.setField(field, newEntry);
+            bm.setSingleField(field, newEntry);
             io.print("New "
                     + field
                     + " set.");
@@ -301,29 +308,46 @@ public class App {
     private static void createNew(BookmarkContainer container, IO io) {
         io.print("Provide the information, please (do not enter any text if you wish to leave the field blank)");
         Bookmark newB = Bookmark.createBookmark();
-        newB.setField("title", io.nextLine("Title:"));
-        newB.setField("author", io.nextLine("Author:"));
-        newB.setField("url", io.nextLine("Url:"));
-        newB.setField("description", io.nextLine("Description:"));
-        newB.setField("isbn", io.nextLine("ISBN:"));  
-        newB.setField("tags", addList(io, "Give tags one by one for as long as you want; input an empty line to stop."));
-        newB.setField("comment", io.nextLine("Type a comment if you want to leave one."));
-        newB.setField("prerequisite courses", addList(io, "Give as many prerequisite courses as you want."));
-        newB.setField("related courses", addList(io, "Give as many related courses as you want."));
+        for (String fieldName : newB.getFieldNames()) {
+            setFieldByUserInput(newB, fieldName, true, io);
+        }
         container.add(newB);
         io.print("Bookmark created.");
         changes = true;
     }
-    
-    private static ArrayList<String> addList(IO io, String printLine) {
+
+    private static void setFieldByUserInput(Bookmark bm, String fieldName, boolean initial, IO io) {
+        if (bm.fieldIsSingle(fieldName)) {
+            setSingleFieldByUserInput(bm, fieldName, initial, io);
+        } else {
+            setListFieldByUserInput(bm, fieldName, initial, io);
+        }
+    }
+
+    private static void setSingleFieldByUserInput(Bookmark bm, String fieldName, boolean initial, IO io) {
+        String prompt = initial ? fieldName + ":" : "new " + fieldName + ":";
+        String newValue = io.nextLine(prompt);
+        bm.setSingleField(fieldName, newValue);
+    }
+
+    private static void setListFieldByUserInput(Bookmark bm, String fieldName, boolean initial, IO io) {
+        String prompt
+                = "Give "
+                + fieldName
+                + "one by one for as long as you want; input an empty line to stop.";
+        List<String> items = addList(io, prompt);
+        bm.setListField(fieldName, items);
+    }
+
+    private static ArrayList<String> addList(IO io, String prompt) {
         ArrayList<String> list = new ArrayList<>();
         while (true) {
-            String newO = io.nextLine(printLine);
+            String newO = io.nextLine(prompt);
             if (newO.trim().equals("")) {
                 break;
             }
             list.add(newO);
-        }    
+        }
         return list;
     }
 
@@ -346,4 +370,5 @@ public class App {
         io.print("The container deserialized from JSON:");
         io.print(deserialized.toString());
     }
+
 }

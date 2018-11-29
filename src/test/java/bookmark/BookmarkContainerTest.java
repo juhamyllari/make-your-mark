@@ -31,7 +31,10 @@ public class BookmarkContainerTest {
 
     @Before
     public void setUp() {
-        funnyBook = Bookmark.createBook("Funny Book", "Punny Guy", "1234");
+        funnyBook = Bookmark.createBookmark();
+        funnyBook.setSingleField("Title", "Funny Book");
+        funnyBook.setSingleField("Author", "Punny Guy");
+        funnyBook.setSingleField("ISBN", "1234");
         sillyBook = Bookmark.createBook("Silly Book", "S. Illy Pherson", "9999");
         lst.add(funnyBook);
         bc = new BookmarkContainer(lst);
@@ -117,7 +120,7 @@ public class BookmarkContainerTest {
 
     @Test
     public void testOrSearchAndFind() {
-        funnyBook.setField("tags", "fun");
+        funnyBook.setSingleField("tags", "fun");
         bc.add(funnyBook);
         bc.add(sillyBook);
         List<String> tags = new ArrayList();

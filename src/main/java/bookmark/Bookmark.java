@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Represents a single bookmark. The object contains a list of Field objects
@@ -13,6 +15,7 @@ public class Bookmark {
 
     private List<Field> fields;
     private boolean read;
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     public Bookmark(List<Field> entries) {
         this.fields = entries;
@@ -123,7 +126,18 @@ public class Bookmark {
         entries.add(new Field("Tags", new ArrayList<String>()));
         entries.add(new Field("Prerequisite courses", new ArrayList<String>()));
         entries.add(new Field("Related courses", new ArrayList<String>()));
+        entries.add(new Field("Added on", date()));
         return new Bookmark(entries);
+    }
+    
+    private static String date() {
+        LocalDateTime now = LocalDateTime.now();
+        return formatter.format(now);
+    }
+    
+    private LocalDateTime parser(Bookmark bm) {
+        LocalDateTime dateTime = LocalDateTime.parse(bm.getSingleField("Added on"), formatter);
+        return dateTime;
     }
 
     public static String serializeBookmark(Bookmark bm) {

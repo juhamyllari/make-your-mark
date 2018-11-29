@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class Stepdefs {
@@ -39,8 +40,8 @@ public class Stepdefs {
     public void command_edit_is_given() throws Throwable {
         inputLines.add("edit");
     }
-    
-     @Given("^command exit is given$")
+
+    @Given("^command exit is given$")
     public void command_exit_is_given() throws Throwable {
         inputLines.add("exit");
     }
@@ -134,4 +135,4 @@ public class Stepdefs {
         App.run(io, true);
         assertTrue(io.getPrints().contains(expected));
     }
- }
+}

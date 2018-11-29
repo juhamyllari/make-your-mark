@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 
 public class FileIO {
     
-    public boolean saveContainerToFile(BookmarkContainer container, String file) {
+    public static boolean saveContainerToFile(BookmarkContainer container, String file) {
         String json = BookmarkContainer.serializeBookmarkContainer(container);
         Path path = Paths.get(file);
 
@@ -23,14 +23,14 @@ public class FileIO {
         return false;
     }
     
-    public BookmarkContainer loadContainerFromFile(String file) {
+    public static BookmarkContainer loadContainerFromFile(String file) {
         Path path = Paths.get(file);
         String json = "";
 
         try (BufferedReader reader = Files.newBufferedReader(path)) {
             json = reader.readLine();
         } catch (IOException e) {
-            System.err.format("IOException: %s%n", e);
+            return null;
         }
         return BookmarkContainer.deserializeBookmarkContainer(json);
     }

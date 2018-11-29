@@ -87,7 +87,7 @@ public class App {
 
     private static void browse(BookmarkContainer container, IO io) {
         while (true) {
-            io.print(container.getCurrent().getStringField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
+            io.print(container.getCurrent().getSingleField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
             String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, \"search\" to search for bookmarks, \"edit\" to edit the current one or \"exit\" to stop browsing bookmarks.");
             if (command.equals("next")) {
                 container.getNext();
@@ -128,7 +128,7 @@ public class App {
 
     private static void browseList(BookmarkContainer container, IO io) {
         while (true) {
-            io.print(container.getCurrent().getStringField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
+            io.print(container.getCurrent().getSingleField("title") + " " + (container.getIndex() + 1) + "/" + container.size());
             String command = io.nextLine("Type \"next\" to see the next bookmark, \"prev\" to see the previous bookmark, \"show\" to show more information on the current one, or \"exit\" to stop browsing search results.");
             if (command.equals("next")) {
                 container.getNext();
@@ -161,22 +161,22 @@ public class App {
             edit(bm, io);
         }
 
-        if (bm.fieldIsString(field)) {
-            editStringField(bm, field, io);
+        if (bm.fieldIsSingle(field)) {
+            editSingleField(bm, field, io);
         } else {
             //editListField(bm, field, io);
         }
 
     }
 
-    private static void editStringField(Bookmark bm, String field, IO io) {
+    private static void editSingleField(Bookmark bm, String field, IO io) {
         String newEntry = io.nextLine("Current "
                 + field + ": "
-                + bm.getStringField(field)
+                + bm.getSingleField(field)
                 + ". Set a new " + field
                 + " or type the current " + field + " to remove it.");
 
-        if (newEntry.equals(bm.getStringField(field))) {
+        if (newEntry.equals(bm.getSingleField(field))) {
             bm.setField(field, "");
             io.print(field + " removed.");
             changes = true;

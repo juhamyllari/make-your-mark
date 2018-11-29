@@ -49,18 +49,18 @@ public class BookmarkTest {
     @Test
     public void testSetField_String_String() {
         bmDefault.setField("title", "The Book");
-        assertEquals("The Book", bmDefault.getStringField("title"));
+        assertEquals("The Book", bmDefault.getSingleField("title"));
     }
 
     @Test
     public void testCreateBookmark() {
         Bookmark bm = Bookmark.createBookmark();
-        assertEquals("", bm.getStringField("title"));
-        assertEquals("", bm.getStringField("url"));
-        assertEquals("", bm.getStringField("description"));
-        assertEquals("", bm.getStringField("author"));
-        assertEquals("", bm.getStringField("comment"));
-        assertEquals("", bm.getStringField("isbn"));
+        assertEquals("", bm.getSingleField("title"));
+        assertEquals("", bm.getSingleField("url"));
+        assertEquals("", bm.getSingleField("description"));
+        assertEquals("", bm.getSingleField("author"));
+        assertEquals("", bm.getSingleField("comment"));
+        assertEquals("", bm.getSingleField("isbn"));
         assertEquals(0, bm.getListField("tags").size());
         assertEquals(0, bm.getListField("prerequisite courses").size());
         assertEquals(0, bm.getListField("related courses").size());
@@ -78,7 +78,7 @@ public class BookmarkTest {
     }
 
     @Test
-    public void testGetStringField() {
+    public void testGetSingleField() {
     }
 
     @Test

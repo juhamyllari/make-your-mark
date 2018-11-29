@@ -49,7 +49,7 @@ public class FieldTest {
     }
 
     @Test
-    public void testIsStringField() {
+    public void testIsSingleField() {
     }
 
     @Test

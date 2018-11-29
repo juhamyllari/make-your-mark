@@ -70,7 +70,7 @@ public class Bookmark {
         return new ArrayList<>();
     }
 
-    public String getStringField(String title) {
+    public String getSingleField(String title) {
         Field entry = fieldByName(title);
         if(entry!=null){
             return entry.getFirst();
@@ -84,9 +84,9 @@ public class Bookmark {
                 .collect(Collectors.toList());
     }
 
-    public boolean fieldIsString(String fieldName) {
+    public boolean fieldIsSingle(String fieldName) {
         Field field = fieldByName(fieldName);
-        return field.isStringField();
+        return field.isSingleField();
     }
 
     @Override

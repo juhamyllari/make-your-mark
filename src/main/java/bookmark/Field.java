@@ -17,7 +17,7 @@ public class Field {
 
     private String name;
     private List<String> data;
-    private boolean isSingleField;
+    private final boolean isSingleField;
 
     public Field(String name, List<String> items) {
         this.name = name;
@@ -58,7 +58,7 @@ public class Field {
         return name + ": " + itemsString;
     }
 
-    public boolean isStringField() {
+    public boolean isSingleField() {
         return isSingleField;
     }
 

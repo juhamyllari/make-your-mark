@@ -334,7 +334,7 @@ public class App {
         String prompt
                 = "Give "
                 + fieldName
-                + "one by one for as long as you want; input an empty line to stop.";
+                + " one by one for as long as you want; input an empty line to stop.";
         List<String> items = addList(io, prompt);
         bm.setListField(fieldName, items);
     }

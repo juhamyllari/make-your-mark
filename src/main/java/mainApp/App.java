@@ -301,7 +301,9 @@ public class App {
         io.print("Provide the information, please (do not enter any text if you wish to leave the field blank)");
         Bookmark newB = Bookmark.createBookmark();
         for (String fieldName : newB.getFieldNames()) {
-            setFieldByUserInput(newB, fieldName, true, io);
+            if (!fieldName.equals("Added on")) {
+              setFieldByUserInput(newB, fieldName, true, io);  
+            }
         }
         container.add(newB);
         io.print("Bookmark created.");

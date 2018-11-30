@@ -3,9 +3,7 @@ package bookmark;
 import com.google.gson.Gson;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class BookmarkContainer {
 
@@ -81,15 +79,17 @@ public class BookmarkContainer {
     }
 
     /**
-     * Get the index of the current bookmark. Retrieving a bookmark by its index
-     * is not supported. However, we may wish to display the index in a user
-     * interface, e.g. "showing bookmark 3 of 42". The method is provided for
-     * this purpose.
+     * Get the index of the current bookmark, e.g. to display the index in a
+     * user interface: "showing bookmark 3 of 42".
      *
      * @return index
      */
     public int getIndex() {
         return index;
+    }
+    
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public int size() {

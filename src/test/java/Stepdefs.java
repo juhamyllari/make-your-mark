@@ -7,7 +7,6 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class Stepdefs {

@@ -51,6 +51,10 @@ public class Field {
     public String getFirst() {
         return data.get(0);
     }
+    
+    public boolean contains(String content) {
+        return data.stream().anyMatch(string -> string.equalsIgnoreCase(content));
+    }
 
     @Override
     public String toString() {

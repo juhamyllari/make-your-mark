@@ -88,9 +88,9 @@ public class App {
     }
 
     private static void browse(BookmarkContainer container, IO io) {
-        if (container.getIndex() != 0) {
+        if (container.getIndex() > 0) {
             String resume = io.nextLine("Type \"first\" to start from the beginning (last added) or leave empty to continue form your last browsed bookmark.");
-            if (resume.equals("first")) container.setIndex(0);
+            if (resume.equals("first")) container.resetIndex();
         }
         
         while (true) {
@@ -276,7 +276,7 @@ public class App {
     }
 
     private static void testContainerSerialization(BookmarkContainer container, IO io) {
-        String json = BookmarkContainer.serializeBookmarkContainer(container);
+        String json = container.serialize();
         io.print("The container in JSON:");
         io.print(json);
 
@@ -290,8 +290,8 @@ public class App {
         if (treatFileAsMissing || savedContainer == null) {
             return container.size() != 0;
         }
-        String newContainerJSON = BookmarkContainer.serializeBookmarkContainer(container);
-        String savedContainerJSON = BookmarkContainer.serializeBookmarkContainer(savedContainer);
+        String newContainerJSON = container.serialize();
+        String savedContainerJSON = savedContainer.serialize();
         return !savedContainerJSON.equals(newContainerJSON);
     }
 }

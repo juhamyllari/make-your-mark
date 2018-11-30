@@ -8,11 +8,26 @@ import java.util.stream.Collectors;
 public class BookmarkContainer {
 
     private final LinkedList<Bookmark> bookmarks;
-    private int index;
+    private LinkedList<Bookmark> filtered;
+    private Bookmark current;
+    private boolean showRead;
+    private SearchCriterion searchCriterion;
+    
+    private class SearchCriterion {
+        private String field;
+        private String content;
+
+        private SearchCriterion(String field, String content) {
+            this.field = field;
+            this.content = content;
+        }
+    }
 
     public BookmarkContainer(LinkedList<Bookmark> bookmarks) {
         this.bookmarks = bookmarks;
-        this.index = 0;
+        this.showRead = false;
+        updateFiltered();
+        this.current = getFirst();
     }
 
     public BookmarkContainer() {
@@ -28,7 +43,8 @@ public class BookmarkContainer {
     public void add(Bookmark bookmark) {
         if (!bookmarks.contains(bookmark)) {
             bookmarks.addFirst(bookmark);
-            index = 0;
+            current = bookmark;
+            updateFiltered();
         }
     }
 
@@ -38,15 +54,14 @@ public class BookmarkContainer {
      * @param bookmark
      */
     public void remove(Bookmark bookmark) {
-        if (bookmarks.contains(bookmark)) {
-            int indexToRemove = bookmarks.indexOf(bookmark);
-            bookmarks.remove(bookmark);
-            if (indexToRemove < index) {
-                index--;
-            } else if (indexToRemove == index) {
-                index = 0;
-            }
+        if (!bookmarks.contains(bookmark)) {
+            return;
         }
+        if (current == bookmark) {
+            current = bookmarks.getFirst();
+        }
+        bookmarks.remove(bookmark);
+        updateFiltered();
     }
 
     /**
@@ -55,7 +70,7 @@ public class BookmarkContainer {
      * @return bookmarks[index]
      */
     public Bookmark getCurrent() {
-        return bookmarks.get(index);
+        return current;
     }
 
     /**
@@ -64,8 +79,26 @@ public class BookmarkContainer {
      * @return bookmarks[++index]
      */
     public Bookmark getNext() {
-        incrementIndex();
-        return bookmarks.get(index);
+        if (filtered.isEmpty()) {
+            return null;
+        }
+        if (filtered.size() == 1) {
+            return current;
+        }
+        int currentIndex = filtered.indexOf(current);
+        if (currentIndex == filtered.size() - 1) {
+            current = getFirst();
+            return current;
+        }
+        current = filtered.get(currentIndex + 1);
+        return current;
+    }
+
+    private Bookmark getFirst() {
+        if (filtered.isEmpty()) {
+            return null;
+        }
+        return filtered.getFirst();
     }
 
     /**
@@ -74,8 +107,19 @@ public class BookmarkContainer {
      * @return bookmarks[--index]
      */
     public Bookmark getPrevious() {
-        decrementIndex();
-        return bookmarks.get(index);
+        if (filtered.isEmpty()) {
+            return null;
+        }
+        if (filtered.size() == 1) {
+            return current;
+        }
+        int currentIndex = filtered.indexOf(current);
+        if (currentIndex == 0) {
+            current = filtered.get(filtered.size() - 1);
+            return current;
+        }
+        current = filtered.get(currentIndex - 1);
+        return current;
     }
 
     /**
@@ -85,60 +129,56 @@ public class BookmarkContainer {
      * @return index
      */
     public int getIndex() {
-        return index;
-    }
-    
-    public void setIndex(int index) {
-        this.index = index;
+        return filtered.indexOf(current);
     }
 
     public int size() {
-        return bookmarks.size();
+        return filtered.size();
     }
 
     public List<Bookmark> getBookmarks() {
         return bookmarks;
     }
 
-    private void incrementIndex() {
-        index++;
-        if (index >= bookmarks.size()) {
-            index = 0;
-        }
-    }
-
-    private void decrementIndex() {
-        index--;
-        if (index < 0) {
-            index = bookmarks.size() - 1;
-        }
-    }
-    
 //    public LinkedList<Bookmark> searchByTagsAND(List<String> tags){
 //        Function<Stream<Bookmark>,Stream<Bookmark>> f = x -> x;
 //        for(String tag:tags) f=f.compose(x -> x.filter(y -> y.getListField("tags").contains(tag)));
 //        return f.apply(bookmarks.stream()).collect(Collectors.toCollection(LinkedList::new));
 //    }
-    
-    public LinkedList<Bookmark> searchByTagsOR(List<String> tags){
+    public LinkedList<Bookmark> searchByTagsOR(List<String> tags) {
         return bookmarks.stream().filter(x -> tags.stream().anyMatch(y -> x.getListField("tags").contains(y))).collect(Collectors.toCollection(LinkedList::new));
     }
-    
+
+    public void setFilter(String fieldName, String content) {
+        this.searchCriterion = new SearchCriterion(fieldName, content);
+    }
+
     @Override
     public String toString() {
-        return "BookmarkContainer containing:\n" 
+        return "BookmarkContainer containing:\n"
                 + bookmarks.stream()
-                .map(bm -> bm.toString())
-                .collect(Collectors.joining("\n--\n"));
+                        .map(bm -> bm.toString())
+                        .collect(Collectors.joining("\n--\n"));
     }
-    
-    public static String serializeBookmarkContainer(BookmarkContainer container) {
+
+    public String serialize() {
         Gson gson = new Gson();
-        return gson.toJson(container);
+        return gson.toJson(this);
     }
-    
+
     public static BookmarkContainer deserializeBookmarkContainer(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, BookmarkContainer.class);
+    }
+
+    private void updateFiltered() {
+        filtered = bookmarks.stream()
+                .filter(bm -> showRead || !bm.isRead())
+                .filter(bm -> searchCriterion == null || bm.fieldContains(searchCriterion.field, searchCriterion.content))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    public void resetIndex() {
+        current = getFirst();
     }
 }

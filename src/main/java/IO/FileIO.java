@@ -11,7 +11,7 @@ import java.nio.file.Paths;
 public class FileIO {
     
     public static boolean saveContainerToFile(BookmarkContainer container, String file) {
-        String json = BookmarkContainer.serializeBookmarkContainer(container);
+        String json = container.serialize();
         Path path = Paths.get(file);
 
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
@@ -32,6 +32,8 @@ public class FileIO {
         } catch (IOException e) {
             return null;
         }
-        return BookmarkContainer.deserializeBookmarkContainer(json);
+        BookmarkContainer container = BookmarkContainer.deserializeBookmarkContainer(json);
+        container.resetIndex();
+        return container;
     }
 }

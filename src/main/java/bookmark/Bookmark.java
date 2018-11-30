@@ -26,6 +26,10 @@ public class Bookmark {
     public Bookmark() {
         this(new ArrayList<Field>());
     }
+
+    public boolean isRead() {
+        return read;
+    }
     
     public boolean containsField(String fieldName) {
         return fieldByName(fieldName) != null;
@@ -89,6 +93,14 @@ public class Bookmark {
         return fields.stream()
                 .map(field -> field.getName())
                 .collect(Collectors.toList());
+    }
+    
+    public boolean fieldContains(String fieldName, String content) {
+        Field entry = fieldByName(fieldName);
+        if (entry == null) {
+            return false;
+        }
+        return entry.contains(content);
     }
 
     public boolean fieldIsSingle(String fieldName) {

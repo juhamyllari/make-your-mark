@@ -290,9 +290,6 @@ public class App {
         if (treatFileAsMissing || savedContainer == null) {
             return container.size() != 0;
         }
-//        // Setting the index of the comparison container to 0 to omit comparing the index.
-//        BookmarkContainer newContainer = container;
-//        newContainer.setIndex(0);
         String newContainerJSON = BookmarkContainer.serializeBookmarkContainer(container);
         String savedContainerJSON = BookmarkContainer.serializeBookmarkContainer(savedContainer);
         return !savedContainerJSON.equals(newContainerJSON);

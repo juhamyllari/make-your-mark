@@ -37,7 +37,6 @@ public class Bookmark {
             entry = new Field(field, newContent);
             this.fields.add(entry);
         } else {
-            entry.setName(field);
             entry.setData(newContent);
         }
     }

@@ -7,4 +7,4 @@ Feature: As a user I want to load reading tips from a local file
 
   Scenario: User can load reading tips from an existing file
     Given command browse is given
-    Then system with save file will respond with "Kalaopas 1/2"
+    Then system with save file will respond with "1/2"

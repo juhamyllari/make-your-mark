@@ -73,6 +73,7 @@ public class App {
         routerBook.setSingleField("Author", "Koodi Kalevi");
         routerBook.setSingleField("ISBN", "43289-23432");
         routerBook.addToField("Tags", "guide");
+        routerBook.setAddedOn();
         container.add(routerBook);
 
         Bookmark fishBook = Bookmark.createBookmark();
@@ -82,6 +83,7 @@ public class App {
         fishBook.addToField("Tags", "hobbies");
         fishBook.addToField("Tags", "fishing");
         fishBook.addToField("Tags", "guide");
+        fishBook.setAddedOn();
         container.add(fishBook);
     }
 
@@ -305,6 +307,7 @@ public class App {
               setFieldByUserInput(newB, fieldName, true, io);  
             }
         }
+        newB.setAddedOn();
         container.add(newB);
         io.print("Bookmark created.");
     }

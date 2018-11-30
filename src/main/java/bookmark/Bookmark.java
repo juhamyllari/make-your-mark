@@ -15,6 +15,7 @@ public class Bookmark {
 
     private List<Field> fields;
     private boolean read;
+    private String addedOn;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     public Bookmark(List<Field> entries) {
@@ -95,12 +96,22 @@ public class Bookmark {
         Field field = fieldByName(fieldName);
         return field.isSingleField();
     }
+    
+    public void setAddedOn() {
+        LocalDateTime now = LocalDateTime.now();
+        this.addedOn = formatter.format(now);
+    }
+    
+    public String getAddedOn() {
+        return this.addedOn;
+    }
 
     @Override
     public String toString() {
         return fields.stream()
                 .map(entry -> entry.toString())
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining("\n"))+
+                "\nAdded on: " + this.addedOn;
     }
 
     public static Bookmark createBook(String title, String author, String isbn) {
@@ -126,17 +137,11 @@ public class Bookmark {
         entries.add(new Field("Tags", new ArrayList<String>()));
         entries.add(new Field("Prerequisite courses", new ArrayList<String>()));
         entries.add(new Field("Related courses", new ArrayList<String>()));
-        entries.add(new Field("Added on", date()));
         return new Bookmark(entries);
     }
-    
-    private static String date() {
-        LocalDateTime now = LocalDateTime.now();
-        return formatter.format(now);
-    }
-    
-    private LocalDateTime parser(Bookmark bm) {
-        LocalDateTime dateTime = LocalDateTime.parse(bm.getSingleField("Added on"), formatter);
+   
+    public static LocalDateTime parser(Bookmark bm) {
+        LocalDateTime dateTime = LocalDateTime.parse(bm.getAddedOn(), formatter);
         return dateTime;
     }
 

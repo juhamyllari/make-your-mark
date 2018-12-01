@@ -10,7 +10,7 @@ public class BookmarkContainer {
     private final LinkedList<Bookmark> bookmarks;
     private LinkedList<Bookmark> filtered;
     private Bookmark current;
-    private boolean showRead;
+    private boolean showingRead;
     private SearchCriterion searchCriterion;
     
     private class SearchCriterion {
@@ -25,7 +25,7 @@ public class BookmarkContainer {
 
     public BookmarkContainer(LinkedList<Bookmark> bookmarks) {
         this.bookmarks = bookmarks;
-        this.showRead = false;
+        this.showingRead = false;
         updateFiltered();
         this.current = getFirst();
     }
@@ -83,7 +83,7 @@ public class BookmarkContainer {
             return null;
         }
         if (filtered.size() == 1) {
-            return current;
+            return filtered.getFirst();
         }
         int currentIndex = filtered.indexOf(current);
         if (currentIndex == filtered.size() - 1) {
@@ -111,7 +111,7 @@ public class BookmarkContainer {
             return null;
         }
         if (filtered.size() == 1) {
-            return current;
+            return filtered.getFirst();
         }
         int currentIndex = filtered.indexOf(current);
         if (currentIndex == 0) {
@@ -135,6 +135,15 @@ public class BookmarkContainer {
     public int size() {
         return filtered.size();
     }
+    
+    public void markCurrentAsRead() {
+        current.markAsRead();
+        updateFiltered();
+    }
+    
+    public int unfilteredSize() {
+        return bookmarks.size();
+    }
 
     public List<Bookmark> getBookmarks() {
         return bookmarks;
@@ -157,6 +166,10 @@ public class BookmarkContainer {
     public void dropFilter() {
         this.searchCriterion = null;
         updateFiltered();
+    }
+    
+    public boolean hasFilter() {
+        return searchCriterion != null;
     }
 
     @Override
@@ -183,7 +196,7 @@ public class BookmarkContainer {
 
     private void updateFiltered() {
         filtered = bookmarks.stream()
-                .filter(bm -> showRead || !bm.isRead())
+                .filter(bm -> showingRead || !bm.isRead())
                 .filter(bm -> searchCriterion == null || bm.fieldContainsAny(searchCriterion.field, searchCriterion.content))
                 .collect(Collectors.toCollection(LinkedList::new));
         if (!filtered.contains(current)) {
@@ -193,5 +206,9 @@ public class BookmarkContainer {
 
     public void resetIndex() {
         current = getFirst();
+    }
+
+    public boolean isShowingRead() {
+        return showingRead;
     }
 }

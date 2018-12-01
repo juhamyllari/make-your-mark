@@ -42,7 +42,7 @@ public class Stepdefs {
 
     @Given("^command exit is given$")
     public void command_exit_is_given() throws Throwable {
-        inputLines.add("exit");
+        inputLines.add("quit");
     }
 
     @Given("^command yes is given$")
@@ -116,9 +116,9 @@ public class Stepdefs {
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String expected) throws Throwable {
-        inputLines.add("exit");
-        inputLines.add("exit");
-        inputLines.add("exit");
+        inputLines.add("quit");
+        inputLines.add("quit");
+        inputLines.add("quit");
         io = new StubIO(inputLines);
         App.run(io, false);
         assertTrue(io.getPrints().contains(expected));
@@ -127,9 +127,9 @@ public class Stepdefs {
     @Then("^system with save file will respond with \"([^\"]*)\"$")
     public void system_with_save_file_will_respond_with(String expected) throws Throwable {
         App.createSampleSaveFile(new FileIO());
-        inputLines.add("exit");
-        inputLines.add("exit");
-        inputLines.add("exit");
+        inputLines.add("quit");
+        inputLines.add("quit");
+        inputLines.add("quit");
         io = new StubIO(inputLines);
         App.run(io, true);
         assertTrue(io.getPrints().contains(expected));

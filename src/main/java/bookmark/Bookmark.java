@@ -32,7 +32,7 @@ public class Bookmark {
 
     public void markAsRead() {
         LocalDateTime now = LocalDateTime.now();
-        this.addedOn = formatter.format(now);
+        this.readOn = formatter.format(now);
     }
 
     public String getReadOn() {

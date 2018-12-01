@@ -7,11 +7,11 @@ import bookmark.BookmarkContainer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import mainApp.App;
 
 public class Menu {
 
     public static final String BOOKMARK_FILE = "saved_bookmarks.txt";
-    public static boolean treatFileAsMissing = false; // for some Cucumber tests
 
     private BookmarkContainer container;
     private IO io;
@@ -106,7 +106,7 @@ public class Menu {
 
     public static boolean containerHasChanged(BookmarkContainer container) {
         BookmarkContainer savedContainer = FileIO.loadContainerFromFile(BOOKMARK_FILE);
-        if (treatFileAsMissing || savedContainer == null) {
+        if (App.treatFileAsMissing || savedContainer == null) {
             return container.size() != 0;
         }
         String newContainerJSON = container.serialize();

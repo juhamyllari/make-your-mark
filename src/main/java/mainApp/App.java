@@ -124,11 +124,14 @@ public class App {
             }
             tags.add(newTag);
         }
-        BookmarkContainer searchResult = new BookmarkContainer(container.searchByTagsOR(tags));
-        if (searchResult.size() == 0) {
+        
+        container.setFilter("Tags", tags);
+        
+        if (container.size() == 0) {
             io.print("No bookmarks matching the search criteria.");
+            container.dropFilter();
         } else {
-            browseList(new BookmarkContainer(container.searchByTagsOR(tags)), io);
+            browseList(container, io);
         }
     }
 

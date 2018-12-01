@@ -55,6 +55,10 @@ public class Field {
     public boolean contains(String content) {
         return data.stream().anyMatch(string -> string.equalsIgnoreCase(content));
     }
+    
+    public boolean containsAny(List<String> content) {
+        return content.stream().anyMatch(string -> this.contains(string));
+    }
 
     @Override
     public String toString() {
@@ -69,4 +73,5 @@ public class Field {
     public List<String> getList() {
         return data;
     }
+
 }

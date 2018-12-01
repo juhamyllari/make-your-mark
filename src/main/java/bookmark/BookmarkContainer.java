@@ -14,10 +14,10 @@ public class BookmarkContainer {
     private SearchCriterion searchCriterion;
     
     private class SearchCriterion {
-        private String field;
-        private String content;
+        private final String field;
+        private final List<String> content;
 
-        private SearchCriterion(String field, String content) {
+        private SearchCriterion(String field, List<String> content) {
             this.field = field;
             this.content = content;
         }
@@ -149,8 +149,14 @@ public class BookmarkContainer {
         return bookmarks.stream().filter(x -> tags.stream().anyMatch(y -> x.getListField("tags").contains(y))).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public void setFilter(String fieldName, String content) {
+    public void setFilter(String fieldName, List<String> content) {
         this.searchCriterion = new SearchCriterion(fieldName, content);
+        updateFiltered();
+    }
+    
+    public void dropFilter() {
+        this.searchCriterion = null;
+        updateFiltered();
     }
 
     @Override
@@ -162,20 +168,27 @@ public class BookmarkContainer {
     }
 
     public String serialize() {
+        this.dropFilter();
+        this.filtered = null;
         Gson gson = new Gson();
         return gson.toJson(this);
     }
 
     public static BookmarkContainer deserializeBookmarkContainer(String json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, BookmarkContainer.class);
+        BookmarkContainer container = gson.fromJson(json, BookmarkContainer.class);
+        container.updateFiltered();
+        return container;
     }
 
     private void updateFiltered() {
         filtered = bookmarks.stream()
                 .filter(bm -> showRead || !bm.isRead())
-                .filter(bm -> searchCriterion == null || bm.fieldContains(searchCriterion.field, searchCriterion.content))
+                .filter(bm -> searchCriterion == null || bm.fieldContainsAny(searchCriterion.field, searchCriterion.content))
                 .collect(Collectors.toCollection(LinkedList::new));
+        if (!filtered.contains(current)) {
+            current = getNext();
+        }
     }
 
     public void resetIndex() {

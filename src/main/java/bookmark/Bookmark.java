@@ -14,13 +14,12 @@ import java.time.format.DateTimeFormatter;
 public class Bookmark {
 
     private List<Field> fields;
-    private boolean read;
     private String addedOn;
+    private String readOn;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
     public Bookmark(List<Field> entries) {
         this.fields = entries;
-        this.read = false;
     }
 
     public Bookmark() {
@@ -28,9 +27,20 @@ public class Bookmark {
     }
 
     public boolean isRead() {
-        return read;
+        return readOn != null;
+    }
+
+    public void markAsRead() {
+        LocalDateTime now = LocalDateTime.now();
+        this.addedOn = formatter.format(now);
+    }
+
+    public String getReadOn() {
+        return readOn;
     }
     
+    
+
     public boolean containsField(String fieldName) {
         return fieldByName(fieldName) != null;
     }
@@ -75,7 +85,7 @@ public class Bookmark {
 
     public List<String> getListField(String title) {
         Field entry = fieldByName(title);
-        if(entry!=null){
+        if (entry != null) {
             return entry.getList();
         }
         return new ArrayList<>();
@@ -83,7 +93,7 @@ public class Bookmark {
 
     public String getSingleField(String title) {
         Field entry = fieldByName(title);
-        if(entry!=null){
+        if (entry != null) {
             return entry.getFirst();
         }
         return "";
@@ -94,7 +104,7 @@ public class Bookmark {
                 .map(field -> field.getName())
                 .collect(Collectors.toList());
     }
-    
+
     public boolean fieldContains(String fieldName, String content) {
         Field entry = fieldByName(fieldName);
         if (entry == null) {
@@ -103,16 +113,24 @@ public class Bookmark {
         return entry.contains(content);
     }
 
+    public boolean fieldContainsAny(String fieldName, List<String> content) {
+        Field entry = fieldByName(fieldName);
+        if (entry == null) {
+            return false;
+        }
+        return entry.containsAny(content);
+    }
+
     public boolean fieldIsSingle(String fieldName) {
         Field field = fieldByName(fieldName);
         return field.isSingleField();
     }
-    
+
     public void setAddedOn() {
         LocalDateTime now = LocalDateTime.now();
         this.addedOn = formatter.format(now);
     }
-    
+
     public String getAddedOn() {
         return this.addedOn;
     }
@@ -121,8 +139,8 @@ public class Bookmark {
     public String toString() {
         return fields.stream()
                 .map(entry -> entry.toString())
-                .collect(Collectors.joining("\n"))+
-                "\nAdded on: " + this.addedOn;
+                .collect(Collectors.joining("\n"))
+                + "\nAdded on: " + this.addedOn;
     }
 
     public static Bookmark createBook(String title, String author, String isbn) {
@@ -150,7 +168,7 @@ public class Bookmark {
         entries.add(new Field("Related courses", new ArrayList<String>()));
         return new Bookmark(entries);
     }
-   
+
     public static LocalDateTime parser(Bookmark bm) {
         LocalDateTime dateTime = LocalDateTime.parse(bm.getAddedOn(), formatter);
         return dateTime;

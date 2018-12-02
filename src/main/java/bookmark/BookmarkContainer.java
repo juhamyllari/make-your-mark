@@ -214,5 +214,6 @@ public class BookmarkContainer {
     
     public void setShowingRead(boolean show) {
         showingRead = show;
+        updateFiltered();
     }
 }

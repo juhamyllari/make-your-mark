@@ -181,6 +181,7 @@ public class BookmarkContainer {
         this.dropFilter();
         this.filtered = null;
         Gson gson = new Gson();
+        this.updateFiltered();
         return gson.toJson(this);
     }
 

@@ -137,4 +137,99 @@ public class BookmarkContainerTest {
         tags.add("nope");
         assertEquals(0, bc.searchByTagsOR(tags).size());
     }
+
+    @Test
+    public void testMarkCurrentAsRead() {
+        assertTrue(!funnyBook.isRead());
+        bc.markCurrentAsRead();
+        assertTrue(funnyBook.isRead());
+    }
+
+    @Test
+    public void testUnfilteredSize() {
+        assertEquals(1, bc.size());
+        bc.add(sillyBook);
+        assertEquals(2, bc.size());
+    }
+
+    @Test
+    public void testSearchByTagsOR() {
+    }
+
+    @Test
+    public void testSetFilter() {
+        bc.add(sillyBook);
+        funnyBook.addToField("tags", "funny");
+        List<String> searchTags = new ArrayList<>();
+        searchTags.add("serious");
+        searchTags.add("funny");
+        bc.setFilter("tags", searchTags);
+        assertEquals(1, bc.size());
+    }
+
+    @Test
+    public void testDropFilter() {
+        bc.add(sillyBook);
+        List<String> searchTags = new ArrayList<>();
+        searchTags.add("serious");
+        searchTags.add("funny");
+        bc.setFilter("tags", searchTags);
+        bc.dropFilter();
+        assertEquals(2, bc.size());
+        assertTrue(!bc.hasFilter());
+    }
+
+    @Test
+    public void testHasFilter() {
+        assertTrue(!bc.hasFilter());
+        List<String> searchTags = new ArrayList<>();
+        searchTags.add("serious");
+        searchTags.add("funny");
+        bc.setFilter("tags", searchTags);
+        assertTrue(bc.hasFilter());
+        bc.dropFilter();
+        assertTrue(!bc.hasFilter());
+    }
+
+    @Test
+    public void testToString() {
+        String str = bc.toString();
+        assertTrue(str.contains("Funny Book"));
+        assertTrue(str.contains("Punny Guy"));
+        assertTrue(str.contains("1234"));
+    }
+
+    @Test
+    public void testSerialize() {
+        String str = bc.serialize();
+        assertTrue(str.length() > 15); // sanity check: longer than a few characters
+        assertTrue(str.contains("Funny Book"));
+        assertTrue(str.contains("Punny Guy"));
+        assertTrue(str.contains("1234"));
+    }
+
+    @Test
+    public void testDeserializeBookmarkContainer() {
+        BookmarkContainer deser = BookmarkContainer.deserializeBookmarkContainer(bc.serialize());
+        bc.resetIndex();
+        deser.resetIndex();
+        assertEquals(bc.getCurrent().getSingleField("title"), deser.getCurrent().getSingleField("title"));
+    }
+
+    @Test
+    public void testResetIndex() {
+        bc.add(sillyBook);
+        bc.getNext();
+        assertEquals(funnyBook, bc.getCurrent());
+        bc.resetIndex();
+        assertEquals(sillyBook, bc.getCurrent());
+    }
+
+    @Test
+    public void testIsShowingRead() {
+    }
+
+    @Test
+    public void testSetShowingRead() {
+    }
 }

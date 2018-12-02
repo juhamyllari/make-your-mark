@@ -18,6 +18,7 @@ public class QuitApplication extends MenuItem {
 
     @Override
     public void execute(BookmarkContainer container, IO io) {
+        container.resetIndex();
         if (Menu.containerHasChanged(container)) {
             String save = io.nextLine("Save changes to file? yes/no");
             if (save.toLowerCase().equals("yes") || save.toLowerCase().equals("y")) {

@@ -33,7 +33,6 @@ public class FileIO {
             return null;
         }
         BookmarkContainer container = BookmarkContainer.deserializeBookmarkContainer(json);
-        container.resetIndex();
         return container;
     }
 }

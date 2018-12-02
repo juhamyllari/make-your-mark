@@ -13,6 +13,6 @@ public class ShowRead extends MenuItem {
 
     @Override
     public void execute(BookmarkContainer container, IO io) {
-        container.setShowingRead(!container.isShowingRead());
+        container.setShowingRead(true);
     }
 }

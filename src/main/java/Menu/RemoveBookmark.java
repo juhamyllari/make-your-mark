@@ -1,10 +1,11 @@
 package Menu;
 
 import IO.IO;
+import static Menu.Menu.askConfirmation;
 import bookmark.BookmarkContainer;
 
 public class RemoveBookmark extends MenuItem {
-    
+
     public RemoveBookmark() {
         super("remove the current bookmark");
         addKey("remove");
@@ -13,6 +14,9 @@ public class RemoveBookmark extends MenuItem {
 
     @Override
     public void execute(BookmarkContainer container, IO io) {
-        container.remove(container.getCurrent());
+        if (askConfirmation(io, "remove the bookmark")) {
+            container.remove(container.getCurrent());
+        }
     }
+
 }

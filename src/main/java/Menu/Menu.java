@@ -206,4 +206,20 @@ public class Menu {
             //editListField(bm, field, io);
         }
     }
+
+    public static boolean askConfirmation(IO io, String action) {
+        boolean confirmed = false;
+        String answer;
+        while (true) {
+            answer = io.nextLine("Are you sure you want to " + action + "? yes/no").toLowerCase();
+            if (answer.equals("yes") || answer.equals("y")) {
+                confirmed = true;
+                break;
+            } else if (answer.equals("no") || answer.equals("n")) {
+                break;
+            }
+            io.print("Please answer yes or no");
+        }
+        return confirmed;
+    }
 }

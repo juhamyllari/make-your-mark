@@ -8,7 +8,7 @@ public class NextBookmark extends MenuItem {
     public NextBookmark() {
         super("show the next bookmark");
         addKey("next");
-        addKey("x");
+        addKey("n");
     }
 
     @Override

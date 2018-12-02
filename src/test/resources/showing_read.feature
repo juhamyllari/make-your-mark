@@ -15,5 +15,5 @@ Feature: As a user i want to see only unread bookmarks by default
     Given command samples is given
     Given command mark is given
     Given command show is given
-    Given command show is given
+    Given command hide is given
     Then system will respond with "Showing bookmark 1/1"

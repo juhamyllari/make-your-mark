@@ -8,7 +8,6 @@ import cucumber.api.java.en.When;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import static org.junit.Assert.*;
 
 public class Stepdefs {
 
@@ -63,6 +62,16 @@ public class Stepdefs {
     @Given("^command search is given$")
     public void command_search_is_given() throws Throwable {
         inputLines.add("search");
+    }
+    
+    @Given("^command mark is given$")
+    public void command_mark_is_given() throws Throwable {
+        inputLines.add("mark");
+    }
+    
+    @Given("^command show is given$")
+    public void command_show_is_given() throws Throwable {
+        inputLines.add("show");
     }
 
     @When("^a valid tag \"([^\"]*)\" is entered$")

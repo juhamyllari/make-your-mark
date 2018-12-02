@@ -6,7 +6,7 @@ import bookmark.BookmarkContainer;
 public class ShowRead extends MenuItem {
 
     public ShowRead() {
-        super("show read bookmarks");
+        super("include bookmarks marked as read");
         addKey("show");
         addKey("sh");
     }

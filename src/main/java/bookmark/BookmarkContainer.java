@@ -57,9 +57,6 @@ public class BookmarkContainer {
         if (!bookmarks.contains(bookmark)) {
             return;
         }
-        if (current == bookmark) {
-            current = bookmarks.getFirst();
-        }
         bookmarks.remove(bookmark);
         updateFiltered();
     }

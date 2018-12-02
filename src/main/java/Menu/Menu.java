@@ -32,6 +32,7 @@ public class Menu {
         if (container.getCurrent() != null) {
             items.add(new EditBookmark());
             items.add(new MarkAsRead());
+            items.add(new RemoveBookmark());
         }
         if (container.size() > 1) {
             items.add(new NextBookmark());

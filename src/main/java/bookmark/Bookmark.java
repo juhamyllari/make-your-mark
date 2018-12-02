@@ -140,7 +140,8 @@ public class Bookmark {
         return fields.stream()
                 .map(entry -> entry.toString())
                 .collect(Collectors.joining("\n"))
-                + "\nAdded on: " + this.addedOn;
+                + "\nAdded on: " + this.addedOn
+                + (isRead() ? "\nRead on: " + this.readOn : "");
     }
 
     public static Bookmark createBook(String title, String author, String isbn) {

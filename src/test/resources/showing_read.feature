@@ -1,4 +1,4 @@
-Feature: As a user i want to see only unread bookmarks by default
+Feature: As a user I want to see only unread bookmarks by default
 
   Scenario: user cannot browse read bookmarks by default
     Given command samples is given

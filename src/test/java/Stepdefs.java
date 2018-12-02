@@ -44,8 +44,8 @@ public class Stepdefs {
         inputLines.add("edit");
     }
 
-    @Given("^command exit is given$")
-    public void command_exit_is_given() throws Throwable {
+    @Given("^command quit is given$")
+    public void command_quit_is_given() throws Throwable {
         inputLines.add("quit");
     }
 

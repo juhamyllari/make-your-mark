@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 public class App {
 
     public static boolean treatFileAsMissing = false; // for some Cucumber tests
+    public static boolean quit = false;
 
     public static void main(String[] args) {
         IO io = new ConsoleIO();
@@ -27,7 +28,7 @@ public class App {
         } else {
             container = new BookmarkContainer();
         }
-        while (true) {
+        while (!quit) {
             Menu menu = new Menu(container, io);
             menu.printMenu();
             menu.getCommandAndExecute();

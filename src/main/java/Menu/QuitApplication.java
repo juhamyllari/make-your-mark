@@ -3,6 +3,7 @@ package Menu;
 import IO.FileIO;
 import IO.IO;
 import bookmark.BookmarkContainer;
+import mainApp.App;
 
 public class QuitApplication extends MenuItem {
 
@@ -24,7 +25,7 @@ public class QuitApplication extends MenuItem {
                 io.print("Quitting without saving.");
             }
         }
-        System.exit(0);
+        App.quit = true;
     }
 
 }

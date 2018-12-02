@@ -16,11 +16,13 @@ public class Menu {
     private BookmarkContainer container;
     private IO io;
     private List<MenuItem> items;
+    private boolean exiting;
 
     public Menu(BookmarkContainer container, IO io) {
         this.container = container;
         this.io = io;
         this.items = new ArrayList<>();
+        this.exiting = false;
     }
 
     private void createItems() {
@@ -39,7 +41,7 @@ public class Menu {
         if (container.hasFilter()) {
             items.add(new DropSearchCriteria());
         }
-        items.add(new QuitApplication());
+        items.add(new QuitApplication(this));
     }
 
     public void printMenu() {
@@ -47,6 +49,14 @@ public class Menu {
         printCurrent();
         createItems();
         printItems();
+    }
+
+    public boolean isExiting() {
+        return exiting;
+    }
+
+    public void setExiting(boolean exiting) {
+        this.exiting = exiting;
     }
 
     private void printStatus() {
@@ -66,6 +76,7 @@ public class Menu {
 
     private void printCurrent() {
         if (container.getCurrent() != null) {
+            io.print("Showing bookmark " + (container.getIndex() + 1) + "/" + container.size());
             io.print(container.getCurrent().toString());
         } else {
             io.print("Nothing to show");
@@ -153,8 +164,8 @@ public class Menu {
         }
         item.execute(container, io);
     }
-    
-        private static void editSingleField(Bookmark bm, String field, IO io) {
+
+    private static void editSingleField(Bookmark bm, String field, IO io) {
         String newEntry = io.nextLine("Current " + field + ": " + bm.getSingleField(field) + ". Set a new " + field + " or type the current " + field + " to remove it.");
         if (newEntry.equals(bm.getSingleField(field))) {
             bm.setSingleField(field, "");
@@ -166,11 +177,10 @@ public class Menu {
             io.print("New " + field + " set.");
         }
     }
-    
+
     //    private static void editListField(Bookmark bm, String field, IO io) {
     //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     //    }
-
     // List editing unfinished: User can only replace or remove all elements of
     // a list field with one value.
     public static void edit(Bookmark bm, IO io) {

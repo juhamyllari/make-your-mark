@@ -7,6 +7,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import static org.junit.Assert.*;
 
 public class Stepdefs {
@@ -14,6 +15,10 @@ public class Stepdefs {
     List<String> inputLines = new ArrayList<>();
     StubIO io;
     App app;
+
+    @Given("^application is started$")
+    public void application_is_started() throws Throwable {
+    }
 
     @Given("^command new is given$")
     public void command_new_is_given() throws Throwable {
@@ -117,11 +122,11 @@ public class Stepdefs {
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String expected) throws Throwable {
         inputLines.add("quit");
-        inputLines.add("quit");
-        inputLines.add("quit");
+        inputLines.add("no");
         io = new StubIO(inputLines);
         App.run(io, false);
-        assertTrue(io.getPrints().contains(expected));
+        assert io.getPrints().contains(expected) :
+                ("expected: " + expected + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
     }
 
     @Then("^system with save file will respond with \"([^\"]*)\"$")
@@ -132,6 +137,7 @@ public class Stepdefs {
         inputLines.add("quit");
         io = new StubIO(inputLines);
         App.run(io, true);
-        assertTrue(io.getPrints().contains(expected));
+        assert io.getPrints().contains(expected) :
+                ("expected: " + expected + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
     }
 }

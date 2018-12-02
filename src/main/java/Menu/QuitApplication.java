@@ -7,10 +7,13 @@ import mainApp.App;
 
 public class QuitApplication extends MenuItem {
 
-    public QuitApplication() {
+    private Menu menu;
+
+    QuitApplication(Menu menu) {
         super("quit the application");
         addKey("quit");
         addKey("q");
+        this.menu = menu;
     }
 
     @Override
@@ -25,7 +28,7 @@ public class QuitApplication extends MenuItem {
                 io.print("Quitting without saving.");
             }
         }
-        App.quit = true;
+        menu.setExiting(true);
     }
 
 }

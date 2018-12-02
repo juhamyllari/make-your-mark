@@ -41,6 +41,9 @@ public class Menu {
         if (container.hasFilter()) {
             items.add(new DropSearchCriteria());
         }
+        if (!container.isShowingRead()) {
+            items.add(new ShowRead());
+        }
         items.add(new QuitApplication(this));
     }
 

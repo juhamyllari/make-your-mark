@@ -211,4 +211,8 @@ public class BookmarkContainer {
     public boolean isShowingRead() {
         return showingRead;
     }
+    
+    public void setShowingRead(boolean show) {
+        showingRead = show;
+    }
 }

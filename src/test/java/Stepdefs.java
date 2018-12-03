@@ -78,6 +78,12 @@ public class Stepdefs {
     public void command_hide_is_given() throws Throwable {
         inputLines.add("hide");
     }
+    
+        @Given("^command remove is given$")
+    public void command_remove_is_given() throws Throwable {
+        inputLines.add("remove");
+    }
+
 
     @When("^a valid tag \"([^\"]*)\" is entered$")
     public void a_valid_tag_hobbies_is_entered(String tag) throws Throwable {
@@ -139,7 +145,7 @@ public class Stepdefs {
         inputLines.add("no");
         io = new StubIO(inputLines);
         App.run(io, false);
-        assert io.getPrints().contains(expected) :
+        assert io.getPrints().stream().anyMatch(line -> line.contains(expected)) :
                 ("expected: " + expected + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
     }
 
@@ -151,7 +157,7 @@ public class Stepdefs {
         inputLines.add("quit");
         io = new StubIO(inputLines);
         App.run(io, true);
-        assert io.getPrints().contains(expected) :
+        assert io.getPrints().stream().anyMatch(line -> line.contains(expected)) :
                 ("expected: " + expected + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
     }
 }

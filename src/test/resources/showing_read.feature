@@ -17,3 +17,9 @@ Feature: As a user I want to see only unread bookmarks by default
     Given command show is given
     Given command hide is given
     Then system will respond with "Showing bookmark 1/1"
+
+  Scenario: user can view read date
+    Given command samples is given
+    Given command show is given
+    Given command mark is given
+    Then system will respond with "Read on: "

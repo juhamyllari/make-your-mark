@@ -12,8 +12,8 @@ import static org.junit.Assert.*;
 
 public class BookmarkContainerTest {
 
-    Bookmark funnyBook;
-    Bookmark sillyBook;
+    Bookmark book;
+    Bookmark video;
     LinkedList<Bookmark> lst = new LinkedList<>();
     BookmarkContainer bc;
 
@@ -31,12 +31,14 @@ public class BookmarkContainerTest {
 
     @Before
     public void setUp() {
-        funnyBook = Bookmark.createBookmark();
-        funnyBook.setSingleField("Title", "Funny Book");
-        funnyBook.setSingleField("Author", "Punny Guy");
-        funnyBook.setSingleField("ISBN", "1234");
-        sillyBook = Bookmark.createBook("Silly Book", "S. Illy Pherson", "9999");
-        lst.add(funnyBook);
+        book = Bookmark.createBookmark();
+        book.setSingleField("Title", "Transition");
+        book.setSingleField("Author", "Iain Banks");
+        book.setSingleField("ISBN", "978-0-349-11927-4");
+        video = Bookmark.createBookmark();
+        video.setSingleField("Title", "Virtual Memory, Video 1: Overview");
+        video.setSingleField("URL", "https://www.youtube.com/watch?v=IUJvnIamMo8");
+        lst.add(book);
         bc = new BookmarkContainer(lst);
     }
 
@@ -47,53 +49,53 @@ public class BookmarkContainerTest {
     @Test
     public void testAdd() {
         assertEquals(1, bc.size());
-        bc.add(sillyBook);
+        bc.add(video);
         assertEquals(2, bc.size());
     }
 
     @Test
     public void testRemove() {
         assertEquals(1, bc.size());
-        bc.add(sillyBook);
+        bc.add(video);
         assertEquals(2, bc.size());
 
         assertEquals(0, bc.getIndex());
         bc.getNext();
         assertEquals(1, bc.getIndex());
-        bc.remove(funnyBook);
+        bc.remove(book);
         assertEquals(0, bc.getIndex());
-        assertEquals(sillyBook, bc.getCurrent());
+        assertEquals(video, bc.getCurrent());
         assertEquals(1, bc.size());
 
-        bc.remove(sillyBook);
+        bc.remove(video);
         assertEquals(0, bc.size());
-        bc.remove(sillyBook);
+        bc.remove(video);
         assertEquals(0, bc.size());
     }
 
     @Test
     public void testGetCurrent() {
-        bc.add(sillyBook);
-        assertEquals(sillyBook, bc.getCurrent());
+        bc.add(video);
+        assertEquals(video, bc.getCurrent());
     }
 
     @Test
     public void testGetNext() {
-        bc.add(sillyBook);
-        assertEquals(funnyBook, bc.getNext());
+        bc.add(video);
+        assertEquals(book, bc.getNext());
     }
 
     @Test
     public void testGetPrevious() {
-        bc.add(sillyBook);
-        assertEquals(funnyBook, bc.getPrevious());
-        assertEquals(sillyBook, bc.getPrevious());
+        bc.add(video);
+        assertEquals(book, bc.getPrevious());
+        assertEquals(video, bc.getPrevious());
     }
 
     @Test
     public void testGetIndex() {
         assertEquals(0, bc.getIndex());
-        bc.add(sillyBook);
+        bc.add(video);
         assertEquals(0, bc.getIndex());
         bc.getPrevious();
         assertEquals(1, bc.getIndex());
@@ -104,12 +106,12 @@ public class BookmarkContainerTest {
     @Test
     public void testSize() {
         assertEquals(1, bc.size());
-        bc.remove(funnyBook);
+        bc.remove(book);
         assertEquals(0, bc.size());
-        bc.add(funnyBook);
-        bc.add(sillyBook);
+        bc.add(book);
+        bc.add(video);
         assertEquals(2, bc.size());
-        bc.add(sillyBook);
+        bc.add(video);
         assertEquals(2, bc.size());
     }
 
@@ -120,9 +122,9 @@ public class BookmarkContainerTest {
 
     @Test
     public void testOrSearchAndFind() {
-        funnyBook.setSingleField("tags", "fun");
-        bc.add(funnyBook);
-        bc.add(sillyBook);
+        book.setSingleField("tags", "fun");
+        bc.add(book);
+        bc.add(video);
         List<String> tags = new ArrayList();
         tags.add("epic");
         tags.add("fun");
@@ -131,8 +133,8 @@ public class BookmarkContainerTest {
 
     @Test
     public void testOrSearchAndNotFind() {
-        bc.add(funnyBook);
-        bc.add(sillyBook);
+        bc.add(book);
+        bc.add(video);
         List<String> tags = new ArrayList();
         tags.add("nope");
         assertEquals(0, bc.searchByTagsOR(tags).size());
@@ -140,15 +142,15 @@ public class BookmarkContainerTest {
 
     @Test
     public void testMarkCurrentAsRead() {
-        assertTrue(!funnyBook.isRead());
+        assertTrue(!book.isRead());
         bc.markCurrentAsRead();
-        assertTrue(funnyBook.isRead());
+        assertTrue(book.isRead());
     }
 
     @Test
     public void testUnfilteredSize() {
         assertEquals(1, bc.size());
-        bc.add(sillyBook);
+        bc.add(video);
         assertEquals(2, bc.size());
     }
 
@@ -158,8 +160,8 @@ public class BookmarkContainerTest {
 
     @Test
     public void testSetFilter() {
-        bc.add(sillyBook);
-        funnyBook.addToField("tags", "funny");
+        bc.add(video);
+        book.addToField("tags", "funny");
         List<String> searchTags = new ArrayList<>();
         searchTags.add("serious");
         searchTags.add("funny");
@@ -169,7 +171,7 @@ public class BookmarkContainerTest {
 
     @Test
     public void testDropFilter() {
-        bc.add(sillyBook);
+        bc.add(video);
         List<String> searchTags = new ArrayList<>();
         searchTags.add("serious");
         searchTags.add("funny");
@@ -194,18 +196,15 @@ public class BookmarkContainerTest {
     @Test
     public void testToString() {
         String str = bc.toString();
-        assertTrue(str.contains("Funny Book"));
-        assertTrue(str.contains("Punny Guy"));
-        assertTrue(str.contains("1234"));
+        assertTrue(str.contains("Transition"));
+        assertTrue(str.contains("Iain Banks"));
     }
 
     @Test
     public void testSerialize() {
         String str = bc.serialize();
         assertTrue(str.length() > 15); // sanity check: longer than a few characters
-        assertTrue(str.contains("Funny Book"));
-        assertTrue(str.contains("Punny Guy"));
-        assertTrue(str.contains("1234"));
+        assertTrue(str.contains("Transition"));
     }
 
     @Test
@@ -218,11 +217,11 @@ public class BookmarkContainerTest {
 
     @Test
     public void testResetIndex() {
-        bc.add(sillyBook);
+        bc.add(video);
         bc.getNext();
-        assertEquals(funnyBook, bc.getCurrent());
+        assertEquals(book, bc.getCurrent());
         bc.resetIndex();
-        assertEquals(sillyBook, bc.getCurrent());
+        assertEquals(video, bc.getCurrent());
     }
 
     @Test

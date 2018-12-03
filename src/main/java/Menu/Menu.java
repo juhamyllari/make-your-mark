@@ -4,6 +4,7 @@ import IO.FileIO;
 import IO.IO;
 import bookmark.Bookmark;
 import bookmark.BookmarkContainer;
+import bookmark.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ public class Menu {
         items.add(new CreateSamples());
         if (container.getCurrent() != null) {
             items.add(new EditBookmark());
+            items.add(new EditBookmarkAllFields());
             items.add(new MarkAsRead());
             items.add(new RemoveBookmark());
         }
@@ -204,6 +206,26 @@ public class Menu {
             editSingleField(bm, field, io);
         } else {
             //editListField(bm, field, io);
+        }
+    }
+    
+    public static void editAll(Bookmark bookmark, IO io){
+        List<Field> changes = new ArrayList<>();
+        System.out.println("Type a new entry for each field to change them, leave them blank to make no changes.");
+        for(String name : bookmark.getAllSingleFieldNames()){
+            String newValue = io.nextLine(name+" (currently \""+bookmark.getSingleField(name)+"\"): ");
+            if(!newValue.equals(bookmark.getSingleField(""))&&!newValue.equals(bookmark.getSingleField(name))){
+                changes.add(new Field(name,newValue));
+            }
+        }
+        System.out.println("Here are the changes you made:");
+        for(Field change:changes){
+            System.out.println(change.getName()+": \""+bookmark.getSingleField(change.getName())+"\" -> \""+change.getFirst()+"\"");
+        }
+        if(askConfirmation(io, "keep these changes")){
+            for(Field change:changes){
+                bookmark.setSingleField(change.getName(), change.getFirst());
+            }
         }
     }
 

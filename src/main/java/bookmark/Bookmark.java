@@ -39,6 +39,12 @@ public class Bookmark {
         return readOn;
     }
     
+    public List<String> getAllSingleFieldNames(){
+        return fields.stream()
+                .filter(x->x.isSingleField())
+                .map(x->x.getName())
+                .collect(Collectors.toList());
+    }
     
 
     public boolean containsField(String fieldName) {

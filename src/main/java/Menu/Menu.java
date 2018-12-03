@@ -51,8 +51,11 @@ public class Menu {
     }
 
     public void printMenu() {
+        System.out.println("");
         printStatus();
+        System.out.println("");
         printCurrent();
+        System.out.println("");
         createItems();
         printItems();
     }

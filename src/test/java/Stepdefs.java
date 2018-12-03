@@ -78,6 +78,12 @@ public class Stepdefs {
     public void command_hide_is_given() throws Throwable {
         inputLines.add("hide");
     }
+    
+        @Given("^command remove is given$")
+    public void command_remove_is_given() throws Throwable {
+        inputLines.add("remove");
+    }
+
 
     @When("^a valid tag \"([^\"]*)\" is entered$")
     public void a_valid_tag_hobbies_is_entered(String tag) throws Throwable {

@@ -145,7 +145,7 @@ public class Stepdefs {
         inputLines.add("no");
         io = new StubIO(inputLines);
         App.run(io, false);
-        assert io.getPrints().contains(expected) :
+        assert io.getPrints().stream().anyMatch(line -> line.contains(expected)) :
                 ("expected: " + expected + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
     }
 
@@ -157,7 +157,7 @@ public class Stepdefs {
         inputLines.add("quit");
         io = new StubIO(inputLines);
         App.run(io, true);
-        assert io.getPrints().contains(expected) :
+        assert io.getPrints().stream().anyMatch(line -> line.contains(expected)) :
                 ("expected: " + expected + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
     }
 }

@@ -12,8 +12,6 @@
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
 
-[Test coverage report](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/jacocotestreport.PNG)
-
 ## Sprint 3
 Acceptance Criteria by User Story:
 * [Can mark bookmarks as read](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/showing_read.feature)

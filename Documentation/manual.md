@@ -22,7 +22,7 @@ Type "new" in the main menu to add a reading tip. Then the interface prompts you
 
 ### Viewing and searching bookmarks
 
-By typing "browse" in the main menu you can browse the added bookmarks if there are any. In the browse menu you can scroll through the bookmarks, show more information of them, edit them and search for them. 
+By typing "browse" in the main menu you can browse the added bookmarks if there are any. In the browse menu you can scroll through the bookmarks, show more information of them, remove them, edit them and search for them. 
 
 After choosing to search for bookmarks you are prompted to give tags. Bookmarks that match a tag will be shown afterwards if there are any.
 

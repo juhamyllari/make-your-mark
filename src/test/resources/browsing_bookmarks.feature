@@ -8,6 +8,10 @@ Feature: As a user I want to browse reading tips
     Given command samples is given
     Then system will respond with "You have 2 unread bookmarks."
 
+  Scenario: bookmarks are displayed newest first
+    Given command samples is given
+    Then system will respond with "Suomalainen kalaopas"
+
   Scenario: user can scroll through bookmarks
     Given command samples is given
     And command next is given

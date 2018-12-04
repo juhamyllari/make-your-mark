@@ -226,9 +226,20 @@ public class BookmarkContainerTest {
 
     @Test
     public void testIsShowingRead() {
+        assertEquals(false, bc.getCurrent().isRead());
+        bc.getCurrent().markAsRead();
+        assertEquals(true,  bc.getCurrent().isRead());
     }
 
     @Test
     public void testSetShowingRead() {
+
+    }
+
+    @Test
+    public void dateIsSetOnRead() {
+        assertEquals(null, bc.getCurrent().getReadOn());
+        bc.getCurrent().markAsRead();
+        assertNotEquals(null, bc.getCurrent().getReadOn());
     }
 }

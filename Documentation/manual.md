@@ -22,7 +22,7 @@ Type "new" in the main menu to add a reading tip. Then the interface prompts you
 
 ### Viewing and searching bookmarks
 
-By typing "browse" in the main menu you can browse the added bookmarks if there are any. In the browse menu you can scroll through the bookmarks, show more information of them, remove them, edit them and search for them. 
+By typing "browse" in the main menu you can browse the added bookmarks if there are any. In the browse menu you can scroll through the bookmarks, show more information of them, mark them as read, remove them, edit them and search for them. 
 
 After choosing to search for bookmarks you are prompted to give tags. Bookmarks that match a tag will be shown afterwards if there are any.
 
@@ -36,4 +36,4 @@ The command "remove" removes the selected bookmark. After giving the command you
 
 The application has two options for editing a bookmark: editing its single field or all fields that have only one parameter.
 
-The command "edit" allows you to modify a single field. It prompts you to pick a field and to provide new content for it. The command "editall" goes through all one-parameter fields in order and allows you to edit the ones you desire. After going through all fields the changes are displayed and confirmation is asked.
+The command "edit" allows you to modify a single field. It prompts you to pick a field and to provide new content for it. The command "editall" goes through all one-parameter fields in order and allows you to edit the ones you desire. After going through all the fields the changes are displayed and confirmation is asked.

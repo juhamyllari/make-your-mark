@@ -14,6 +14,12 @@
 
 [Test coverage report](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/jacocotestreport.PNG)
 
+## Sprint 3
+Acceptance Criteria by User Story:
+* [Can mark bookmarks as read](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/showing_read.feature)
+* [Can remove bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/deleting_bookmark.feature)
+* [Can edit bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/editing_bookmark.feature)
+
 ## Sprint 2
 
 Acceptance Criteria by User Story:

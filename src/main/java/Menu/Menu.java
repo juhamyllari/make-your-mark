@@ -212,7 +212,6 @@ public class Menu {
                 if (command.equals("n") || command.equals("new")) {
                     String newValue = io.nextLine("Provide new value: ");
                     values.add(newValue);
-                    bm.setListField(listField, values);
                     io.print("Value added.");
                 }
                 if (command.equals("c") || command.equals("change")) {
@@ -229,7 +228,6 @@ public class Menu {
                                 if (values.isEmpty()) indexOf = 1;
                             } else {
                                 values.set(indexOf, replacementValue);
-                                bm.setListField(listField, values);
                                 io.print("Value changed.");
                             }
                         }

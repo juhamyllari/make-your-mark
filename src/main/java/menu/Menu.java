@@ -55,7 +55,7 @@ public class Menu {
     }
 
     public void printMenu() {
-        System.out.println("");
+        System.out.print("\033[H\033[2J");
         printStatus();
         System.out.println("");
         printCurrent();

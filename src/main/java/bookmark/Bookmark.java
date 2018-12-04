@@ -16,7 +16,7 @@ public class Bookmark {
     private List<Field> fields;
     private String addedOn;
     private String readOn;
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     public Bookmark(List<Field> entries) {
         this.fields = entries;

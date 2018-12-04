@@ -147,16 +147,18 @@ public class Menu {
 
     public static void createSamples(BookmarkContainer container) {
         Bookmark routerBook = Bookmark.createBookmark();
-        routerBook.setSingleField("Title", "Reitittimet 1992-1996");
-        routerBook.setSingleField("Author", "Koodi Kalevi");
-        routerBook.setSingleField("ISBN", "43289-23432");
+        routerBook.setSingleField("Title", "An Introduction to GCC");
+        routerBook.setSingleField("Author", "Brian Gough");
+        routerBook.setSingleField("ISBN", "978-0954161798");
+        routerBook.setSingleField("URL", "http://www.network-theory.co.uk/docs/gccintro/");
         routerBook.addToField("Tags", "guide");
+        routerBook.addToField("Tags", "compilers");
         routerBook.setAddedOn();
         container.add(routerBook);
         Bookmark fishBook = Bookmark.createBookmark();
-        fishBook.setSingleField("Title", "Kalaopas");
-        fishBook.setSingleField("Author", "Kimmo Kala");
-        fishBook.setSingleField("ISBN", "8493-33");
+        fishBook.setSingleField("Title", "Suomalainen kalaopas");
+        fishBook.setSingleField("Author", "Hannu Lehtonen");
+        fishBook.setSingleField("ISBN", "951-0-31578-8");
         fishBook.addToField("Tags", "hobbies");
         fishBook.addToField("Tags", "fishing");
         fishBook.addToField("Tags", "guide");

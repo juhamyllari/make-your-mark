@@ -33,7 +33,9 @@ public class Menu {
         if (container.getCurrent() != null) {
             items.add(new EditBookmark());
             items.add(new EditBookmarkAllFields());
-            items.add(new MarkAsRead());
+            if (!container.getCurrent().isRead()) {
+                items.add(new MarkAsRead());
+            }
             items.add(new RemoveBookmark());
         }
         if (container.size() > 1) {
@@ -227,7 +229,9 @@ public class Menu {
                             if (replacementValue.equals("delete") || replacementValue.equals("d")) {
                                 values.remove(indexOf);
                                 io.print("Value removed.");
-                                if (values.isEmpty()) indexOf = 1;
+                                if (values.isEmpty()) {
+                                    indexOf = 1;
+                                }
                             } else {
                                 values.set(indexOf, replacementValue);
                                 io.print("Value changed.");
@@ -238,11 +242,12 @@ public class Menu {
             }
         }
     }
-        //    private static void editListField(Bookmark bm, String field, IO io) {
-        //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        //    }
-        // List editing unfinished: User can only replace or remove all elements of
-        // a list field with one value.
+    //    private static void editListField(Bookmark bm, String field, IO io) {
+    //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    //    }
+    // List editing unfinished: User can only replace or remove all elements of
+    // a list field with one value.
+
     public static void edit(Bookmark bm, IO io) {
         List<String> allFields = bm.getFieldNames();
         String field = io.nextLine("Type which field to edit (" + allFields.stream().collect(Collectors.joining(", ")) + ") or \"exit\" to stop editing.");

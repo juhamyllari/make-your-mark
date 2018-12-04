@@ -63,27 +63,32 @@ public class Stepdefs {
     public void command_search_is_given() throws Throwable {
         inputLines.add("search");
     }
-    
+
+    @Given("^command drop is given$")
+    public void command_drop_is_given() throws Throwable {
+        inputLines.add("drop");
+    }
+
     @Given("^command mark is given$")
     public void command_mark_is_given() throws Throwable {
         inputLines.add("mark");
     }
-    
+
     @Given("^command show is given$")
     public void command_show_is_given() throws Throwable {
         inputLines.add("show");
     }
-    
+
     @Given("^command hide is given$")
     public void command_hide_is_given() throws Throwable {
         inputLines.add("hide");
     }
-    
+
     @Given("^command remove is given$")
     public void command_remove_is_given() throws Throwable {
         inputLines.add("remove");
     }
-    
+
     @Given("^command change is given$")
     public void command_change_is_given() throws Throwable {
         inputLines.add("change");
@@ -93,15 +98,12 @@ public class Stepdefs {
     public void command_delete_is_given() throws Throwable {
         inputLines.add("delete");
     }
-    
+
     @Given("^command editall is given$")
     public void command_editall_is_given() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         inputLines.add("editall");
     }
-    
-    
-
 
     @When("^a valid tag \"([^\"]*)\" is entered$")
     public void a_valid_tag_hobbies_is_entered(String tag) throws Throwable {
@@ -156,22 +158,21 @@ public class Stepdefs {
     public void a_valid_ISBN_is_entered(String isbn) throws Throwable {
         inputLines.add(isbn);
     }
-    
+
     @When("^a valid URL \"([^\"]*)\" is entered$")
     public void a_valid_URL_is_entered(String url) throws Throwable {
         inputLines.add(url);
     }
-    
+
     @When("^a valid description \"([^\"]*)\" is entered$")
     public void a_valid_description_is_entered(String description) throws Throwable {
         inputLines.add(description);
     }
-    
+
     @When("^a valid comment \"([^\"]*)\" is entered$")
     public void a_valid_comment_is_entered(String comment) throws Throwable {
         inputLines.add(comment);
     }
-
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String expected) throws Throwable {

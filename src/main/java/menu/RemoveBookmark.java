@@ -1,7 +1,7 @@
-package Menu;
+package menu;
 
 import IO.IO;
-import static Menu.Menu.askConfirmation;
+import static menu.Menu.askConfirmation;
 import bookmark.BookmarkContainer;
 
 public class RemoveBookmark extends MenuItem {

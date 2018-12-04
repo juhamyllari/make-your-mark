@@ -1,7 +1,7 @@
 package mainApp;
 
 import IO.*;
-import Menu.Menu;
+import menu.Menu;
 import bookmark.BookmarkContainer;
 import java.nio.file.Files;
 import java.nio.file.Paths;

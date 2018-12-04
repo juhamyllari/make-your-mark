@@ -40,6 +40,13 @@ public class Field {
         this.data = data;
     }
     
+    public void setData(String data) {
+        if (!isSingleField) {
+            throw new IllegalArgumentException("Not a Single Field.");
+        }
+        this.data.set(0, data);
+    }
+    
     public void addToList(String newItem) {
         this.data.add(newItem);
     }

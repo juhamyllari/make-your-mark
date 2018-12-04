@@ -20,6 +20,10 @@ public class StubIO implements IO {
     public void print(String toPrint) {
         prints.add(toPrint);
     }
+    
+    public void addLine(String line) {
+        lines.add(line);
+    }
 
     public int readInt(String prompt) {
         print(prompt);

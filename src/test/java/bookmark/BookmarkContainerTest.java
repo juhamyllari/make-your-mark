@@ -122,7 +122,7 @@ public class BookmarkContainerTest {
 
     @Test
     public void testOrSearchAndFind() {
-        book.setSingleField("tags", "fun");
+        book.addToField("tags", "fun");
         bc.add(book);
         bc.add(video);
         List<String> tags = new ArrayList();

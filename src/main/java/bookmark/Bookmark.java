@@ -38,14 +38,13 @@ public class Bookmark {
     public String getReadOn() {
         return readOn;
     }
-    
-    public List<String> getAllSingleFieldNames(){
+
+    public List<String> getAllSingleFieldNames() {
         return fields.stream()
-                .filter(x->x.isSingleField())
-                .map(x->x.getName())
+                .filter(x -> x.isSingleField())
+                .map(x -> x.getName())
                 .collect(Collectors.toList());
     }
-    
 
     public boolean containsField(String fieldName) {
         return fieldByName(fieldName) != null;
@@ -61,10 +60,14 @@ public class Bookmark {
         }
     }
 
-    public void setSingleField(String name, String data) {
-        List<String> list = new ArrayList<>();
-        list.add(data);
-        setListField(name, list);
+    public void setSingleField(String field, String data) {
+        Field entry = fieldByName(field);
+        if (entry == null) {
+            entry = new Field(field, data);
+            this.fields.add(entry);
+        } else {
+            entry.setData(data);
+        }
     }
 
     /**

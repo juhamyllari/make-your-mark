@@ -82,7 +82,33 @@ public class MenuTest {
     }
 
     @Test
-    public void testEditAll() {
+    public void testEditAllAcceptChanges() {
+        Bookmark bookmark = new Bookmark();
+        bookmark.setSingleField("title", "a");
+        io.addLine("New title");
+        io.addLine("");
+        io.addLine("");
+        io.addLine("");
+        io.addLine("");
+        io.addLine("");
+        io.addLine("yes");
+        Menu.editAll(bookmark, io);
+        assertEquals("New title", bookmark.getSingleField("title"));
+    }
+    
+    @Test
+    public void testEditAllDeclineChanges() {
+        Bookmark bookmark = new Bookmark();
+        bookmark.setSingleField("title", "abc");
+        io.addLine("New title");
+        io.addLine("");
+        io.addLine("");
+        io.addLine("");
+        io.addLine("");
+        io.addLine("");
+        io.addLine("no");
+        Menu.editAll(bookmark, io);
+        assertEquals("abc", bookmark.getSingleField("title"));
     }
 
     @Test

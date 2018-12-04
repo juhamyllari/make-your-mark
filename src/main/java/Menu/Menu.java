@@ -95,7 +95,12 @@ public class Menu {
     }
 
     private static void setListFieldByUserInput(Bookmark bm, String fieldName, boolean initial, IO io) {
-        String prompt = "Give " + fieldName + " one by one for as long as you want; input an empty line to stop.";
+        String prompt = "";
+        if (initial) {
+            prompt = "Give " + fieldName + " one by one for as long as you want; input an empty line to stop.";
+        } else {
+            prompt = "No " + fieldName.toLowerCase() + " found. Give " + fieldName.toLowerCase() + " one by one for as long as you want; input an empty line to stop.";
+        }
         List<String> items = addList(io, prompt);
         bm.setListField(fieldName, items);
     }
@@ -189,11 +194,55 @@ public class Menu {
         }
     }
 
-    //    private static void editListField(Bookmark bm, String field, IO io) {
-    //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    //    }
-    // List editing unfinished: User can only replace or remove all elements of
-    // a list field with one value.
+    private static void editListField(Bookmark bm, String listField, IO io) {
+        List<String> values = bm.getListField(listField);
+        if (values.isEmpty()) {
+            setListFieldByUserInput(bm, listField, false, io);
+        } else {
+            String command = "";
+            while (true) {
+                int indexOf = -2;
+                values = bm.getListField(listField);
+                io.print(listField + ": (" + values.stream().collect(Collectors.joining(", ")) + ")");
+                command = io.nextLine("Type \"(c)hange\" to change values, \"(n)ew\" to add a value or \"(e)xit\" to stop editing.");
+
+                if (command.equals("e") || command.equals("exit")) {
+                    break;
+                }
+                if (command.equals("n") || command.equals("new")) {
+                    String newValue = io.nextLine("Provide new value: ");
+                    values.add(newValue);
+                    bm.setListField(listField, values);
+                    io.print("Value added.");
+                }
+                if (command.equals("c") || command.equals("change")) {
+                    while (indexOf < 0) {
+                        String value = io.nextLine("Type which value to edit (" + values.stream().collect(Collectors.joining(", ")) + ")");
+                        indexOf = values.indexOf(value);
+                        if (indexOf == -1) {
+                            System.out.println("Value not found. Please try again.");
+                        } else {
+                            String replacementValue = io.nextLine("Provide replacement value for \"" + value + "\" or type \"(d)elete\" to remove value");
+                            if (replacementValue.equals("delete") || replacementValue.equals("d")) {
+                                values.remove(indexOf);
+                                io.print("Value removed.");
+                                if (values.isEmpty()) indexOf = 1;
+                            } else {
+                                values.set(indexOf, replacementValue);
+                                bm.setListField(listField, values);
+                                io.print("Value changed.");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+        //    private static void editListField(Bookmark bm, String field, IO io) {
+        //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        //    }
+        // List editing unfinished: User can only replace or remove all elements of
+        // a list field with one value.
     public static void edit(Bookmark bm, IO io) {
         List<String> allFields = bm.getFieldNames();
         String field = io.nextLine("Type which field to edit (" + allFields.stream().collect(Collectors.joining(", ")) + ") or \"exit\" to stop editing.");
@@ -208,25 +257,25 @@ public class Menu {
         if (bm.fieldIsSingle(field)) {
             editSingleField(bm, field, io);
         } else {
-            //editListField(bm, field, io);
+            editListField(bm, field, io);
         }
     }
-    
-    public static void editAll(Bookmark bookmark, IO io){
+
+    public static void editAll(Bookmark bookmark, IO io) {
         List<Field> changes = new ArrayList<>();
         System.out.println("Type a new entry for each field to change them, leave them blank to make no changes.");
-        for(String name : bookmark.getAllSingleFieldNames()){
-            String newValue = io.nextLine(name+" (currently \""+bookmark.getSingleField(name)+"\"): ");
-            if(!newValue.equals(bookmark.getSingleField(""))&&!newValue.equals(bookmark.getSingleField(name))){
-                changes.add(new Field(name,newValue));
+        for (String name : bookmark.getAllSingleFieldNames()) {
+            String newValue = io.nextLine(name + " (currently \"" + bookmark.getSingleField(name) + "\"): ");
+            if (!newValue.equals(bookmark.getSingleField("")) && !newValue.equals(bookmark.getSingleField(name))) {
+                changes.add(new Field(name, newValue));
             }
         }
         System.out.println("Here are the changes you made:");
-        for(Field change:changes){
-            System.out.println(change.getName()+": \""+bookmark.getSingleField(change.getName())+"\" -> \""+change.getFirst()+"\"");
+        for (Field change : changes) {
+            System.out.println(change.getName() + ": \"" + bookmark.getSingleField(change.getName()) + "\" -> \"" + change.getFirst() + "\"");
         }
-        if(askConfirmation(io, "keep these changes")){
-            for(Field change:changes){
+        if (askConfirmation(io, "keep these changes")) {
+            for (Field change : changes) {
                 bookmark.setSingleField(change.getName(), change.getFirst());
             }
         }

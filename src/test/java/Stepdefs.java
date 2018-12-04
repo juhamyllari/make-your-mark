@@ -79,9 +79,19 @@ public class Stepdefs {
         inputLines.add("hide");
     }
     
-        @Given("^command remove is given$")
+    @Given("^command remove is given$")
     public void command_remove_is_given() throws Throwable {
         inputLines.add("remove");
+    }
+    
+    @Given("^command change is given$")
+    public void command_change_is_given() throws Throwable {
+        inputLines.add("change");
+    }
+
+    @Given("^command delete is given$")
+    public void command_delete_is_given() throws Throwable {
+        inputLines.add("delete");
     }
 
 
@@ -141,6 +151,9 @@ public class Stepdefs {
 
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String expected) throws Throwable {
+        if (expected.contains("Value")) {
+            inputLines.add("exit");
+        }
         inputLines.add("quit");
         inputLines.add("no");
         io = new StubIO(inputLines);

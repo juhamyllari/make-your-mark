@@ -1,5 +1,6 @@
 package bookmark;
 
+import Menu.Menu;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -68,7 +69,7 @@ public class BookmarkTest {
         bm.setListField("tags", lst);
         assertEquals(2, bm.getListField("tags").size());
     }
-
+    
     @Test
     public void testGetListField() {
     }

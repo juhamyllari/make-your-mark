@@ -17,6 +17,8 @@ Acceptance Criteria by User Story:
 * [Can mark bookmarks as read](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/showing_read.feature)
 * [Can remove bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/deleting_bookmark.feature)
 * [Can edit bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/editing_bookmark.feature)
+* [Can see date when marked as read](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/new_bookmark.feature)
+* [Can see only unread bookmarks by default](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/showing_read.feature)
 
 ## Sprint 2
 

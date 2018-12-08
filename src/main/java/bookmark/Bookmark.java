@@ -113,6 +113,12 @@ public class Bookmark {
                 .map(field -> field.getName())
                 .collect(Collectors.toList());
     }
+    
+    public List<String> getEmptyFields() {
+        return getFieldNames().stream()
+                .filter(f -> fieldByName(f).isEmpty())
+                .collect(Collectors.toList());
+    }
 
     public boolean fieldContains(String fieldName, String content) {
         Field entry = fieldByName(fieldName);

@@ -33,8 +33,6 @@ public class RetrievedVolume {
         return author;
     }
     
-    
-
     private RetrievedVolume() {
     }
 

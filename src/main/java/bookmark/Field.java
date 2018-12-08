@@ -80,5 +80,13 @@ public class Field {
     public List<String> getList() {
         return data;
     }
+    
+    public boolean isEmpty() {
+        if (isSingleField) {
+            return this.getFirst().equals("");
+        } else {
+            return this.data.isEmpty();
+        }
+    }
 
 }

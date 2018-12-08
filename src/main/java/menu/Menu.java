@@ -29,6 +29,7 @@ public class Menu {
     private void createItems() {
         items = new ArrayList<>();
         items.add(new CreateNewBookmark());
+        items.add(new CreateByISBN());
         items.add(new CreateSamples());
         if (container.getCurrent() != null) {
             items.add(new EditBookmark());

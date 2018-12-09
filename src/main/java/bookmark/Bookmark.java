@@ -114,6 +114,12 @@ public class Bookmark {
                 .collect(Collectors.toList());
     }
 
+    public List<String> getEmptyFields() {
+        return getFieldNames().stream()
+                .filter(f -> fieldByName(f).isEmpty())
+                .collect(Collectors.toList());
+    }
+
     public boolean fieldContains(String fieldName, String content) {
         Field entry = fieldByName(fieldName);
         if (entry == null) {
@@ -158,6 +164,20 @@ public class Bookmark {
         entries.add(new Field("Title", title));
         entries.add(new Field("Author", author));
         entries.add(new Field("ISBN", isbn));
+        entries.add(new Field("URL", ""));
+        entries.add(new Field("Description", ""));
+        entries.add(new Field("Tags", new ArrayList<String>()));
+        return new Bookmark(entries);
+    }
+    
+    public static Bookmark createBook() {
+        List<Field> entries = new ArrayList<>();
+        entries.add(new Field("Title", ""));
+        entries.add(new Field("Author", ""));
+        entries.add(new Field("ISBN", ""));
+        entries.add(new Field("URL", ""));
+        entries.add(new Field("Description", ""));
+        entries.add(new Field("Tags", new ArrayList<String>()));
         return new Bookmark(entries);
     }
 

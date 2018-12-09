@@ -29,7 +29,9 @@ public class CreateByISBN extends MenuItem {
             Bookmark bm = Bookmark.createBookmark();
             bm.setSingleField("Title", volume.getTitle());
             bm.setSingleField("Author", volume.getAuthor());
-            bm.setSingleField("ISBN", "isbn");
+            bm.setSingleField("ISBN", isbn);
+            bm.setSingleField("URL", volume.getURL());
+            bm.setSingleField("Description", volume.getDescription());
             List<String> toFill = bm.getEmptyFields();
             for (String field : toFill) {
                 Menu.setFieldByUserInput(bm, field, true, io);

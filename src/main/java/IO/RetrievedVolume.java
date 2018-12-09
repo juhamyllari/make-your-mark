@@ -14,14 +14,18 @@ public class RetrievedVolume {
 
     private String title;
     private String author;
+    private String url;
+    private String description;
 
     public static RetrievedVolume build(String isbn) throws MalformedURLException, IOException {
         URL url = createQuery(isbn);
         String book = getBook(url);
-        JsonElement info = getVolumeInfo(book);
+        JsonElement info = getItemInfo(book);
         RetrievedVolume volume = new RetrievedVolume();
-        volume.title = getTitle(info);
-        volume.author = getAuthor(info);
+        volume.title = parseTitle(info);
+        volume.author = parseAuthor(info);
+        volume.url = parseUrl(info);
+        volume.description = parseDescription(info);
         return volume;
     }
 
@@ -31,6 +35,14 @@ public class RetrievedVolume {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getURL() {
+        return url;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     private RetrievedVolume() {
@@ -57,33 +69,49 @@ public class RetrievedVolume {
         return output;
     }
 
-    private static JsonElement getVolumeInfo(String book) {
+    private static JsonElement getItemInfo(String book) {
         JsonParser parser = new JsonParser();
         JsonObject parsedData = parser.parse(book).getAsJsonObject();
         JsonElement info = null;
         try {
             info = parsedData
                     .getAsJsonArray("items")
-                    .get(0)
-                    .getAsJsonObject()
-                    .get("volumeInfo");
+                    .get(0);
         } catch (Exception e) {
             throw new IllegalArgumentException("Could not extract volume (no match?)");
         }
         return info;
     }
 
-    private static String getTitle(JsonElement info) {
+    private static String parseTitle(JsonElement info) {
         return info.getAsJsonObject()
+                .get("volumeInfo")
+                .getAsJsonObject()
                 .get("title")
                 .getAsString();
     }
 
-    private static String getAuthor(JsonElement info) {
+    private static String parseAuthor(JsonElement info) {
         return info.getAsJsonObject()
+                .get("volumeInfo")
+                .getAsJsonObject()
                 .get("authors")
                 .getAsJsonArray()
                 .get(0)
+                .getAsString();
+    }
+
+    private static String parseUrl(JsonElement info) {
+        return info.getAsJsonObject()
+                .get("selfLink")
+                .getAsString();
+    }
+
+    private static String parseDescription(JsonElement info) {
+        return info.getAsJsonObject()
+                .get("volumeInfo")
+                .getAsJsonObject()
+                .get("description")
                 .getAsString();
     }
 

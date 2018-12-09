@@ -14,18 +14,27 @@ import java.time.format.DateTimeFormatter;
 public class Bookmark {
 
     private List<Field> fields;
+    private List<Comment> comments;
     private String addedOn;
     private String readOn;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     public Bookmark(List<Field> entries) {
         this.fields = entries;
+        this.comments = new ArrayList<Comment>();
     }
 
     public Bookmark() {
         this(new ArrayList<Field>());
     }
 
+    public void setComment(String content) {
+        Comment comment = new Comment();
+        comment.setContent(content);
+        comment.setAddedOn();
+        comments.add(comment);
+    }
+    
     public boolean isRead() {
         return readOn != null;
     }

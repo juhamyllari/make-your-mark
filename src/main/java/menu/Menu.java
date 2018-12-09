@@ -149,19 +149,20 @@ public class Menu {
     }
 
     public static void createSamples(BookmarkContainer container) {
-        Bookmark routerBook = Bookmark.createBookmark();
+        Bookmark routerBook = Bookmark.createBook();
         routerBook.setSingleField("Title", "An Introduction to GCC");
         routerBook.setSingleField("Author", "Brian Gough");
-        routerBook.setSingleField("ISBN", "978-0954161798");
+        routerBook.setSingleField("ISBN", "9780954161798");
         routerBook.setSingleField("URL", "http://www.network-theory.co.uk/docs/gccintro/");
         routerBook.addToField("Tags", "guide");
         routerBook.addToField("Tags", "compilers");
         routerBook.setAddedOn();
         container.add(routerBook);
-        Bookmark fishBook = Bookmark.createBookmark();
+        Bookmark fishBook = Bookmark.createBook();
         fishBook.setSingleField("Title", "Suomalainen kalaopas");
         fishBook.setSingleField("Author", "Hannu Lehtonen");
-        fishBook.setSingleField("ISBN", "951-0-31578-8");
+        fishBook.setSingleField("ISBN", "9510315788");
+        fishBook.setSingleField("Description", "An interesting primer on fishing in Finland.");
         fishBook.addToField("Tags", "hobbies");
         fishBook.addToField("Tags", "fishing");
         fishBook.addToField("Tags", "guide");
@@ -243,11 +244,6 @@ public class Menu {
             }
         }
     }
-    //    private static void editListField(Bookmark bm, String field, IO io) {
-    //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    //    }
-    // List editing unfinished: User can only replace or remove all elements of
-    // a list field with one value.
 
     public static void edit(Bookmark bm, IO io) {
         List<String> allFields = bm.getFieldNames();

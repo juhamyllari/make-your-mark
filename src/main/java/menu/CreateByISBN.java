@@ -26,7 +26,7 @@ public class CreateByISBN extends MenuItem {
         }
         try {
             RetrievedVolume volume = RetrievedVolume.build(isbn);
-            Bookmark bm = Bookmark.createBookmark();
+            Bookmark bm = Bookmark.createBook();
             bm.setSingleField("Title", volume.getTitle());
             bm.setSingleField("Author", volume.getAuthor());
             bm.setSingleField("ISBN", isbn);

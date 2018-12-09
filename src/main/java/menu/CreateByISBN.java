@@ -21,6 +21,9 @@ public class CreateByISBN extends MenuItem {
     @Override
     public void execute(BookmarkContainer container, IO io) {
         String isbn = getISBN(io);
+        if (isbn.equals("")) {
+            return;
+        }
         try {
             RetrievedVolume volume = RetrievedVolume.build(isbn);
             Bookmark bm = Bookmark.createBookmark();
@@ -35,9 +38,9 @@ public class CreateByISBN extends MenuItem {
             container.add(bm);
             io.print("Bookmark created.");
         } catch (IOException ex) {
-            Logger.getLogger(CreateByISBN.class.getName()).log(Level.SEVERE, null, ex);
+            io.nextLine("Failed to read from remote API. (Are you connected to the internet?)\nPress enter to return to the menu.");
         } catch (IllegalArgumentException ex) {
-            io.nextLine("No books matching ISBN " + isbn + " were found. Press enter to return to the menu.");
+            io.nextLine("No books matching ISBN " + isbn + " were found.\nPress enter to return to the menu.");
         }
     }
 
@@ -45,7 +48,10 @@ public class CreateByISBN extends MenuItem {
         String isbn = "";
         boolean done = false;
         while (!done) {
-            String rawInput = io.nextLine("Please enter the ISBN.");
+            String rawInput = io.nextLine("Please enter the ISBN (or \"c\" to cancel).");
+            if (rawInput.equalsIgnoreCase("c")) {
+                return "";
+            }
             isbn = rawInput.replaceAll("[^0-9]", "");
             if (isbn.length() == 10 || isbn.length() == 13) {
                 done = true;

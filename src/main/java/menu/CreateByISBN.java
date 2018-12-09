@@ -33,8 +33,11 @@ public class CreateByISBN extends MenuItem {
             }
             bm.setAddedOn();
             container.add(bm);
+            io.print("Bookmark created.");
         } catch (IOException ex) {
             Logger.getLogger(CreateByISBN.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalArgumentException ex) {
+            io.nextLine("No books matching ISBN " + isbn + " were found. Press enter to return to the menu.");
         }
     }
 

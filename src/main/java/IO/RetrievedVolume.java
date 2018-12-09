@@ -32,7 +32,7 @@ public class RetrievedVolume {
     public String getAuthor() {
         return author;
     }
-    
+
     private RetrievedVolume() {
     }
 
@@ -43,7 +43,7 @@ public class RetrievedVolume {
     public void setAuthor(String author) {
         this.author = author;
     }
-    
+
     private static URL createQuery(String isbn) throws MalformedURLException {
         String url = "https://www.googleapis.com/books/v1/volumes?q=isbn:" + isbn;
         return new URL(url);
@@ -60,20 +60,25 @@ public class RetrievedVolume {
     private static JsonElement getVolumeInfo(String book) {
         JsonParser parser = new JsonParser();
         JsonObject parsedData = parser.parse(book).getAsJsonObject();
-        JsonElement info = parsedData
-                .getAsJsonArray("items")
-                .get(0)
-                .getAsJsonObject()
-                .get("volumeInfo");
+        JsonElement info = null;
+        try {
+            info = parsedData
+                    .getAsJsonArray("items")
+                    .get(0)
+                    .getAsJsonObject()
+                    .get("volumeInfo");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Could not extract volume (no match?)");
+        }
         return info;
     }
-    
+
     private static String getTitle(JsonElement info) {
         return info.getAsJsonObject()
                 .get("title")
                 .getAsString();
     }
-    
+
     private static String getAuthor(JsonElement info) {
         return info.getAsJsonObject()
                 .get("authors")

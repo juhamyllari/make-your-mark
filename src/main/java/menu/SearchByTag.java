@@ -8,8 +8,8 @@ public class SearchByTag extends MenuItem {
 
     public SearchByTag() {
         super("search bookmarks by tag");
-        addKey("search");
-        addKey("se");
+        addKey("tagsearch");
+        addKey("tag");
     }
 
     @Override

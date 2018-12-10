@@ -59,9 +59,9 @@ public class Stepdefs {
         inputLines.add("no");
     }
 
-    @Given("^command search is given$")
-    public void command_search_is_given() throws Throwable {
-        inputLines.add("search");
+    @Given("^command tagsearch is given$")
+    public void command_tagsearch_is_given() throws Throwable {
+        inputLines.add("tagsearch");
     }
 
     @Given("^command drop is given$")
@@ -105,9 +105,9 @@ public class Stepdefs {
         inputLines.add("editall");
     }
     
-    @Given("^command tadsearch is given$")
+    @Given("^command search is given$")
     public void command_fieldsearch_is_given() throws Throwable {
-        inputLines.add("tadsearch");
+        inputLines.add("search");
     }
 
     @When("^a valid tag \"([^\"]*)\" is entered$")

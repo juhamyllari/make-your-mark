@@ -8,8 +8,8 @@ public class Search extends MenuItem {
     
     public Search() {
         super("search bookmarks by title, author or description");
-        addKey("tadsearch");
-        addKey("ts");
+        addKey("search");
+        addKey("se");
     }
     
     @Override

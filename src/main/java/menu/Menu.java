@@ -38,6 +38,7 @@ public class Menu {
                 items.add(new MarkAsRead());
             }
             items.add(new RemoveBookmark());
+            items.add(new AddComment());
         }
         if (container.size() > 1) {
             items.add(new NextBookmark());

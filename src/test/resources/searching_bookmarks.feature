@@ -36,6 +36,6 @@ Feature: As a user I want to search for reading tips
 
   Scenario: user can find reading tips by description
     Given command samples is given
-    Given command search is given
-    And a valid description "koville jätkille" is entered
+    And command search is given
+    When a valid description "tosi koville" is entered
     Then system will respond with "Title: An Introduction to GCC"

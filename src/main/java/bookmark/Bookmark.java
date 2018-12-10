@@ -14,18 +14,31 @@ import java.time.format.DateTimeFormatter;
 public class Bookmark {
 
     private List<Field> fields;
+    private List<Comment> comments;
     private String addedOn;
     private String readOn;
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 
     public Bookmark(List<Field> entries) {
         this.fields = entries;
+        this.comments = new ArrayList<Comment>();
     }
 
     public Bookmark() {
         this(new ArrayList<Field>());
     }
 
+    public void addComment(String content) {
+        Comment comment = new Comment();
+        comment.setContent(content);
+        comment.setAddedOn();
+        comments.add(comment);
+    }
+    
+    public List<Comment> getComments() {
+        return comments;
+    }
+    
     public boolean isRead() {
         return readOn != null;
     }
@@ -164,7 +177,11 @@ public class Bookmark {
                 .map(entry -> entry.toString())
                 .collect(Collectors.joining("\n"))
                 + "\nAdded on: " + this.addedOn
-                + (isRead() ? "\nRead on: " + this.readOn : "");
+                + (isRead() ? "\nRead on: " + this.readOn : "")
+                + (!comments.isEmpty() ? "\nComments:\n"
+                + comments.stream()
+                .map(entry -> entry.toString())
+                .collect(Collectors.joining("\n")) : "");
     }
 
     public static Bookmark createBook(String title, String author, String isbn) {
@@ -199,7 +216,6 @@ public class Bookmark {
         entries.add(new Field("URL", ""));
         entries.add(new Field("Description", ""));
         entries.add(new Field("Author", ""));
-        entries.add(new Field("Comment", ""));
         entries.add(new Field("ISBN", ""));
         entries.add(new Field("Tags", new ArrayList<String>()));
         entries.add(new Field("Prerequisite courses", new ArrayList<String>()));

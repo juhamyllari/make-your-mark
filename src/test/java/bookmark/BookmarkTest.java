@@ -1,6 +1,5 @@
 package bookmark;
 
-import menu.Menu;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -60,7 +59,6 @@ public class BookmarkTest {
         assertEquals("", bm.getSingleField("url"));
         assertEquals("", bm.getSingleField("description"));
         assertEquals("", bm.getSingleField("author"));
-        assertEquals("", bm.getSingleField("comment"));
         assertEquals("", bm.getSingleField("isbn"));
         assertEquals(0, bm.getListField("tags").size());
         assertEquals(0, bm.getListField("prerequisite courses").size());
@@ -70,6 +68,15 @@ public class BookmarkTest {
         assertEquals(2, bm.getListField("tags").size());
     }
     
+    @Test
+    public void testAddComments() {
+        Bookmark bm = Bookmark.createBookmark();
+        bm.addComment("Seems awesome!");
+        bm.addComment("Was terrible.");
+        assertEquals("Seems awesome!", bm.getComments().get(0).getContent());
+        assertEquals("Was terrible.", bm.getComments().get(1).getContent());
+    }
+
     @Test
     public void testTitleAuthorDescriptionFilter() {
         Bookmark bm = Bookmark.createBookmark();

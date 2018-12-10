@@ -10,8 +10,8 @@ public class GeneralSearch extends MenuItem {
     private List<String> searchArea = new ArrayList<>();
     public GeneralSearch() {
         super("search bookmarks");
-        addKey("search");
-        addKey("se");
+        addKey("searchg");
+        addKey("sg");
         searchArea.add("author");
         searchArea.add("title");
         searchArea.add("description");

@@ -59,7 +59,6 @@ public class BookmarkTest {
         assertEquals("", bm.getSingleField("url"));
         assertEquals("", bm.getSingleField("description"));
         assertEquals("", bm.getSingleField("author"));
-        assertEquals("", bm.getSingleField("comment"));
         assertEquals("", bm.getSingleField("isbn"));
         assertEquals(0, bm.getListField("tags").size());
         assertEquals(0, bm.getListField("prerequisite courses").size());
@@ -67,6 +66,24 @@ public class BookmarkTest {
         
         bm.setListField("tags", lst);
         assertEquals(2, bm.getListField("tags").size());
+    }
+    
+    @Test
+    public void testAddComments() {
+        Bookmark bm = Bookmark.createBookmark();
+        assertEquals("", bm.getSingleField("title"));
+        assertEquals("", bm.getSingleField("url"));
+        assertEquals("", bm.getSingleField("description"));
+        assertEquals("", bm.getSingleField("author"));
+        assertEquals("", bm.getSingleField("isbn"));
+        assertEquals(0, bm.getListField("tags").size());
+        assertEquals(0, bm.getListField("prerequisite courses").size());
+        assertEquals(0, bm.getListField("related courses").size());
+        
+        bm.addComment("Seems awesome!");
+        bm.addComment("Was terrible.");
+        assertEquals("Seems awesome!", bm.getComments().get(0).getContent());
+        assertEquals("Was terrible.", bm.getComments().get(1).getContent());
     }
     
     @Test

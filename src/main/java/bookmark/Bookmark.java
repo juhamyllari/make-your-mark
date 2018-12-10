@@ -35,6 +35,10 @@ public class Bookmark {
         comments.add(comment);
     }
     
+    public List<Comment> getComments() {
+        return comments;
+    }
+    
     public boolean isRead() {
         return readOn != null;
     }

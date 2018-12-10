@@ -1,6 +1,7 @@
 package bookmark;
 
 import com.google.gson.Gson;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,7 +12,7 @@ public class BookmarkContainer {
     private LinkedList<Bookmark> filtered;
     private Bookmark current;
     private boolean showingRead;
-    private SearchCriterion searchCriterion;
+    private List<SearchCriterion> searchCriterion;
     
     private class SearchCriterion {
         private final String field;
@@ -28,6 +29,7 @@ public class BookmarkContainer {
         this.showingRead = false;
         updateFiltered();
         this.current = getFirst();
+        this.searchCriterion=new ArrayList<>();
     }
 
     public BookmarkContainer() {
@@ -151,12 +153,20 @@ public class BookmarkContainer {
 //        for(String tag:tags) f=f.compose(x -> x.filter(y -> y.getListField("tags").contains(tag)));
 //        return f.apply(bookmarks.stream()).collect(Collectors.toCollection(LinkedList::new));
 //    }
+    
     public LinkedList<Bookmark> searchByTagsOR(List<String> tags) {
         return bookmarks.stream().filter(x -> tags.stream().anyMatch(y -> x.getListField("tags").contains(y))).collect(Collectors.toCollection(LinkedList::new));
     }
 
-    public void setFilter(String fieldName, List<String> content) {
-        this.searchCriterion = new SearchCriterion(fieldName, content);
+    public void setFilterField(String fieldName, List<String> content) {
+        this.searchCriterion.add(new SearchCriterion(fieldName, content));
+        updateFiltered();
+    }
+    
+    public void setFilter(List<String> fieldNames, List<String> content) {
+        for(String fieldName:fieldNames){
+            this.searchCriterion.add(new SearchCriterion(fieldName, content));
+        }
         updateFiltered();
     }
     
@@ -193,12 +203,18 @@ public class BookmarkContainer {
     }
 
     private void updateFiltered() {
-        filtered = bookmarks.stream()
+        if(searchCriterion.isEmpty()){
+            filtered = bookmarks.stream()
                 .filter(bm -> showingRead || !bm.isRead())
-                .filter(bm -> searchCriterion == null || bm.fieldContainsAny(searchCriterion.field, searchCriterion.content))
+                .filter(bm -> searchCriterion.stream().anyMatch(sc -> bm.fieldContainsAny(sc.field, sc.content)))
                 .collect(Collectors.toCollection(LinkedList::new));
-        if (!filtered.contains(current)) {
-            current = getNext();
+            if (!filtered.contains(current)) {
+                current = getNext();
+            }
+        }else{
+            filtered = bookmarks.stream()
+                .filter(bm -> showingRead || !bm.isRead())
+                .collect(Collectors.toCollection(LinkedList::new));
         }
     }
 

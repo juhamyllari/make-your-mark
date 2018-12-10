@@ -3,13 +3,18 @@ package menu;
 import IO.IO;
 import bookmark.BookmarkContainer;
 import java.util.ArrayList;
+import java.util.List;
 
-public class SearchByTag extends MenuItem {
+public class GeneralSearch extends MenuItem {
 
-    public SearchByTag() {
-        super("search bookmarks by tag");
-        addKey("searchT");
-        addKey("st");
+    private List<String> searchArea = new ArrayList<>();
+    public GeneralSearch() {
+        super("search bookmarks");
+        addKey("search");
+        addKey("se");
+        searchArea.add("author");
+        searchArea.add("title");
+        searchArea.add("description");
     }
 
     @Override
@@ -23,7 +28,7 @@ public class SearchByTag extends MenuItem {
             tags.add(newTag);
         }
         
-        container.setFilterField("Tags", tags);
+        container.setFilter(searchArea, tags);
         
         if (container.size() == 0) {
             io.print("No bookmarks matching the search criteria.");

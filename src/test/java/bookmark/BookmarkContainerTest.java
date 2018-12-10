@@ -165,7 +165,7 @@ public class BookmarkContainerTest {
         List<String> searchTags = new ArrayList<>();
         searchTags.add("serious");
         searchTags.add("funny");
-        bc.setFilter("tags", searchTags);
+        bc.setFilterField("tags", searchTags);
         assertEquals(1, bc.size());
     }
 
@@ -175,7 +175,7 @@ public class BookmarkContainerTest {
         List<String> searchTags = new ArrayList<>();
         searchTags.add("serious");
         searchTags.add("funny");
-        bc.setFilter("tags", searchTags);
+        bc.setFilterField("tags", searchTags);
         bc.dropFilter();
         assertEquals(2, bc.size());
         assertTrue(!bc.hasFilter());
@@ -187,7 +187,7 @@ public class BookmarkContainerTest {
         List<String> searchTags = new ArrayList<>();
         searchTags.add("serious");
         searchTags.add("funny");
-        bc.setFilter("tags", searchTags);
+        bc.setFilterField("tags", searchTags);
         assertTrue(bc.hasFilter());
         bc.dropFilter();
         assertTrue(!bc.hasFilter());

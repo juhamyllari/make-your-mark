@@ -120,6 +120,14 @@ public class Bookmark {
                 .collect(Collectors.toList());
     }
 
+    public boolean titleAuthorOrDescriptionContains(String content) {
+        List<String> fieldsToSearch = new ArrayList();
+        fieldsToSearch.add("title");
+        fieldsToSearch.add("author");
+        fieldsToSearch.add("description");
+        return fieldsToSearch.stream().anyMatch(field -> fieldContains(field, content));
+    }
+
     public boolean fieldContains(String fieldName, String content) {
         Field entry = fieldByName(fieldName);
         if (entry == null) {
@@ -169,7 +177,7 @@ public class Bookmark {
         entries.add(new Field("Tags", new ArrayList<String>()));
         return new Bookmark(entries);
     }
-    
+
     public static Bookmark createBook() {
         List<Field> entries = new ArrayList<>();
         entries.add(new Field("Title", ""));

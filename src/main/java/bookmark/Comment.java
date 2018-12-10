@@ -25,5 +25,9 @@ public class Comment {
     public String getContent() {
         return content;
     }
-    
+
+    @Override
+    public String toString() {
+        return content + "\n" + addedOn;
+    }
 }

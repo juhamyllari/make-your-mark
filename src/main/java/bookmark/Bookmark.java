@@ -28,7 +28,7 @@ public class Bookmark {
         this(new ArrayList<Field>());
     }
 
-    public void setComment(String content) {
+    public void addComment(String content) {
         Comment comment = new Comment();
         comment.setContent(content);
         comment.setAddedOn();
@@ -159,7 +159,11 @@ public class Bookmark {
                 .map(entry -> entry.toString())
                 .collect(Collectors.joining("\n"))
                 + "\nAdded on: " + this.addedOn
-                + (isRead() ? "\nRead on: " + this.readOn : "");
+                + (isRead() ? "\nRead on: " + this.readOn : "")
+                + (!comments.isEmpty() ? "\nComments:\n"
+                + comments.stream()
+                .map(entry -> entry.toString())
+                .collect(Collectors.joining("\n")) : "");
     }
 
     public static Bookmark createBook(String title, String author, String isbn) {

@@ -104,6 +104,16 @@ public class Stepdefs {
         // Write code here that turns the phrase above into concrete actions
         inputLines.add("editall");
     }
+    
+    @Given("^command comment is given$")
+    public void command_comment_is_given() throws Throwable {
+        inputLines.add("comment");
+    }
+
+    @When("^a valid comment \"([^\"]*)\" is entered$")
+    public void a_valid_comment(String comment) throws Throwable {
+        inputLines.add(comment);
+    }
 
     @When("^a valid tag \"([^\"]*)\" is entered$")
     public void a_valid_tag_hobbies_is_entered(String tag) throws Throwable {
@@ -167,11 +177,6 @@ public class Stepdefs {
     @When("^a valid description \"([^\"]*)\" is entered$")
     public void a_valid_description_is_entered(String description) throws Throwable {
         inputLines.add(description);
-    }
-
-    @When("^a valid comment \"([^\"]*)\" is entered$")
-    public void a_valid_comment_is_entered(String comment) throws Throwable {
-        inputLines.add(comment);
     }
 
     @Then("^system will respond with \"([^\"]*)\"$")

@@ -184,7 +184,6 @@ public class Bookmark {
         entries.add(new Field("URL", ""));
         entries.add(new Field("Description", ""));
         entries.add(new Field("Author", ""));
-        entries.add(new Field("Comment", ""));
         entries.add(new Field("ISBN", ""));
         entries.add(new Field("Tags", new ArrayList<String>()));
         entries.add(new Field("Prerequisite courses", new ArrayList<String>()));

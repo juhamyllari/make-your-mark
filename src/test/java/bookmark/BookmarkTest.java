@@ -11,22 +11,22 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BookmarkTest {
-    
+
     Bookmark bmDefault;
     Bookmark bmTagged;
     List<String> lst;
-    
+
     public BookmarkTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         bmDefault = new Bookmark();
@@ -36,7 +36,7 @@ public class BookmarkTest {
         lst.add("tag2");
         bmTagged.setListField("tags", lst);
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -65,11 +65,33 @@ public class BookmarkTest {
         assertEquals(0, bm.getListField("tags").size());
         assertEquals(0, bm.getListField("prerequisite courses").size());
         assertEquals(0, bm.getListField("related courses").size());
-        
+
         bm.setListField("tags", lst);
         assertEquals(2, bm.getListField("tags").size());
     }
-    
+
+    @Test
+    public void testEmptyFields() {
+        assertEquals(0, bmDefault.getEmptyFields().size());
+        bmDefault.addToField("title", "");
+        assertEquals(1, bmDefault.getEmptyFields().size());
+    }
+
+    @Test
+    public void testFieldContains() {
+        assertEquals(true, bmTagged.fieldContains("tags", "tag1"));
+        assertEquals(false, bmTagged.fieldContains("tags", "tag3"));
+        assertEquals(false, bmTagged.fieldContains("what", "tag1"));
+    }
+
+    @Test
+    public void testCreateBookmarkWithParameters() {
+        Bookmark bmTest = Bookmark.createBook("example title", "example author", "01234567890");
+        assertEquals("example title", bmTest.getSingleField("title"));
+        assertEquals("example author", bmTest.getSingleField("author"));
+        assertEquals("01234567890", bmTest.getSingleField("isbn"));
+    }
+
     @Test
     public void testGetListField() {
     }
@@ -89,5 +111,5 @@ public class BookmarkTest {
     @Test
     public void testFieldIsString() {
     }
-    
+
 }

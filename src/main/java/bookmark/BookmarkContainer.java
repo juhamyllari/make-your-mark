@@ -25,11 +25,11 @@ public class BookmarkContainer {
     }
 
     public BookmarkContainer(LinkedList<Bookmark> bookmarks) {
+        this.searchCriterion=new ArrayList<>();
         this.bookmarks = bookmarks;
         this.showingRead = false;
         updateFiltered();
         this.current = getFirst();
-        this.searchCriterion=new ArrayList<>();
     }
 
     public BookmarkContainer() {
@@ -171,12 +171,12 @@ public class BookmarkContainer {
     }
     
     public void dropFilter() {
-        this.searchCriterion = null;
+        this.searchCriterion = new ArrayList<>();
         updateFiltered();
     }
     
     public boolean hasFilter() {
-        return searchCriterion != null;
+        return !searchCriterion.isEmpty();
     }
 
     @Override
@@ -203,18 +203,12 @@ public class BookmarkContainer {
     }
 
     private void updateFiltered() {
-        if(searchCriterion.isEmpty()){
-            filtered = bookmarks.stream()
+        filtered = bookmarks.stream()
                 .filter(bm -> showingRead || !bm.isRead())
-                .filter(bm -> searchCriterion.stream().anyMatch(sc -> bm.fieldContainsAny(sc.field, sc.content)))
+                .filter(bm -> searchCriterion.isEmpty() || searchCriterion.stream().anyMatch(sc -> bm.fieldContainsAny(sc.field, sc.content)))
                 .collect(Collectors.toCollection(LinkedList::new));
-            if (!filtered.contains(current)) {
-                current = getNext();
-            }
-        }else{
-            filtered = bookmarks.stream()
-                .filter(bm -> showingRead || !bm.isRead())
-                .collect(Collectors.toCollection(LinkedList::new));
+        if (!filtered.contains(current)) {
+            current = getNext();
         }
     }
 

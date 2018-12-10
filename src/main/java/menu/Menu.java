@@ -43,6 +43,7 @@ public class Menu {
             items.add(new NextBookmark());
             items.add(new PreviousBookmark());
             items.add(new SearchByTag());
+            items.add(new GeneralSearch());
         }
         if (container.hasFilter()) {
             items.add(new DropSearchCriteria());

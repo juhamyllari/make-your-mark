@@ -29,7 +29,7 @@ public class FieldTest {
     public void setUp() {
         field = new Field("ISBN", "0547249640");
 
-        ArrayList<String> tags = new ArrayList();
+        ArrayList<String> tags = new ArrayList<String>();
         tags.add("kids");
         tags.add("story");
 
@@ -50,7 +50,7 @@ public class FieldTest {
     @Test
     public void testSetData() {
         assertEquals("story", field2.getList().get(1));
-        ArrayList<String> tags = new ArrayList();
+        ArrayList<String> tags = new ArrayList<String>();
         tags.add("test1");
         tags.add("test2");
         field2.setData(tags);
@@ -62,7 +62,7 @@ public class FieldTest {
         assertEquals(false, field.isEmpty());
         assertEquals(false, field2.isEmpty());
         assertEquals(true, new Field("test", "").isEmpty());
-        assertEquals(true, new Field("test", new ArrayList<>()).isEmpty());
+        assertEquals(true, new Field("test", new ArrayList<String>()).isEmpty());
     }
 
     @Test

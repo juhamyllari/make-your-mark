@@ -75,6 +75,7 @@ public class BookmarkTest {
         bm.addComment("Was terrible.");
         assertEquals("Seems awesome!", bm.getComments().get(0).getContent());
         assertEquals("Was terrible.", bm.getComments().get(1).getContent());
+    }
 
     @Test
     public void testTitleAuthorDescriptionFilter() {

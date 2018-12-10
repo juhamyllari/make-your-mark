@@ -104,7 +104,6 @@ public class Stepdefs {
         // Write code here that turns the phrase above into concrete actions
         inputLines.add("editall");
     }
-    
 
     @Given("^command comment is given$")
     public void command_comment_is_given() throws Throwable {

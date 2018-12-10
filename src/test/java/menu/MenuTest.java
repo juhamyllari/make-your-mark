@@ -13,29 +13,29 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class MenuTest {
-    
+
     private Menu menu;
     private BookmarkContainer container;
     private StubIO io;
-    
+
     public MenuTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
         container = new BookmarkContainer();
         io = new StubIO(new ArrayList<>());
         menu = new Menu(container, io);
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -95,7 +95,7 @@ public class MenuTest {
         Menu.editAll(bookmark, io);
         assertEquals("New title", bookmark.getSingleField("title"));
     }
-    
+
     @Test
     public void testEditAllDeclineChanges() {
         Bookmark bookmark = new Bookmark();
@@ -118,5 +118,13 @@ public class MenuTest {
         String action = "perform this action";
         assertFalse(Menu.askConfirmation(io, action));
     }
-    
+
+    @Test
+    public void testCreateByISBN() {
+        io.addLine("0547249640");
+        io.addLine("");
+        new CreateByISBN().execute(container, io);
+        assertEquals("George Orwell", container.getBookmarks().get(container.size() - 1).getSingleField("author"));
+    }
+
 }

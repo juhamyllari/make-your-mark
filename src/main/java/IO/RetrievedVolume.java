@@ -73,13 +73,9 @@ public class RetrievedVolume {
         JsonParser parser = new JsonParser();
         JsonObject parsedData = parser.parse(book).getAsJsonObject();
         JsonElement info = null;
-        try {
-            info = parsedData
-                    .getAsJsonArray("items")
-                    .get(0);
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Could not extract volume (no match?)");
-        }
+        info = parsedData
+                .getAsJsonArray("items")
+                .get(0);
         return info;
     }
 

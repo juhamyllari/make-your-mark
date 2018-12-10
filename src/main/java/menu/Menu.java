@@ -224,25 +224,29 @@ public class Menu {
                     io.print("Value added.");
                 }
                 if (command.equals("c") || command.equals("change")) {
-                    while (indexOf < 0) {
-                        String value = io.nextLine("Type which value to edit (" + values.stream().collect(Collectors.joining(", ")) + ")");
-                        indexOf = values.indexOf(value);
-                        if (indexOf == -1) {
-                            System.out.println("Value not found. Please try again.");
-                        } else {
-                            String replacementValue = io.nextLine("Provide replacement value for \"" + value + "\" or type \"(d)elete\" to remove value");
-                            if (replacementValue.equals("delete") || replacementValue.equals("d")) {
-                                values.remove(indexOf);
-                                io.print("Value removed.");
-                                if (values.isEmpty()) {
-                                    indexOf = 1;
-                                }
-                            } else {
-                                values.set(indexOf, replacementValue);
-                                io.print("Value changed.");
-                            }
-                        }
+                    changeListField(indexOf, io, values);
+                }
+            }
+        }
+    }
+
+    private static void changeListField(int indexOf, IO io1, List<String> values) {
+        while (indexOf < 0) {
+            String value = io1.nextLine("Type which value to edit (" + values.stream().collect(Collectors.joining(", ")) + ")");
+            indexOf = values.indexOf(value);
+            if (indexOf == -1) {
+                System.out.println("Value not found. Please try again.");
+            } else {
+                String replacementValue = io1.nextLine("Provide replacement value for \"" + value + "\" or type \"(d)elete\" to remove value");
+                if (replacementValue.equals("delete") || replacementValue.equals("d")) {
+                    values.remove(indexOf);
+                    io1.print("Value removed.");
+                    if (values.isEmpty()) {
+                        indexOf = 1;
                     }
+                } else {
+                    values.set(indexOf, replacementValue);
+                    io1.print("Value changed.");
                 }
             }
         }

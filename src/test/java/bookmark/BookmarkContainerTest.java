@@ -242,4 +242,17 @@ public class BookmarkContainerTest {
         bc.getCurrent().markAsRead();
         assertNotEquals(null, bc.getCurrent().getReadOn());
     }
+    
+    @Test
+    public void testFieldSearch() {
+        bc.add(video);
+        bc.setFilter("virtual memory");
+        assertEquals(video, bc.getCurrent());
+        assertEquals(1, bc.size());
+        bc.dropFilter();
+        video.addToField("description", "vautsi vau");
+        bc.setFilter("vautsi vau");
+        assertEquals(video, bc.getCurrent());
+        assertEquals(1, bc.size());
+    }
 }

@@ -59,9 +59,9 @@ public class Stepdefs {
         inputLines.add("no");
     }
 
-    @Given("^command search is given$")
-    public void command_search_is_given() throws Throwable {
-        inputLines.add("search");
+    @Given("^command tagsearch is given$")
+    public void command_tagsearch_is_given() throws Throwable {
+        inputLines.add("tagsearch");
     }
 
     @Given("^command drop is given$")
@@ -103,6 +103,21 @@ public class Stepdefs {
     public void command_editall_is_given() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         inputLines.add("editall");
+    }
+
+    @Given("^command comment is given$")
+    public void command_comment_is_given() throws Throwable {
+        inputLines.add("comment");
+    }
+
+    @When("^a valid comment \"([^\"]*)\" is entered$")
+    public void a_valid_comment(String comment) throws Throwable {
+        inputLines.add(comment);
+    }
+    
+    @Given("^command search is given$")
+    public void command_fieldsearch_is_given() throws Throwable {
+        inputLines.add("search");
     }
 
     @When("^a valid tag \"([^\"]*)\" is entered$")
@@ -167,11 +182,6 @@ public class Stepdefs {
     @When("^a valid description \"([^\"]*)\" is entered$")
     public void a_valid_description_is_entered(String description) throws Throwable {
         inputLines.add(description);
-    }
-
-    @When("^a valid comment \"([^\"]*)\" is entered$")
-    public void a_valid_comment_is_entered(String comment) throws Throwable {
-        inputLines.add(comment);
     }
 
     @Then("^system will respond with \"([^\"]*)\"$")

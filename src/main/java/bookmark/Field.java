@@ -60,7 +60,7 @@ public class Field {
     }
     
     public boolean contains(String content) {
-        return data.stream().anyMatch(string -> string.equalsIgnoreCase(content));
+        return data.stream().anyMatch(string -> string.trim().toLowerCase().contains(content.trim().toLowerCase()));
     }
     
     public boolean containsAny(List<String> content) {

@@ -60,7 +60,7 @@ public class Field {
     }
     
     public boolean contains(String content) {
-        return data.stream().anyMatch(string -> string.equalsIgnoreCase(content));
+        return data.stream().anyMatch(string -> string.toLowerCase().contains(content.toLowerCase()));
     }
     
     public boolean containsAny(List<String> content) {
@@ -79,6 +79,14 @@ public class Field {
 
     public List<String> getList() {
         return data;
+    }
+    
+    public boolean isEmpty() {
+        if (isSingleField) {
+            return this.getFirst().equals("");
+        } else {
+            return this.data.isEmpty();
+        }
     }
 
 }

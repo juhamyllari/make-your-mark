@@ -113,7 +113,15 @@ public class Bookmark {
                 .map(field -> field.getName())
                 .collect(Collectors.toList());
     }
-
+    
+    public boolean titleAuthorOrDescriptionContains(String content) {
+        List<String> fieldsToSearch = new ArrayList();
+        fieldsToSearch.add("title");
+        fieldsToSearch.add("author");
+        fieldsToSearch.add("description");
+        return fieldsToSearch.stream().anyMatch(field -> fieldContains(field, content));
+    }
+    
     public boolean fieldContains(String fieldName, String content) {
         Field entry = fieldByName(fieldName);
         if (entry == null) {

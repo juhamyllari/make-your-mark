@@ -21,3 +21,21 @@ Feature: As a user I want to search for reading tips
     And one empty answer is entered
     And command drop is given
     Then system will respond with "You have 2 unread bookmarks"
+
+  Scenario: user can find reading tips by title
+    Given command samples is given
+    Given command tadsearch is given
+    And a valid title "kalaopas" is entered
+    Then system will respond with "Title: Suomalainen kalaopas"
+
+  Scenario: user can find reading tips by author
+    Given command samples is given
+    Given command tadsearch is given
+    And a valid author "gough" is entered
+    Then system will respond with "Title: An Introduction to GCC"
+
+  Scenario: user can find reading tips by description
+    Given command samples is given
+    Given command tadsearch is given
+    And a valid description "koville jätkille" is entered
+    Then system will respond with "Title: An Introduction to GCC"

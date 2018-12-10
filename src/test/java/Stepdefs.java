@@ -104,6 +104,11 @@ public class Stepdefs {
         // Write code here that turns the phrase above into concrete actions
         inputLines.add("editall");
     }
+    
+    @Given("^command tadsearch is given$")
+    public void command_fieldsearch_is_given() throws Throwable {
+        inputLines.add("tadsearch");
+    }
 
     @When("^a valid tag \"([^\"]*)\" is entered$")
     public void a_valid_tag_hobbies_is_entered(String tag) throws Throwable {

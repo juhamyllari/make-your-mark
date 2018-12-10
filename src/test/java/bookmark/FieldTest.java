@@ -62,7 +62,7 @@ public class FieldTest {
         assertEquals(false, field.isEmpty());
         assertEquals(false, field2.isEmpty());
         assertEquals(true, new Field("test", "").isEmpty());
-        assertEquals(true, new Field("test", new ArrayList()).isEmpty());
+        assertEquals(true, new Field("test", new ArrayList<>()).isEmpty());
     }
 
     @Test

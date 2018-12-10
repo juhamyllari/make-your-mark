@@ -71,6 +71,14 @@ public class BookmarkTest {
     }
     
     @Test
+    public void testTitleAuthorDescriptionFilter() {
+        Bookmark bm = Bookmark.createBookmark();
+        bm.setSingleField("title", "munakas");
+        assertTrue(bm.titleAuthorOrDescriptionContains("munakas"));
+        assertFalse(bm.titleAuthorOrDescriptionContains("kivi"));
+    }
+    
+    @Test
     public void testGetListField() {
     }
 

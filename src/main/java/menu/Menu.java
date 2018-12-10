@@ -43,6 +43,7 @@ public class Menu {
             items.add(new NextBookmark());
             items.add(new PreviousBookmark());
             items.add(new SearchByTag());
+            items.add(new Search());
         }
         if (container.hasFilter()) {
             items.add(new DropSearchCriteria());
@@ -154,6 +155,7 @@ public class Menu {
         routerBook.setSingleField("Author", "Brian Gough");
         routerBook.setSingleField("ISBN", "9780954161798");
         routerBook.setSingleField("URL", "http://www.network-theory.co.uk/docs/gccintro/");
+        routerBook.setSingleField("Description", "Pakollinen kaikille tosi koville jätkille.");
         routerBook.addToField("Tags", "guide");
         routerBook.addToField("Tags", "compilers");
         routerBook.setAddedOn();

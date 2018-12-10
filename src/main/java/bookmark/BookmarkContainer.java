@@ -15,10 +15,18 @@ public class BookmarkContainer {
     
     private class SearchCriterion {
         private final String field;
-        private final List<String> content;
+        private final List<String> listOfContent;
+        private final String content;
 
-        private SearchCriterion(String field, List<String> content) {
+        private SearchCriterion(String field, List<String> listOfContent) {
             this.field = field;
+            this.listOfContent = listOfContent;
+            this.content = null;
+        }
+        
+        private SearchCriterion(String content) {
+            this.field = null;
+            this.listOfContent = null;
             this.content = content;
         }
     }
@@ -160,6 +168,11 @@ public class BookmarkContainer {
         updateFiltered();
     }
     
+    public void setFilter(String content) {
+        this.searchCriterion = new SearchCriterion(content);
+        updateFiltered();
+    }
+    
     public void dropFilter() {
         this.searchCriterion = null;
         updateFiltered();
@@ -195,8 +208,22 @@ public class BookmarkContainer {
     private void updateFiltered() {
         filtered = bookmarks.stream()
                 .filter(bm -> showingRead || !bm.isRead())
-                .filter(bm -> searchCriterion == null || bm.fieldContainsAny(searchCriterion.field, searchCriterion.content))
                 .collect(Collectors.toCollection(LinkedList::new));
+        if (searchCriterion != null) {
+            if (searchCriterion.listOfContent != null) { 
+                filtered = bookmarks.stream()
+                    .filter(bm -> showingRead || !bm.isRead())
+                    .filter(bm -> bm.fieldContainsAny(searchCriterion.field, searchCriterion.listOfContent))
+                    .collect(Collectors.toCollection(LinkedList::new));
+            }
+            if (searchCriterion.content != null) {                
+                filtered = bookmarks.stream()
+                    .filter(bm -> showingRead || !bm.isRead())
+                    .filter(bm -> bm.titleAuthorOrDescriptionContains(searchCriterion.content))
+                    .collect(Collectors.toCollection(LinkedList::new));
+            }
+        }
+        
         if (!filtered.contains(current)) {
             current = getNext();
         }

@@ -41,7 +41,7 @@ public class CreateByISBN extends MenuItem {
             io.print("Bookmark created.");
         } catch (IOException ex) {
             io.nextLine("Failed to read from remote API. (Are you connected to the internet?)\nPress enter to return to the menu.");
-        } catch (IllegalArgumentException ex) {
+        } catch (IllegalArgumentException | NullPointerException ex) {
             io.nextLine("No books matching ISBN " + isbn + " were found.\nPress enter to return to the menu.");
         }
     }

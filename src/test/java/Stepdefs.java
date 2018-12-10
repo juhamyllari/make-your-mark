@@ -114,7 +114,8 @@ public class Stepdefs {
     @When("^a valid comment \"([^\"]*)\" is entered$")
     public void a_valid_comment(String comment) throws Throwable {
         inputLines.add(comment);
-
+    }
+    
     @Given("^command search is given$")
     public void command_fieldsearch_is_given() throws Throwable {
         inputLines.add("search");

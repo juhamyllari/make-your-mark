@@ -32,3 +32,5 @@ Acceptance Criteria by User Story:
 Acceptance Criteria by User Story:
 * [Can add new bookmark](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/new_bookmark.feature)
 * [Can browse bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/browsing_bookmarks.feature)
+
+

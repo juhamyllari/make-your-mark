@@ -58,11 +58,11 @@ public class Menu {
     }
 
     public void printMenu() {
-        System.out.print("\033[H\033[2J");
+        io.print("\033[H\033[2J");
         printStatus();
-        System.out.println("");
+        io.print("");
         printCurrent();
-        System.out.println("");
+        io.print("");
         createItems();
         printItems();
     }

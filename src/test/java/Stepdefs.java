@@ -126,12 +126,12 @@ public class Stepdefs {
     }
 
     @When("^a valid tag \"([^\"]*)\" is entered$")
-    public void a_valid_tag_hobbies_is_entered(String tag) throws Throwable {
+    public void a_valid_tag_is_entered(String tag) throws Throwable {
         inputLines.add(tag);
     }
 
     @When("^an invalid tag \"([^\"]*)\" is entered$")
-    public void an_invalid_tag_none_is_entered(String tag) throws Throwable {
+    public void an_invalid_tag_is_entered(String tag) throws Throwable {
         inputLines.add(tag);
     }
 

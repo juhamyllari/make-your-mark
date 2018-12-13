@@ -12,6 +12,12 @@
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
 
+## Sprint 4
+Acceptance Criteria by User Story:
+* [Can add bookmarks by giving only ISBN](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/create_by_isbn.feature)
+* [Can search bookmarks by title, author and description](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/searching_bookmarks.feature)
+* [Can add comments to bookmarks](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/commenting_bookmark.feature)
+
 ## Sprint 3
 Acceptance Criteria by User Story:
 * [Can mark bookmarks as read](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/showing_read.feature)

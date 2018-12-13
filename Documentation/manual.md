@@ -46,4 +46,6 @@ The command "remove" removes the selected bookmark. After giving the command you
 
 The application has two options for editing a bookmark: editing its single field or all fields that have only one parameter.
 
-The command "edit" allows you to modify a single field. It prompts you to pick a field and to provide new content for it. The command "editall" goes through all one-parameter fields in order and allows you to edit the ones you desire. After going through all the fields the changes are displayed and confirmation is asked.
+The command "edit" allows you to modify a single field. It prompts you to pick a field and to provide new content for it. 
+
+The command "editall" goes through all one-parameter fields in order and allows you to edit the ones you desire. After going through all the fields the changes are displayed and confirmation is asked.

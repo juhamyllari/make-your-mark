@@ -207,6 +207,17 @@ public class Stepdefs {
         assert io.getPrints().stream().anyMatch(line -> line.contains(expected)) :
                 ("expected: " + expected + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
     }
+    
+    @Then("^system will respond with \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void system_will_respond_with(String expected1, String expected2) throws Throwable {
+        inputLines.add("quit");
+        inputLines.add("no");
+        io = new StubIO(inputLines);
+        App.run(io, false);
+        assert io.getPrints().stream().anyMatch(line -> line.contains(expected1)) && 
+                io.getPrints().stream().anyMatch(line -> line.contains(expected1)) :
+                ("expected: " + expected1 + " and: " + expected2 + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
+    }
 
     @Then("^system with save file will respond with \"([^\"]*)\"$")
     public void system_with_save_file_will_respond_with(String expected) throws Throwable {

@@ -46,14 +46,42 @@ public class MenuTest {
 
     @Test
     public void testIsExiting() {
+        assertEquals(menu.isExiting(), false);
     }
 
     @Test
     public void testSetExiting() {
+        menu.setExiting(true);
+        assertEquals(menu.isExiting(), true);
     }
 
     @Test
-    public void testSetFieldByUserInput() {
+    public void testSetFieldByUserInputSingleField() {
+        Bookmark book = Bookmark.createBookmark();
+        book.setSingleField("Title", "Transition");
+        book.setSingleField("Author", "Iain Banks");
+        book.setSingleField("ISBN", "978-0-349-11927-4");
+        io.addLine("New title");
+        Menu.setFieldByUserInput(book, "title", true, io);
+        assertEquals(book.getSingleField("title"), "New title");
+    }
+    
+    @Test
+    public void testSetFieldByUserInputListField() {
+        Bookmark book = Bookmark.createBookmark();
+        book.setSingleField("Title", "Transition");
+        book.setSingleField("Author", "Iain Banks");
+        book.setSingleField("ISBN", "978-0-349-11927-4");
+        book.addToField("tags", "funny");
+        io.addLine("glad");
+        io.addLine("sad");
+        io.addLine("mad");
+        Menu.setFieldByUserInput(book, "tags", true, io);
+        assertEquals(book.getListField("tags").size(), 3);
+        assertEquals(book.getListField("tags").contains("funny"), false);
+        assertEquals(book.getListField("tags").contains("glad"), true);
+        assertEquals(book.getListField("tags").contains("sad"), true);
+        assertEquals(book.getListField("tags").contains("mad"), true);
     }
 
     @Test

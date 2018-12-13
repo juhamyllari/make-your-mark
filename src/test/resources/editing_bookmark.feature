@@ -47,7 +47,6 @@ Feature: As a user I want to edit reading tips
         And a valid URL "kalamatti.com" is entered
         And a valid description "Mahtavaa" is entered
         And a valid author "Kala Matti" is entered
-        And a valid comment "Olen kirjoittanut jo viisi vuosikymmentä tätä" is entered
         And a valid ISBN "43289-234324" is entered
         When command yes is given
         Then system will respond with "Title: Kalamatin päiväkirja"

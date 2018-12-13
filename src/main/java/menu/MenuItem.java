@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MenuItem {
+public abstract class MenuItem {
 
     private String description;
     private List<String> keys;

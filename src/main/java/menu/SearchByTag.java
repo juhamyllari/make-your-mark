@@ -8,8 +8,8 @@ public class SearchByTag extends MenuItem {
 
     public SearchByTag() {
         super("search bookmarks by tag");
-        addKey("search");
-        addKey("se");
+        addKey("tagsearch");
+        addKey("tag");
     }
 
     @Override
@@ -26,7 +26,7 @@ public class SearchByTag extends MenuItem {
         container.setFilter("Tags", tags);
         
         if (container.size() == 0) {
-            io.print("No bookmarks matching the search criteria.");
+            io.nextLine("No bookmarks matching the search criteria.\nPress enter to return to the menu.");
             container.dropFilter();
         }
     }

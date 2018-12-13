@@ -38,11 +38,13 @@ public class Menu {
                 items.add(new MarkAsRead());
             }
             items.add(new RemoveBookmark());
+            items.add(new AddComment());
         }
         if (container.size() > 1) {
             items.add(new NextBookmark());
             items.add(new PreviousBookmark());
             items.add(new SearchByTag());
+            items.add(new Search());
         }
         if (container.hasFilter()) {
             items.add(new DropSearchCriteria());
@@ -56,11 +58,11 @@ public class Menu {
     }
 
     public void printMenu() {
-        System.out.print("\033[H\033[2J");
+        io.print("\033[H\033[2J");
         printStatus();
-        System.out.println("");
+        io.print("");
         printCurrent();
-        System.out.println("");
+        io.print("");
         createItems();
         printItems();
     }
@@ -154,6 +156,7 @@ public class Menu {
         routerBook.setSingleField("Author", "Brian Gough");
         routerBook.setSingleField("ISBN", "9780954161798");
         routerBook.setSingleField("URL", "http://www.network-theory.co.uk/docs/gccintro/");
+        routerBook.setSingleField("Description", "Pakollinen kaikille tosi koville jätkille.");
         routerBook.addToField("Tags", "guide");
         routerBook.addToField("Tags", "compilers");
         routerBook.setAddedOn();
@@ -221,28 +224,33 @@ public class Menu {
                     io.print("Value added.");
                 }
                 if (command.equals("c") || command.equals("change")) {
-                    while (indexOf < 0) {
-                        String value = io.nextLine("Type which value to edit (" + values.stream().collect(Collectors.joining(", ")) + ")");
-                        indexOf = values.indexOf(value);
-                        if (indexOf == -1) {
-                            System.out.println("Value not found. Please try again.");
-                        } else {
-                            String replacementValue = io.nextLine("Provide replacement value for \"" + value + "\" or type \"(d)elete\" to remove value");
-                            if (replacementValue.equals("delete") || replacementValue.equals("d")) {
-                                values.remove(indexOf);
-                                io.print("Value removed.");
-                                if (values.isEmpty()) {
-                                    indexOf = 1;
-                                }
-                            } else {
-                                values.set(indexOf, replacementValue);
-                                io.print("Value changed.");
-                            }
-                        }
-                    }
+                    indexOf = changeListField(indexOf, io, values);
                 }
             }
         }
+    }
+
+    private static int changeListField(int indexOf, IO io, List<String> values) {
+        while (indexOf < 0) {
+            String value = io.nextLine("Type which value to edit (" + values.stream().collect(Collectors.joining(", ")) + ")");
+            indexOf = values.indexOf(value);
+            if (indexOf == -1) {
+                io.print("Value not found. Please try again.");
+            } else {
+                String replacementValue = io.nextLine("Provide replacement value for \"" + value + "\" or type \"(d)elete\" to remove value");
+                if (replacementValue.equals("delete") || replacementValue.equals("d")) {
+                    values.remove(indexOf);
+                    io.print("Value removed.");
+                    if (values.isEmpty()) {
+                        indexOf = 1;
+                    }
+                } else {
+                    values.set(indexOf, replacementValue);
+                    io.print("Value changed.");
+                }
+            }
+        }
+        return indexOf;
     }
 
     public static void edit(Bookmark bm, IO io) {

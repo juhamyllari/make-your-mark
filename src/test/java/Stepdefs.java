@@ -59,9 +59,9 @@ public class Stepdefs {
         inputLines.add("no");
     }
 
-    @Given("^command search is given$")
-    public void command_search_is_given() throws Throwable {
-        inputLines.add("search");
+    @Given("^command tagsearch is given$")
+    public void command_tagsearch_is_given() throws Throwable {
+        inputLines.add("tagsearch");
     }
 
     @Given("^command drop is given$")
@@ -105,13 +105,33 @@ public class Stepdefs {
         inputLines.add("editall");
     }
 
+    @Given("^command comment is given$")
+    public void command_comment_is_given() throws Throwable {
+        inputLines.add("comment");
+    }
+    
+    @Given("^command isbn is given$")
+    public void command_isbn_is_given() throws Throwable {
+        inputLines.add("isbn");
+    }
+
+    @When("^a valid comment \"([^\"]*)\" is entered$")
+    public void a_valid_comment(String comment) throws Throwable {
+        inputLines.add(comment);
+    }
+    
+    @Given("^command search is given$")
+    public void command_fieldsearch_is_given() throws Throwable {
+        inputLines.add("search");
+    }
+
     @When("^a valid tag \"([^\"]*)\" is entered$")
-    public void a_valid_tag_hobbies_is_entered(String tag) throws Throwable {
+    public void a_valid_tag_is_entered(String tag) throws Throwable {
         inputLines.add(tag);
     }
 
     @When("^an invalid tag \"([^\"]*)\" is entered$")
-    public void an_invalid_tag_none_is_entered(String tag) throws Throwable {
+    public void an_invalid_tag_is_entered(String tag) throws Throwable {
         inputLines.add(tag);
     }
 
@@ -129,7 +149,13 @@ public class Stepdefs {
     public void an_invalid_title_is_entered(String title) throws Throwable {
         inputLines.add(title);
     }
-
+    
+    @When("^an invalid ISBN \"([^\"]*)\" is entered$")
+    public void an_invalid_ISBN_is_entered(String isbn) throws Throwable {
+        inputLines.add(isbn);
+        inputLines.add("c");
+    }
+    
     @When("^four empty answers are entered$")
     public void four_empty_answers_are_entered() throws Throwable {
         inputLines.add("");
@@ -169,11 +195,6 @@ public class Stepdefs {
         inputLines.add(description);
     }
 
-    @When("^a valid comment \"([^\"]*)\" is entered$")
-    public void a_valid_comment_is_entered(String comment) throws Throwable {
-        inputLines.add(comment);
-    }
-
     @Then("^system will respond with \"([^\"]*)\"$")
     public void system_will_respond_with(String expected) throws Throwable {
         if (expected.contains("Value")) {
@@ -185,6 +206,17 @@ public class Stepdefs {
         App.run(io, false);
         assert io.getPrints().stream().anyMatch(line -> line.contains(expected)) :
                 ("expected: " + expected + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
+    }
+    
+    @Then("^system will respond with \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void system_will_respond_with(String expected1, String expected2) throws Throwable {
+        inputLines.add("quit");
+        inputLines.add("no");
+        io = new StubIO(inputLines);
+        App.run(io, false);
+        assert io.getPrints().stream().anyMatch(line -> line.contains(expected1)) && 
+                io.getPrints().stream().anyMatch(line -> line.contains(expected1)) :
+                ("expected: " + expected1 + " and: " + expected2 + ", got: " + io.getPrints().stream().collect(Collectors.joining("; ")));
     }
 
     @Then("^system with save file will respond with \"([^\"]*)\"$")

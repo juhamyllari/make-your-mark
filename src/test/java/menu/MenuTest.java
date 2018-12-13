@@ -152,7 +152,17 @@ public class MenuTest {
         io.addLine("0547249640");
         io.addLine("");
         new CreateByISBN().execute(container, io);
-        assertEquals("George Orwell", container.getBookmarks().get(container.size() - 1).getSingleField("author"));
+        assertEquals("George Orwell", container.getCurrent().getSingleField("author"));
+    }
+    
+    @Test
+    public void testSearch() {
+        new CreateSamples().execute(container, io);
+        new NextBookmark().execute(container, io);
+        assertEquals("Brian Gough", container.getCurrent().getSingleField("author"));
+        io.addLine("primer");
+        new Search().execute(container, io);
+        assertEquals("Hannu Lehtonen", container.getCurrent().getSingleField("author"));
     }
 
 }

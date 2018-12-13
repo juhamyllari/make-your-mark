@@ -156,6 +156,14 @@ public class BookmarkContainerTest {
 
     @Test
     public void testSearchByTagsOR() {
+        book.addToField("tags", "funny");
+        video.addToField("tags", "sad");
+        bc.add(book);
+        bc.add(video);
+        List<String> tags = new ArrayList<>();
+        tags.add("funny");
+        assertEquals(bc.searchByTagsOR(tags).size(), 1);
+        assertEquals(bc.searchByTagsOR(tags).get(0).getSingleField("title"), "Transition");
     }
 
     @Test
@@ -233,7 +241,10 @@ public class BookmarkContainerTest {
 
     @Test
     public void testSetShowingRead() {
-
+        BookmarkContainer deser = BookmarkContainer.deserializeBookmarkContainer(bc.serialize());
+        bc.resetIndex();
+        deser.resetIndex();
+        assertEquals(bc.getCurrent().getSingleField("title"), deser.getCurrent().getSingleField("title"));
     }
 
     @Test

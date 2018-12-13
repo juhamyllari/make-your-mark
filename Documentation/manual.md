@@ -2,7 +2,7 @@
 
 ## Downloading and starting the application
 
-Download the jar-file [sprint 3 release](https://github.com/juhamyllari/make-your-mark/releases/tag/sprintti3)
+Download the jar-file [sprint 4 release](https://github.com/juhamyllari/make-your-mark/releases/tag/sprintti4)
 
 The application is started with the command
 

@@ -12,6 +12,8 @@
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
 
+[Raportti (WIP)](https://docs.google.com/document/d/1So-4FRmjW7YWDlbiaJfc0_pGDilz8sXdP2ObdNP6Zak/edit)
+
 ## Sprint 4
 Acceptance Criteria by User Story:
 * [Can add bookmarks by giving only ISBN](https://github.com/juhamyllari/make-your-mark/blob/master/src/test/resources/create_by_isbn.feature)

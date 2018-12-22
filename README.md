@@ -12,7 +12,7 @@
 
 [Definition of Done](https://github.com/juhamyllari/make-your-mark/blob/master/Documentation/DefinitionOfDone.md)
 
-[Report (WIP)](https://docs.google.com/document/d/1So-4FRmjW7YWDlbiaJfc0_pGDilz8sXdP2ObdNP6Zak/edit)
+[Report](https://docs.google.com/document/d/1So-4FRmjW7YWDlbiaJfc0_pGDilz8sXdP2ObdNP6Zak/edit)
 
 ## Sprint 4
 Acceptance Criteria by User Story:
